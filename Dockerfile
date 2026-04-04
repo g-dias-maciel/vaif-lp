@@ -14,7 +14,7 @@ COPY package.json pnpm-lock.yaml ./
 COPY patches/ ./patches/
 
 # 3. AGORA instala as dependências (ele já tem os patches)
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 
 # 4. Copia o resto do código
 COPY . .
@@ -37,7 +37,7 @@ COPY --from=builder /app/package.json /app/pnpm-lock.yaml ./
 COPY --from=builder /app/patches/ ./patches/
 
 # Instala apenas dependências de produção
-RUN pnpm install --frozen-lockfile --prod
+RUN pnpm install --prod
 
 # Copia a build final
 COPY --from=builder /app/dist ./dist

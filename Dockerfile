@@ -6,18 +6,22 @@ WORKDIR /app
 # Install pnpm
 RUN npm install -g pnpm
 
-# Copy package files AND the patches directory
+# 1. Copia PRIMEIRO os arquivos de pacote
 COPY package.json pnpm-lock.yaml ./
-COPY patches ./patches   # <--- ADD THIS LINE
 
-# Install dependencies
+# 2. Copia a pasta patches (se existir)
+# A barra no final (patches/) ajuda o Docker a entender que é um diretório
+COPY patches/ ./patches/
+
+# 3. AGORA instala as dependências (ele já tem os patches)
 RUN pnpm install --frozen-lockfile
 
-# Copy source code
+# 4. Copia o resto do código
 COPY . .
 
-# Build the application
+# 5. Build
 RUN pnpm build
+
 
 # Production stage
 FROM node:22-alpine
@@ -27,21 +31,22 @@ WORKDIR /app
 # Install pnpm
 RUN npm install -g pnpm
 
-# Copy package files from builder
+# Copia os arquivos de pacote do builder
 COPY --from=builder /app/package.json /app/pnpm-lock.yaml ./
-COPY --from=builder /app/patches ./patches # <--- ADD THIS LINE HERE TOO
+# Copia a pasta patches do builder
+COPY --from=builder /app/patches/ ./patches/
 
-# Install only production dependencies
+# Instala apenas dependências de produção
 RUN pnpm install --frozen-lockfile --prod
 
-# Copy built files from builder
+# Copia a build final
 COPY --from=builder /app/dist ./dist
 
-# Expose port
+# Expõe a porta
 EXPOSE 3000
 
-# Set environment
+# Variáveis de ambiente
 ENV NODE_ENV=production
 
-# Start the application
+# Inicia o app
 CMD ["node", "dist/index.js"]

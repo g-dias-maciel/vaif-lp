@@ -70,19 +70,26 @@
             font-weight: 600;
         }
 
-        /* ─── Hero Section ─── */
+        /* ─── Hero Section Atualizada com Imagem ─── */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-            padding: 80px 80px;
-            max-width: 1200px;
-            margin: 0 auto;
+            width: 100%;
+            padding: 80px 24px;
+            /* O gradiente escurece o lado esquerdo para dar leitura ao texto */
+            background-image: 
+                linear-gradient(90deg, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0.7) 45%, rgba(10, 10, 10, 0.1) 100%),
+                url('https://d2xsxph8kpxj0f.cloudfront.net/310519663486917648/irrCoUbQoV6yC8GdYKjsD9/hero-bg-FNevDH6u7dQ5qmXMetACwE.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         .hero-content {
             max-width: 650px;
+            /* Esse cálculo genial mantém o texto alinhado com o restante do site (max-width: 1200px) mesmo com o fundo ocupando 100% da tela */
+            margin-left: max(0px, calc((100vw - 1200px) / 2));
         }
 
         .hero-label {

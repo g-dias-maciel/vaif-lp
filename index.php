@@ -4,44 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lucro Oculto - Calculadora para Tatuadores</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
     <style>
+        :root {
+            --gold: #D4B04C; /* O dourado sólido da referência */
+            --bg-dark: #0A0A0A;
+            --bg-card: #121212;
+            --text-main: #FFFFFF;
+            --text-muted: #6B6B6B;
+            --border-color: #222222;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: #0D0D0D;
-            color: #F2EDE4;
-            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
             line-height: 1.6;
+            overflow-x: hidden;
+            /* Fundo escuro com uma imagem sutil, se você tiver uma imagem de fundo, pode adicionar aqui */
+            background-image: radial-gradient(circle at 80% 20%, rgba(212, 176, 76, 0.05), transparent 40%);
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
         }
 
-        /* ─── Header ─── */
-        header {
-            padding: 40px 0;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-            position: sticky;
-            top: 0;
-            background: rgba(13, 13, 13, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 100;
+        /* ─── Animações Globais (Fade In Up) ─── */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 1.2s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
         }
 
-        .logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 28px;
-            font-weight: 700;
-            color: #D4AF37;
-            letter-spacing: 2px;
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* ─── Hero Section ─── */
@@ -49,427 +64,510 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, transparent 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
+            justify-content: flex-start; /* Alinhado à esquerda como na foto 1 */
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .hero-content {
-            max-width: 800px;
-            z-index: 2;
+            max-width: 650px;
         }
 
         .hero-label {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             letter-spacing: 3px;
             text-transform: uppercase;
-            color: #D4AF37;
-            margin-bottom: 20px;
+            color: var(--gold);
+            margin-bottom: 30px;
+            display: block;
         }
 
         .hero-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            font-weight: 400;
             line-height: 1.1;
-            margin-bottom: 20px;
-            color: #F2EDE4;
+            margin-bottom: 40px;
+        }
+
+        .hero-title span {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .hero-divider {
+            display: flex;
+            align-items: center;
+            margin: 40px 0;
+        }
+
+        .hero-divider::before, .hero-divider::after {
+            content: '';
+            flex-grow: 0;
+            width: 40px;
+            height: 1px;
+            background-color: var(--border-color);
+        }
+
+        .diamond {
+            width: 6px;
+            height: 6px;
+            background-color: var(--gold);
+            transform: rotate(45deg);
+            margin: 0 15px;
         }
 
         .hero-subtitle {
-            font-size: 18px;
+            font-size: 14px;
             font-weight: 300;
-            color: #A09A8E;
+            color: var(--text-muted);
             margin-bottom: 40px;
             line-height: 1.8;
+            max-width: 500px;
         }
 
-        .cta-button {
-            display: inline-block;
-            padding: 16px 48px;
-            background-color: #D4AF37;
-            color: #0D0D0D;
+        .hero-subtitle strong {
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .hero-links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .small-text {
+            font-size: 10px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ─── Botões ─── */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            background-color: var(--gold);
+            color: #000;
             border: none;
-            border-radius: 4px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .cta-button:hover {
-            background-color: #E8C547;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
-        }
-
-        /* ─── Calculator Section ─── */
-        .calculator-section {
-            padding: 80px 0;
-            scroll-margin-top: 100px;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-label {
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #D4AF37;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .section-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #F2EDE4;
-        }
-
-        .luxury-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            border-radius: 8px;
-            padding: 40px;
-            backdrop-filter: blur(10px);
-        }
-
-        .form-group {
-            margin-bottom: 24px;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: #D4AF37;
-            margin-bottom: 8px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 14px 16px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 4px;
-            color: #F2EDE4;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .form-input:focus {
-            outline: none;
-            background-color: rgba(255, 255, 255, 0.08);
-            border-color: #D4AF37;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
-        }
-
-        .form-input::placeholder {
-            color: #6B6B6B;
-        }
-
-        .btn-calculate {
-            width: 100%;
-            padding: 16px;
-            background-color: #D4AF37;
-            color: #0D0D0D;
-            border: none;
-            border-radius: 4px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-        }
-
-        .btn-calculate:hover {
-            background-color: #E8C547;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
-        }
-
-        .btn-calculate:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* ─── Result Section ─── */
-        .result-section {
-            padding: 80px 0;
-            display: none;
-            scroll-margin-top: 100px;
-        }
-
-        .result-section.active {
-            display: block;
-        }
-
-        .result-value {
-            color: #D4AF37;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 700;
-            line-height: 1;
-        }
-
-        .result-box {
-            background: rgba(212, 175, 55, 0.05);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            padding: 30px;
-            border-radius: 8px;
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .result-label {
+            font-family: 'Inter', sans-serif;
             font-size: 12px;
             font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: #6B6B6B;
-            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            width: 100%;
         }
 
-        /* ─── Lead Form ─── */
-        .lead-form-section {
-            margin-top: 60px;
-            padding-top: 40px;
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        .hero-content .btn-primary {
+            width: auto;
         }
 
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
+        .btn-primary:hover {
+            background-color: #E5C35E;
+            transform: translateY(-2px);
         }
 
-        @media (max-width: 768px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .success-message {
+        /* ─── Calculadora Section ─── */
+        .calculator-section {
+            padding: 100px 0;
             text-align: center;
-            padding: 60px 20px;
-            display: none;
+            background-color: #0d0d0d;
         }
 
-        .success-message.active {
+        .section-header {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin: 20px 0;
+        }
+
+        .calc-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 50px;
+            text-align: left;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 40px;
+        }
+
+        .form-label {
             display: block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 12px;
         }
 
-        .success-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 30px;
-            border: 2px solid rgba(212, 175, 55, 0.4);
-            border-radius: 50%;
+        .form-label span {
+            color: var(--text-main);
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-prefix {
+            position: absolute;
+            left: 20px;
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 20px 16px 50px;
+            background-color: #1A1A1A;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .form-input::placeholder {
+            color: #333;
+        }
+
+        .input-hint {
+            display: block;
+            font-size: 11px;
+            color: #444;
+            margin-top: 8px;
+        }
+
+        .divider-center {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 40px;
+            margin: 40px 0;
         }
 
-        .error-message {
-            background-color: rgba(255, 0, 0, 0.1);
-            border: 1px solid rgba(255, 0, 0, 0.3);
-            color: #FF6B6B;
-            padding: 12px 16px;
-            border-radius: 4px;
-            font-size: 14px;
-            margin-bottom: 15px;
+        .divider-center::before, .divider-center::after {
+            content: '';
+            width: 100%;
+            height: 1px;
+            background-color: var(--border-color);
+        }
+
+        /* ─── Resultados ─── */
+        .result-section {
             display: none;
+            padding: 80px 0;
+            text-align: center;
         }
 
-        .error-message.active {
+        .result-section.active {
             display: block;
+            animation: fadeInUp 1s ease forwards;
         }
 
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(212, 175, 55, 0.3);
-            border-radius: 50%;
-            border-top-color: #D4AF37;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .result-value {
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            margin: 20px 0;
         }
 
         /* ─── Footer ─── */
         footer {
-            padding: 40px 0;
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
             text-align: center;
-            color: #6B6B6B;
-            font-size: 12px;
+            padding: 60px 20px;
+            border-top: 1px solid var(--border-color);
         }
 
+        /* Responsivo */
         @media (max-width: 768px) {
-            .hero { min-height: 60vh; }
-            .luxury-card { padding: 30px 20px; }
-            .form-row { grid-template-columns: 1fr; }
+            .calc-card { padding: 30px 20px; }
+            .hero-title { font-size: 2.5rem; }
+        }
+        /* ─── Estilos Específicos do Resultado ─── */
+        .resultado-texto-intro {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            text-align: left;
+        }
+        .resultado-texto-intro strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+        .divisor-linha {
+            width: 100%;
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 30px 0;
+        }
+        .valor-gigante {
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 7vw, 5rem);
+            line-height: 1.1;
+            margin: 10px 0;
+            text-shadow: 0 0 40px rgba(212, 176, 76, 0.25);
+        }
+        .promessa-box {
+            border: 1px solid rgba(212, 176, 76, 0.15);
+            background: rgba(212, 176, 76, 0.03);
+            padding: 30px;
+            margin: 40px 0;
+            text-align: left;
+        }
+        .promessa-label {
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 15px;
+        }
+        .promessa-box p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .promessa-box strong {
+            color: var(--text-main);
+        }
+        
+        /* Efeito visual de texto borrado/bloqueado */
+        .locked-action {
+            position: relative;
+            padding: 40px 0;
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: repeating-linear-gradient(
+                180deg,
+                rgba(255,255,255,0.04) 0px,
+                rgba(255,255,255,0.04) 10px,
+                transparent 10px,
+                transparent 22px
+            );
+        }
+        .locked-action::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, var(--bg-card) 0%, transparent 20%, transparent 80%, var(--bg-card) 100%);
+            pointer-events: none;
+        }
+        .locked-box {
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(212, 176, 76, 0.3);
+            background: #0A0A0A;
+            padding: 20px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .locked-box span {
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="logo">LUCRO OCULTO</div>
+
+    <section class="hero">
+        <div class="hero-content fade-in-up">
+            <span class="hero-label">Exclusivo para artistas do realismo e alto padrão</span>
+            <h1 class="hero-title">
+                Descubra quanto dinheiro você está <br>
+                <span>"deixando na mesa"</span> <br>
+                todos os meses no WhatsApp.
+            </h1>
+            
+            <div class="hero-divider fade-in-up delay-1">
+                <div class="diamond"></div>
+            </div>
+
+            <p class="hero-subtitle fade-in-up delay-2">
+                Você domina a agulha e já fatura múltiplos 5 dígitos. Mas se ainda perde horas negociando com clientes que pedem desconto, você atingiu o <strong>teto do seu estúdio.</strong>
+            </p>
+
+            <div class="hero-links fade-in-up delay-3">
+                <button class="btn-primary" onclick="scrollToCalculator()">Calcular meu lucro oculto &darr;</button>
+                <span class="small-text">Diagnóstico Gratuito • Sem Compromisso</span>
+            </div>
         </div>
-    </header>
+    </section>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content">
-                <p class="hero-label">Diagnóstico Financeiro</p>
-                <h1 class="hero-title">Descubra Quanto Você Está Perdendo</h1>
-                <p class="hero-subtitle">A maioria dos tatuadores de alto padrão deixa entre R$ 10k a R$ 50k na mesa todo mês. Descubra seu número.</p>
-                <button class="cta-button" onclick="scrollToCalculator()">Calcular Agora</button>
-            </div>
-        </section>
+    <div style="text-align: center; margin-bottom: 50px; color: var(--gold); font-size: 10px; letter-spacing: 2px; text-transform: uppercase;">
+        Role <br> <span style="font-size: 16px;">&darr;</span>
+    </div>
 
-        <!-- Calculator Section -->
-        <section class="calculator-section" id="calculator">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-label">Calculadora</span>
-                    <h2 class="section-title">Seu Diagnóstico Financeiro</h2>
+    <section class="calculator-section" id="calculator">
+        <div class="container">
+            <div class="section-header">
+                <span class="hero-label" style="margin-bottom: 15px; justify-content: center; display: flex;">Diagnóstico Financeiro</span>
+                <h2 class="section-title">A Calculadora do Lucro Oculto</h2>
+                <div class="divider-center" style="max-width: 200px; margin: 20px auto;">
+                    <div class="diamond"></div>
                 </div>
+                <p style="color: var(--text-muted); font-size: 12px; max-width: 400px; margin: 0 auto;">Preencha os campos abaixo com honestidade. O diagnóstico é preciso apenas com dados reais.</p>
+            </div>
 
-                <div class="luxury-card">
-                    <form id="calcForm" onsubmit="handleCalculate(event)">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Faturamento Bruto Mensal (R$)</label>
-                                <input type="number" class="form-input" name="faturamento" placeholder="15000" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Ticket Médio (R$)</label>
-                                <input type="number" class="form-input" name="ticket" placeholder="1500" required>
-                            </div>
+            <div class="calc-card">
+                <form id="calcForm" onsubmit="handleCalculate(event)">
+                    
+                    <div class="form-group">
+                        <label class="form-label"><span>01 &mdash;</span> Faturamento Bruto Mensal Atual</label>
+                        <div class="input-wrapper">
+                            <span class="input-prefix">R$</span>
+                            <input type="number" class="form-input" name="faturamento" placeholder="Ex: 15000" required>
                         </div>
+                        <span class="input-hint">Quanto você fatura em média por mês</span>
+                    </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label">Sessões por Mês</label>
-                                <input type="number" class="form-input" name="sessoes" placeholder="10" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Horas/dia no WhatsApp</label>
-                                <input type="number" class="form-input" name="horas_admin" placeholder="3" required>
-                            </div>
+                    <div class="form-group">
+                        <label class="form-label"><span>02 &mdash;</span> Ticket Médio Por Sessão</label>
+                        <div class="input-wrapper">
+                            <span class="input-prefix">R$</span>
+                            <input type="number" class="form-input" name="ticket" placeholder="Ex: 1500" required>
                         </div>
+                        <span class="input-hint">Valor médio cobrado por sessão</span>
+                    </div>
 
-                        <button type="submit" class="btn-calculate">Calcular Meu Prejuízo</button>
-                    </form>
+                    <div class="form-group">
+                        <label class="form-label"><span>03 &mdash;</span> Média de Sessões Por Mês</label>
+                        <div class="input-wrapper">
+                            <span class="input-prefix">#</span>
+                            <input type="number" class="form-input" name="sessoes" placeholder="Ex: 10" required>
+                        </div>
+                        <span class="input-hint">Quantas sessões você realiza por mês</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label"><span>04 &mdash;</span> Horas Gastas Por Dia Respondendo Clientes</label>
+                        <div class="input-wrapper">
+                            <span class="input-prefix">h</span>
+                            <input type="number" class="form-input" name="horas_admin" placeholder="Ex: 3" required>
+                        </div>
+                        <span class="input-hint">Tempo diário gasto com atendimento</span>
+                    </div>
+
+                    <div class="divider-center">
+                        <div class="diamond"></div>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Ver Diagnóstico &rarr;</button>
+                    <p style="text-align: center; font-size: 10px; color: #444; margin-top: 15px;">Seus dados são confidenciais e não serão compartilhados.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="result-section" id="resultSection">
+        <div class="container">
+            <div class="section-header">
+                <span class="hero-label" style="margin-bottom: 15px; justify-content: center; display: flex;">Seu Diagnóstico</span>
+                <h2 class="section-title">O Custo Real do Seu Tempo</h2>
+                <div class="divider-center" style="max-width: 200px; margin: 20px auto;">
+                    <div class="diamond"></div>
                 </div>
             </div>
-        </section>
 
-        <!-- Result Section -->
-        <section class="result-section" id="resultSection">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-label">Seu Diagnóstico</span>
-                    <h2 class="section-title">Aqui Está a Verdade</h2>
+            <div class="calc-card" style="text-align: center; padding-top: 60px;">
+                
+                <p class="resultado-texto-intro">Você gasta em média <strong id="horasMesValue">0 horas por mês</strong> sendo secretário de si mesmo.</p>
+                <p class="resultado-texto-intro">O seu <strong>Custo de Oportunidade atual</strong> (dinheiro perdido) é de:</p>
+
+                <div class="divisor-linha"></div>
+
+                <p class="form-label" style="text-align: center; letter-spacing: 3px;">Prejuízo Mensal Estimado</p>
+                <div class="valor-gigante" id="prejuizoValue">R$ 0,00</div>
+                <p style="color: #444; font-size: 12px; margin-bottom: 40px;">dinheiro que você deixa na mesa todo mês</p>
+
+                <div class="promessa-box">
+                    <span class="promessa-label">A Promessa</span>
+                    <p>Com um sistema de captação premium, seu faturamento pode saltar para <strong id="potencialValueText">R$ 0,00</strong> <strong>sem tatuar uma hora a mais.</strong></p>
                 </div>
 
-                <div class="luxury-card">
-                    <div class="result-box">
-                        <p class="result-label">Prejuízo Mensal Estimado</p>
-                        <p class="result-value" id="prejuizoValue">R$ 0</p>
-                        <p style="color: #3A3A3A; margin-top: 10px; font-size: 14px;">dinheiro que você deixa na mesa todo mês</p>
-                    </div>
-
-                    <div class="result-box">
-                        <p class="result-label">Potencial de Lucro (com sistema premium)</p>
-                        <p class="result-value" id="potencialValue">R$ 0</p>
-                        <p style="color: #3A3A3A; margin-top: 10px; font-size: 14px;">quanto você poderia ganhar otimizando</p>
-                    </div>
-
-                    <!-- Lead Capture Form -->
-                    <div class="lead-form-section">
-                        <p class="section-label" style="text-align: center;">Receba Seu Plano de Escala</p>
-                        <p style="text-align: center; color: #A09A8E; margin-bottom: 30px;">Preencha seus dados e nossa equipe entrará em contato com uma estratégia personalizada</p>
-
-                        <div id="errorMessage" class="error-message"></div>
-
-                        <form id="leadForm" onsubmit="handleLeadSubmit(event)">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label class="form-label">Seu Nome</label>
-                                    <input type="text" class="form-input" name="nome" placeholder="João Silva" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">WhatsApp</label>
-                                    <input type="tel" class="form-input" name="whatsapp" placeholder="(11) 99999-9999" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Instagram</label>
-                                <input type="text" class="form-input" name="instagram" placeholder="seu.instagram" required>
-                            </div>
-
-                            <button type="submit" class="btn-calculate" id="submitBtn">
-                                <span id="submitText">Quero o Plano de Escala</span>
-                                <span id="submitLoader" style="display: none;" class="loading"></span>
-                            </button>
-                        </form>
+                <div class="locked-action">
+                    <div class="locked-box">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                        <span>Plano de Ação Bloqueado</span>
                     </div>
                 </div>
 
-                <!-- Success Message -->
-                <div class="success-message" id="successMessage">
-                    <div class="success-icon">✓</div>
-                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 28px; margin-bottom: 15px;">Obrigado!</h3>
-                    <p style="color: #A09A8E; font-size: 16px;">Nossa equipe entrará em contato em breve com o seu plano de escala personalizado.<br>Verifique seu WhatsApp.</p>
+                <p style="text-align: center; font-size: 14px; color: var(--text-muted); margin: 40px auto; max-width: 500px; line-height: 1.6;">
+                    Para ver o plano de ação detalhado de como recuperar esse dinheiro e atrair clientes <strong>High-Ticket</strong>, preencha abaixo:
+                </p>
+
+                <form id="leadForm" onsubmit="handleLeadSubmit(event)" style="text-align: left;">
+                    <div class="form-group">
+                        <label class="form-label">Nome Completo</label>
+                        <input type="text" class="form-input" name="nome" placeholder="Seu nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">WhatsApp</label>
+                        <input type="tel" class="form-input" name="whatsapp" placeholder="(11) 99999-9999" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">@ Do Instagram</label>
+                        <div class="input-wrapper">
+                            <span class="input-prefix" style="color: var(--gold);">@</span>
+                            <input type="text" class="form-input" name="instagram" placeholder="seu.perfil" required>
+                        </div>
+                    </div>
+                    
+                    <div class="divider-center">
+                        <div class="diamond"></div>
+                    </div>
+
+                    <button type="submit" class="btn-primary" id="submitBtn">Quero o Plano de Escala &rarr;</button>
+                    <p style="text-align: center; font-size: 11px; color: #444; margin-top: 20px;">Sem spam. Apenas conteúdo de alto valor para artistas sérios.</p>
+                </form>
+                
+                <div id="successMessage" style="display: none; padding: 40px 0;">
+                    <h3 style="color: var(--gold); font-family: 'Playfair Display', serif; font-size: 2.5rem;">Obrigado.</h3>
+                    <p style="color: var(--text-muted); margin-top: 15px; font-size: 16px;">Nossa equipe entrará em contato via WhatsApp em breve.</p>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 Lucro Oculto. Todos os direitos reservados.</p>
+            <div class="diamond" style="margin: 0 auto 30px;"></div>
+            <p class="small-text" style="margin-bottom: 10px;">Desenvolvido para especialistas. Suas informações estão seguras.</p>
+            <p class="small-text" style="color: #444;">&copy; 2026 • Todos os direitos reservados</p>
         </div>
     </footer>
 
@@ -478,26 +576,20 @@
             document.getElementById('calculator').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function animateValue(element, start, end, duration) {
+        function animateValue(element, start, end, duration, appendText = '') {
             let startTimestamp = null;
             const step = (timestamp) => {
                 if (!startTimestamp) startTimestamp = timestamp;
-                // Calculate progress between 0 and 1
                 const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                
-                // Add an "ease-out" math effect so it slows down at the end
                 const easeProgress = 1 - Math.pow(1 - progress, 3);
                 const current = Math.floor(easeProgress * (end - start) + start);
                 
-                // Update the text with the Brazilian currency format
-                element.textContent = 'R$ ' + current.toLocaleString('pt-BR');
+                element.textContent = 'R$ ' + current.toLocaleString('pt-BR') + ',00' + appendText;
                 
-                // Continue animation if not finished
                 if (progress < 1) {
                     window.requestAnimationFrame(step);
                 } else {
-                    // Ensure the exact final number is displayed at the end
-                    element.textContent = 'R$ ' + end.toLocaleString('pt-BR');
+                    element.textContent = 'R$ ' + end.toLocaleString('pt-BR') + ',00' + appendText;
                 }
             };
             window.requestAnimationFrame(step);
@@ -512,58 +604,42 @@
             const sessoes = parseFloat(form.sessoes.value);
             const horas_admin = parseFloat(form.horas_admin.value);
 
-            // Calculations
             const valor_hora = faturamento / (sessoes * 8);
             const horas_secretario = (horas_admin * 30) * valor_hora / faturamento * sessoes;
             const prejuizo_mensal = Math.round(horas_secretario * valor_hora);
             const potencial_lucro = Math.round(faturamento + (prejuizo_mensal * 0.5));
 
-            // Store values for lead submission
             window.calcData = {
-                faturamento,
-                ticket,
-                sessoes,
-                horas_admin,
+                faturamento, ticket, sessoes, horas_admin,
                 valor_hora: Math.round(valor_hora),
                 horas_secretario: Math.round(horas_secretario),
-                prejuizo_mensal,
-                potencial_lucro
+                prejuizo_mensal, potencial_lucro
             };
 
-            // Get the HTML elements
-            const prejuizoEl = document.getElementById('prejuizoValue');
-            const potencialEl = document.getElementById('potencialValue');
-
-            // Animate them from 0 to the final value over 2000 milliseconds (2 seconds)
-            animateValue(prejuizoEl, 0, prejuizo_mensal, 2000);
-            animateValue(potencialEl, 0, potencial_lucro, 2000);
+            // Calcula total de horas no mês (horas por dia * 30)
+            const horasTotaisMes = horas_admin * 30;
+            document.getElementById('horasMesValue').textContent = horasTotaisMes + ' horas por mês';
             
-            // Show result section
-            document.getElementById('resultSection').classList.add('active');
+            // Texto estático da caixa da promessa
+            document.getElementById('potencialValueText').textContent = 'R$ ' + potencial_lucro.toLocaleString('pt-BR') + ',00';
+
+            const resultSec = document.getElementById('resultSection');
+            resultSec.classList.add('active');
+            
             setTimeout(() => {
-                document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
-            }, 100);
+                resultSec.scrollIntoView({ behavior: 'smooth' });
+                // Anima o valor gigante
+                animateValue(document.getElementById('prejuizoValue'), 0, prejuizo_mensal, 2500);
+            }, 300);
         }
 
         async function handleLeadSubmit(event) {
             event.preventDefault();
             
-            if (!window.calcData) {
-                alert('Por favor, calcule primeiro');
-                return;
-            }
-
             const form = event.target;
             const submitBtn = document.getElementById('submitBtn');
-            const submitText = document.getElementById('submitText');
-            const submitLoader = document.getElementById('submitLoader');
-            const errorMessage = document.getElementById('errorMessage');
-
-            // Show loading state
+            submitBtn.textContent = 'Enviando...';
             submitBtn.disabled = true;
-            submitText.style.display = 'none';
-            submitLoader.style.display = 'inline-block';
-            errorMessage.classList.remove('active');
 
             try {
                 const payload = {
@@ -575,29 +651,24 @@
 
                 const response = await fetch('/api/leads/submit.php', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
 
                 const data = await response.json();
 
                 if (data.success) {
-                    // Hide form and show success message
                     document.getElementById('leadForm').style.display = 'none';
-                    document.getElementById('successMessage').classList.add('active');
+                    document.getElementById('successMessage').style.display = 'block';
                 } else {
-                    throw new Error(data.error || 'Erro ao enviar formulário');
+                    alert('Erro: ' + (data.error || 'Não foi possível enviar.'));
+                    submitBtn.textContent = 'Tentar Novamente';
+                    submitBtn.disabled = false;
                 }
             } catch (error) {
-                console.error('Error:', error);
-                errorMessage.textContent = error.message;
-                errorMessage.classList.add('active');
-                
+                alert('Erro de conexão.');
+                submitBtn.textContent = 'Quero o Plano de Escala';
                 submitBtn.disabled = false;
-                submitText.style.display = 'inline';
-                submitLoader.style.display = 'none';
             }
         }
     </script>

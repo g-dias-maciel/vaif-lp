@@ -619,13 +619,13 @@
             // Lógica matemática corrigida:
             // Assumimos média de 8h por sessão para encontrar o "Valor da Hora" verdadeira tatuando
             const valor_hora = faturamento / (sessoes * 8); 
-            const horasTotaisMes = horas_admin * 30;
+            const horasTotaisMes = horas_admin * 26;
             
             // Prejuízo = Horas gastas no mês * Valor da sua hora
             const prejuizo_mensal = Math.round(horasTotaisMes * valor_hora);
             
             // Potencial (Conforme sua regra de negócio anterior)
-            const potencial_lucro = Math.round(faturamento + (prejuizo_mensal * 0.5));
+            const potencial_lucro = Math.round(faturamento + (prejuizo_mensal * 0.7));
 
             window.calcData = {
                 faturamento, ticket, sessoes, horas_admin,
@@ -651,12 +651,54 @@
                 animateValue(document.getElementById('prejuizoValue'), 0, prejuizo_mensal, 2500);
             }, 100);
         }
+        // Aplica validação em tempo real aos inputs quando a página carrega
+        document.addEventListener('DOMContentLoaded', function() {
+            const instagramInput = document.querySelector('input[name="instagram"]');
+            const whatsappInput = document.querySelector('input[name="whatsapp"]');
+
+            // 1. Bloqueia o "@" e espaços no campo do Instagram
+            if (instagramInput) {
+                instagramInput.addEventListener('input', function(e) {
+                    this.value = this.value.replace(/[@\s]/g, '');
+                });
+            }
+
+            // 2. Cria a máscara automática para o WhatsApp: (99) 99999-9999
+            if (whatsappInput) {
+                whatsappInput.addEventListener('input', function(e) {
+                    // Remove tudo que não for número
+                    let v = this.value.replace(/\D/g, '');
+                    
+                    // Limita a 11 dígitos no máximo (DDD + 9 dígitos)
+                    if (v.length > 11) v = v.substring(0, 11);
+                    
+                    // Aplica a formatação
+                    if (v.length > 2) {
+                        v = '(' + v.substring(0, 2) + ') ' + v.substring(2);
+                    }
+                    if (v.length > 10) {
+                        v = v.substring(0, 10) + '-' + v.substring(10);
+                    }
+                    
+                    this.value = v;
+                });
+            }
+        });
 
         async function handleLeadSubmit(event) {
             event.preventDefault();
             
             const form = event.target;
             const submitBtn = document.getElementById('submitBtn');
+            
+            // Validação de segurança do WhatsApp antes de enviar
+            const whatsappNumeros = form.whatsapp.value.replace(/\D/g, '');
+            if (whatsappNumeros.length < 10) {
+                alert('Por favor, insira um número de WhatsApp válido com o DDD.');
+                form.whatsapp.focus();
+                return;
+            }
+
             submitBtn.textContent = 'Enviando...';
             submitBtn.disabled = true;
 
@@ -686,8 +728,8 @@
                     submitBtn.disabled = false;
                 }
             } catch (error) {
-                alert('Erro de conexão.');
-                submitBtn.textContent = 'Quero o Plano de Escala';
+                alert('Erro de conexão. Verifique sua internet.');
+                submitBtn.textContent = 'Quero o Plano de Escala \u2192';
                 submitBtn.disabled = false;
             }
         }

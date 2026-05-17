@@ -60,7 +60,7 @@ try {
 
 } catch (PDOException $e) {
     // If the database fails, we return an error so the user can try again
-    echo json_encode(['success' => false, 'error' => 'Erro interno ao salvar os dados.']);
+    echo json_encode(['success' => false, 'error' => 'Erro Real: ' . $e->getMessage()]);
     // Optional: error_log($e->getMessage()); to keep your exact DB errors hidden from the public
 }
 ?>

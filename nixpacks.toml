@@ -8,14 +8,6 @@ php = "8.2"
 # Install system dependencies
 apt = ["apache2", "libapache2-mod-php8.2", "php8.2-mysql", "php8.2-pdo"]
 
-[phases.setup]
-# Enable Apache modules
-cmds = [
-  "a2enmod rewrite",
-  "a2enmod headers",
-  "a2enmod ssl"
-]
-
 [phases.install]
 # No composer dependencies needed for this project
 cmds = []

@@ -26,9 +26,5 @@ cmds = [
 ]
 
 [start]
-# Start Apache in foreground
-cmd = "apache2ctl -D FOREGROUND"
+cmd = "php -S 0.0.0.0:8000 -t /app/public /app/public/index.php"
 
-[env]
-# Set Apache document root
-APACHE_DOCUMENT_ROOT = "/app/public"

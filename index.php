@@ -478,6 +478,31 @@
             document.getElementById('calculator').scrollIntoView({ behavior: 'smooth' });
         }
 
+        function animateValue(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                // Calculate progress between 0 and 1
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                
+                // Add an "ease-out" math effect so it slows down at the end
+                const easeProgress = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(easeProgress * (end - start) + start);
+                
+                // Update the text with the Brazilian currency format
+                element.textContent = 'R$ ' + current.toLocaleString('pt-BR');
+                
+                // Continue animation if not finished
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    // Ensure the exact final number is displayed at the end
+                    element.textContent = 'R$ ' + end.toLocaleString('pt-BR');
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
         function handleCalculate(event) {
             event.preventDefault();
             
@@ -505,10 +530,14 @@
                 potencial_lucro
             };
 
-            // Update display
-            document.getElementById('prejuizoValue').textContent = 'R$ ' + prejuizo_mensal.toLocaleString('pt-BR');
-            document.getElementById('potencialValue').textContent = 'R$ ' + potencial_lucro.toLocaleString('pt-BR');
+            // Get the HTML elements
+            const prejuizoEl = document.getElementById('prejuizoValue');
+            const potencialEl = document.getElementById('potencialValue');
 
+            // Animate them from 0 to the final value over 2000 milliseconds (2 seconds)
+            animateValue(prejuizoEl, 0, prejuizo_mensal, 2000);
+            animateValue(potencialEl, 0, potencial_lucro, 2000);
+            
             // Show result section
             document.getElementById('resultSection').classList.add('active');
             setTimeout(() => {

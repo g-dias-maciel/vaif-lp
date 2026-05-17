@@ -6,15 +6,15 @@
     <title>Lucro Oculto - Calculadora para Tatuadores</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --gold: #D4B04C; /* O dourado sólido da referência */
+            --gold: #D4B04C; 
             --bg-dark: #0A0A0A;
             --bg-card: #121212;
-            --text-main: #FFFFFF;
-            --text-muted: #6B6B6B;
+            --text-main: rgb(242, 237, 228);   /* Off-white para textos em destaque/Headers */
+            --text-muted: rgb(160, 154, 142);  /* Tom neutro para parágrafos */
             --border-color: #222222;
         }
 
@@ -28,10 +28,9 @@
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
-            /* Fundo escuro com uma imagem sutil, se você tiver uma imagem de fundo, pode adicionar aqui */
             background-image: radial-gradient(circle at 80% 20%, rgba(212, 176, 76, 0.05), transparent 40%);
         }
 
@@ -41,7 +40,7 @@
             padding: 0 24px;
         }
 
-        /* ─── Animações Globais (Fade In Up) ─── */
+        /* ─── Animações Globais ─── */
         .fade-in-up {
             opacity: 0;
             transform: translateY(40px);
@@ -59,12 +58,24 @@
             }
         }
 
+        /* ─── Tipografia Geral ─── */
+        h1, h2, h3, .serif-font {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
         /* ─── Hero Section ─── */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: flex-start; /* Alinhado à esquerda como na foto 1 */
+            justify-content: flex-start;
             padding: 80px 20px;
             max-width: 1200px;
             margin: 0 auto;
@@ -82,12 +93,12 @@
             color: var(--gold);
             margin-bottom: 30px;
             display: block;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .hero-title {
-            font-family: 'Playfair Display', serif;
             font-size: clamp(3rem, 6vw, 4.5rem);
-            font-weight: 400;
+            font-weight: 600;
             line-height: 1.1;
             margin-bottom: 40px;
         }
@@ -120,17 +131,12 @@
         }
 
         .hero-subtitle {
-            font-size: 14px;
-            font-weight: 300;
+            font-size: 15px;
+            font-weight: 400;
             color: var(--text-muted);
             margin-bottom: 40px;
             line-height: 1.8;
             max-width: 500px;
-        }
-
-        .hero-subtitle strong {
-            color: var(--text-main);
-            font-weight: 500;
         }
 
         .hero-links {
@@ -154,11 +160,11 @@
             justify-content: center;
             padding: 16px 32px;
             background-color: var(--gold);
-            color: #000;
+            color: #000; /* Fica escuro para legibilidade no botão dourado */
             border: none;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
             cursor: pointer;
@@ -188,9 +194,7 @@
         }
 
         .section-title {
-            font-family: 'Playfair Display', serif;
             font-size: 2.5rem;
-            font-weight: 400;
             margin: 20px 0;
         }
 
@@ -231,7 +235,7 @@
             left: 20px;
             color: var(--gold);
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .form-input {
@@ -240,8 +244,8 @@
             background-color: #1A1A1A;
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
             transition: border-color 0.3s ease;
         }
 
@@ -251,13 +255,14 @@
         }
 
         .form-input::placeholder {
-            color: #333;
+            color: #444;
         }
 
         .input-hint {
             display: block;
             font-size: 11px;
-            color: #444;
+            color: var(--text-muted);
+            opacity: 0.8;
             margin-top: 8px;
         }
 
@@ -275,7 +280,7 @@
             background-color: var(--border-color);
         }
 
-        /* ─── Resultados ─── */
+        /* ─── Resultados Específicos ─── */
         .result-section {
             display: none;
             padding: 80px 0;
@@ -287,50 +292,30 @@
             animation: fadeInUp 1s ease forwards;
         }
 
-        .result-value {
-            color: var(--gold);
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            margin: 20px 0;
-        }
-
-        /* ─── Footer ─── */
-        footer {
-            text-align: center;
-            padding: 60px 20px;
-            border-top: 1px solid var(--border-color);
-        }
-
-        /* Responsivo */
-        @media (max-width: 768px) {
-            .calc-card { padding: 30px 20px; }
-            .hero-title { font-size: 2.5rem; }
-        }
-        /* ─── Estilos Específicos do Resultado ─── */
         .resultado-texto-intro {
-            font-size: 15px;
+            font-size: 16px;
             color: var(--text-muted);
             margin-bottom: 12px;
             text-align: left;
         }
-        .resultado-texto-intro strong {
-            color: var(--text-main);
-            font-weight: 600;
-        }
+
         .divisor-linha {
             width: 100%;
             height: 1px;
             background-color: var(--border-color);
             margin: 30px 0;
         }
+
         .valor-gigante {
             color: var(--gold);
-            font-family: 'Playfair Display', serif;
+            font-family: 'Cormorant Garamond', serif;
             font-size: clamp(3rem, 7vw, 5rem);
+            font-weight: 700;
             line-height: 1.1;
             margin: 10px 0;
             text-shadow: 0 0 40px rgba(212, 176, 76, 0.25);
         }
+
         .promessa-box {
             border: 1px solid rgba(212, 176, 76, 0.15);
             background: rgba(212, 176, 76, 0.03);
@@ -338,6 +323,7 @@
             margin: 40px 0;
             text-align: left;
         }
+
         .promessa-label {
             color: var(--gold);
             font-size: 11px;
@@ -347,16 +333,13 @@
             display: block;
             margin-bottom: 15px;
         }
+
         .promessa-box p {
             color: var(--text-muted);
-            font-size: 14px;
+            font-size: 15px;
             line-height: 1.6;
         }
-        .promessa-box strong {
-            color: var(--text-main);
-        }
-        
-        /* Efeito visual de texto borrado/bloqueado */
+
         .locked-action {
             position: relative;
             padding: 40px 0;
@@ -366,12 +349,13 @@
             align-items: center;
             background: repeating-linear-gradient(
                 180deg,
-                rgba(255,255,255,0.04) 0px,
-                rgba(255,255,255,0.04) 10px,
+                rgba(242, 237, 228, 0.02) 0px,
+                rgba(242, 237, 228, 0.02) 10px,
                 transparent 10px,
                 transparent 22px
             );
         }
+
         .locked-action::after {
             content: '';
             position: absolute;
@@ -379,6 +363,7 @@
             background: linear-gradient(180deg, var(--bg-card) 0%, transparent 20%, transparent 80%, var(--bg-card) 100%);
             pointer-events: none;
         }
+
         .locked-box {
             position: relative;
             z-index: 2;
@@ -390,12 +375,25 @@
             align-items: center;
             gap: 12px;
         }
+
         .locked-box span {
             color: var(--gold);
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 768px) {
+            .calc-card { padding: 30px 20px; }
+            .hero-title { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -425,7 +423,7 @@
         </div>
     </section>
 
-    <div style="text-align: center; margin-bottom: 50px; color: var(--gold); font-size: 10px; letter-spacing: 2px; text-transform: uppercase;">
+    <div style="text-align: center; margin-bottom: 50px; color: var(--gold); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;">
         Role <br> <span style="font-size: 16px;">&darr;</span>
     </div>
 
@@ -437,7 +435,7 @@
                 <div class="divider-center" style="max-width: 200px; margin: 20px auto;">
                     <div class="diamond"></div>
                 </div>
-                <p style="color: var(--text-muted); font-size: 12px; max-width: 400px; margin: 0 auto;">Preencha os campos abaixo com honestidade. O diagnóstico é preciso apenas com dados reais.</p>
+                <p style="color: var(--text-muted); font-size: 13px; max-width: 400px; margin: 0 auto;">Preencha os campos abaixo com honestidade. O diagnóstico é preciso apenas com dados reais.</p>
             </div>
 
             <div class="calc-card">
@@ -447,7 +445,7 @@
                         <label class="form-label"><span>01 &mdash;</span> Faturamento Bruto Mensal Atual</label>
                         <div class="input-wrapper">
                             <span class="input-prefix">R$</span>
-                            <input type="number" class="form-input" name="faturamento" placeholder="Ex: 15000" required>
+                            <input type="text" inputmode="numeric" class="form-input" name="faturamento" placeholder="Ex: 15.000" required>
                         </div>
                         <span class="input-hint">Quanto você fatura em média por mês</span>
                     </div>
@@ -456,7 +454,7 @@
                         <label class="form-label"><span>02 &mdash;</span> Ticket Médio Por Sessão</label>
                         <div class="input-wrapper">
                             <span class="input-prefix">R$</span>
-                            <input type="number" class="form-input" name="ticket" placeholder="Ex: 1500" required>
+                            <input type="text" inputmode="numeric" class="form-input" name="ticket" placeholder="Ex: 1.500" required>
                         </div>
                         <span class="input-hint">Valor médio cobrado por sessão</span>
                     </div>
@@ -474,9 +472,9 @@
                         <label class="form-label"><span>04 &mdash;</span> Horas Gastas Por Dia Respondendo Clientes</label>
                         <div class="input-wrapper">
                             <span class="input-prefix">h</span>
-                            <input type="number" class="form-input" name="horas_admin" placeholder="Ex: 3" required>
+                            <input type="text" inputmode="numeric" class="form-input" name="horas_admin" placeholder="Ex: 3" required>
                         </div>
-                        <span class="input-hint">Tempo diário gasto com atendimento</span>
+                        <span class="input-hint">Tempo diário gasto com atendimento no WhatsApp/Direct</span>
                     </div>
 
                     <div class="divider-center">
@@ -484,7 +482,7 @@
                     </div>
 
                     <button type="submit" class="btn-primary">Ver Diagnóstico &rarr;</button>
-                    <p style="text-align: center; font-size: 10px; color: #444; margin-top: 15px;">Seus dados são confidenciais e não serão compartilhados.</p>
+                    <p style="text-align: center; font-size: 11px; color: var(--text-muted); opacity: 0.7; margin-top: 15px;">Seus dados são confidenciais e não serão compartilhados.</p>
                 </form>
             </div>
         </div>
@@ -509,7 +507,7 @@
 
                 <p class="form-label" style="text-align: center; letter-spacing: 3px;">Prejuízo Mensal Estimado</p>
                 <div class="valor-gigante" id="prejuizoValue">R$ 0,00</div>
-                <p style="color: #444; font-size: 12px; margin-bottom: 40px;">dinheiro que você deixa na mesa todo mês</p>
+                <p style="color: var(--text-muted); opacity: 0.8; font-size: 12px; margin-bottom: 40px;">dinheiro que você deixa na mesa todo mês</p>
 
                 <div class="promessa-box">
                     <span class="promessa-label">A Promessa</span>
@@ -552,11 +550,11 @@
                     </div>
 
                     <button type="submit" class="btn-primary" id="submitBtn">Quero o Plano de Escala &rarr;</button>
-                    <p style="text-align: center; font-size: 11px; color: #444; margin-top: 20px;">Sem spam. Apenas conteúdo de alto valor para artistas sérios.</p>
+                    <p style="text-align: center; font-size: 11px; color: var(--text-muted); opacity: 0.7; margin-top: 20px;">Sem spam. Apenas conteúdo de alto valor para artistas sérios.</p>
                 </form>
                 
                 <div id="successMessage" style="display: none; padding: 40px 0;">
-                    <h3 style="color: var(--gold); font-family: 'Playfair Display', serif; font-size: 2.5rem;">Obrigado.</h3>
+                    <h3 style="color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 2.5rem;">Obrigado.</h3>
                     <p style="color: var(--text-muted); margin-top: 15px; font-size: 16px;">Nossa equipe entrará em contato via WhatsApp em breve.</p>
                 </div>
             </div>
@@ -567,7 +565,7 @@
         <div class="container">
             <div class="diamond" style="margin: 0 auto 30px;"></div>
             <p class="small-text" style="margin-bottom: 10px;">Desenvolvido para especialistas. Suas informações estão seguras.</p>
-            <p class="small-text" style="color: #444;">&copy; 2026 • Todos os direitos reservados</p>
+            <p class="small-text" style="color: var(--text-muted); opacity: 0.6;">&copy; 2026 • Todos os direitos reservados</p>
         </div>
     </footer>
 
@@ -576,7 +574,7 @@
             document.getElementById('calculator').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function animateValue(element, start, end, duration, appendText = '') {
+        function animateValue(element, start, end, duration) {
             let startTimestamp = null;
             const step = (timestamp) => {
                 if (!startTimestamp) startTimestamp = timestamp;
@@ -584,59 +582,68 @@
                 const easeProgress = 1 - Math.pow(1 - progress, 3);
                 const current = Math.floor(easeProgress * (end - start) + start);
                 
-                element.textContent = 'R$ ' + current.toLocaleString('pt-BR') + ',00' + appendText;
+                element.textContent = 'R$ ' + current.toLocaleString('pt-BR') + ',00';
                 
                 if (progress < 1) {
                     window.requestAnimationFrame(step);
                 } else {
-                    element.textContent = 'R$ ' + end.toLocaleString('pt-BR') + ',00' + appendText;
+                    element.textContent = 'R$ ' + end.toLocaleString('pt-BR') + ',00';
                 }
             };
             window.requestAnimationFrame(step);
+        }
+
+        // Corrigido: Função segura para ler números formatados no padrão BR (Ex: 15.000,50 vira 15000.50)
+        function parseBrNumber(val) {
+            if (!val) return 0;
+            // Tira todos os pontos e troca a vírgula por ponto decimal
+            let cleanVal = val.toString().replace(/\./g, '').replace(',', '.');
+            return parseFloat(cleanVal) || 0;
         }
 
         function handleCalculate(event) {
             event.preventDefault();
             
             const form = event.target;
-            const faturamento = parseFloat(form.faturamento.value);
-            const ticket = parseFloat(form.ticket.value);
-            const sessoes = parseFloat(form.sessoes.value);
-            const horas_admin = parseFloat(form.horas_admin.value);
+            
+            // Lendo os valores e limpando os erros de digitação (pontos/vírgulas)
+            const faturamento = parseBrNumber(form.faturamento.value);
+            const ticket = parseBrNumber(form.ticket.value);
+            const sessoes = parseBrNumber(form.sessoes.value);
+            const horas_admin = parseBrNumber(form.horas_admin.value);
 
-            const valor_hora = faturamento / (sessoes * 8);
-            const horas_secretario = (horas_admin * 30) * valor_hora / faturamento * sessoes;
-            const prejuizo_mensal = Math.round(horas_secretario * valor_hora);
+            // Lógica matemática corrigida:
+            // Assumimos média de 8h por sessão para encontrar o "Valor da Hora" verdadeira tatuando
+            const valor_hora = faturamento / (sessoes * 8); 
+            const horasTotaisMes = horas_admin * 30;
+            
+            // Prejuízo = Horas gastas no mês * Valor da sua hora
+            const prejuizo_mensal = Math.round(horasTotaisMes * valor_hora);
+            
+            // Potencial (Conforme sua regra de negócio anterior)
             const potencial_lucro = Math.round(faturamento + (prejuizo_mensal * 0.5));
 
             window.calcData = {
                 faturamento, ticket, sessoes, horas_admin,
                 valor_hora: Math.round(valor_hora),
-                horas_secretario: Math.round(horas_secretario),
+                horas_secretario: Math.round(horasTotaisMes),
                 prejuizo_mensal, potencial_lucro
             };
 
-            // Calcula total de horas no mês (horas por dia * 30)
-            const horasTotaisMes = horas_admin * 30;
+            // Aplica os textos na tela
             document.getElementById('horasMesValue').textContent = horasTotaisMes + ' horas por mês';
-            
-            // Texto estático da caixa da promessa
             document.getElementById('potencialValueText').textContent = 'R$ ' + potencial_lucro.toLocaleString('pt-BR') + ',00';
 
-            // 1. Puxa as duas seções (Calculadora e Resultado)
             const calcSec = document.getElementById('calculator');
             const resultSec = document.getElementById('resultSection');
             
-            // 2. Esconde a calculadora (desaparece com as perguntas)
+            // Esconde a calculadora (para não focar no hero, sumimos com ela)
             calcSec.style.display = 'none';
-            
-            // 3. Mostra o resultado
             resultSec.classList.add('active');
             
-            // 4. Sobe a tela suavemente para o topo e roda a animação
+            // Foca perfeitamente no topo do resultado
             setTimeout(() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                // Anima o valor gigante
+                resultSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 animateValue(document.getElementById('prejuizoValue'), 0, prejuizo_mensal, 2500);
             }, 100);
         }
@@ -667,6 +674,7 @@
 
                 if (data.success) {
                     document.getElementById('leadForm').style.display = 'none';
+                    document.querySelector('.locked-action').style.display = 'none';
                     document.getElementById('successMessage').style.display = 'block';
                 } else {
                     alert('Erro: ' + (data.error || 'Não foi possível enviar.'));

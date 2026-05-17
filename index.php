@@ -399,6 +399,48 @@
             .calc-card { padding: 30px 20px; }
             .hero-title { font-size: 2.5rem; }
         }
+        /* ─── Estilos Específicos do Sucesso (image_7.png) ─── */
+        .success-box-centralizer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 400px; /* Garante que o contêiner de sucesso tenha altura e fique centralizado no card */
+        }
+
+        .success-icon-box {
+            width: 60px;
+            height: 60px;
+            border: 1px solid rgba(212, 176, 76, 0.3);
+            background: #0A0A0A;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .success-checkmark {
+            stroke: var(--gold);
+        }
+
+        .success-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .success-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--text-muted);
+            opacity: 0.8;
+            line-height: 1.6;
+            max-width: 400px;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
@@ -558,8 +600,20 @@
                 </form>
                 
                 <div id="successMessage" style="display: none; padding: 40px 0;">
-                    <h3 style="color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 2.5rem;">Obrigado.</h3>
-                    <p style="color: var(--text-muted); margin-top: 15px; font-size: 16px;">Nossa equipe entrará em contato via WhatsApp em breve.</p>
+                    <div class="success-box-centralizer">
+                        <div class="success-icon-box">
+                            <svg class="success-checkmark" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <h3 class="success-title">Recebido com sucesso.</h3>
+                        <div class="divider-center" style="max-width: 200px; margin: 20px auto;">
+                            <div class="diamond"></div>
+                        </div>
+                        <p class="success-text">
+                            Nossa equipe entrará em contato em breve com o seu plano de escala personalizado. Verifique seu WhatsApp.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

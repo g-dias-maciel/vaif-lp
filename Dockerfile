@@ -20,14 +20,6 @@ COPY . .
 RUN sed -i 's|/var/www/html|/app/public|g' /etc/apache2/sites-available/000-default.conf
 RUN sed -i 's|/var/www/html|/app/public|g' /etc/apache2/apache2.conf
 
-# Create .htaccess for routing
-RUN echo '<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteBase /
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ index.php?path=$1 [QSA,L]
-</IfModule>' > /app/public/.htaccess
 
 # Set permissions
 RUN chown -R www-data:www-data /app

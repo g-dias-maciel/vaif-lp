@@ -13,7 +13,7 @@ services:
       - DB_PORT=3306
       - DB_NAME=tattoo_lp
       - DB_USER=tattoo_user
-      - DB_PASSWORD=TattooSecure123!@#
+      - DB_PASSWORD=${DB_PASSWORD}
       - MAIL_HOST=smtp.mailtrap.io
       - MAIL_PORT=2525
       - MAIL_USERNAME=${MAIL_USERNAME}
@@ -35,7 +35,7 @@ services:
       MYSQL_ROOT_PASSWORD: RootSecure123!@#
       MYSQL_DATABASE: tattoo_lp
       MYSQL_USER: tattoo_user
-      MYSQL_PASSWORD: TattooSecure123!@#
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
       - "3306:3306"
     volumes:

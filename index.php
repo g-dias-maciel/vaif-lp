@@ -515,7 +515,7 @@
             </div>
         </div>
 
-        <div class="scroll-indicator fade-in-up delay-3" onclick="scrollToCalculator()">
+        <div class="scroll-indicator" onclick="scrollToCalculator()">
             <span>Role</span>
             <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 5v14M19 12l-7 7-7-7"/>

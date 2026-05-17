@@ -623,14 +623,22 @@
             // Texto estático da caixa da promessa
             document.getElementById('potencialValueText').textContent = 'R$ ' + potencial_lucro.toLocaleString('pt-BR') + ',00';
 
+            // 1. Puxa as duas seções (Calculadora e Resultado)
+            const calcSec = document.getElementById('calculator');
             const resultSec = document.getElementById('resultSection');
+            
+            // 2. Esconde a calculadora (desaparece com as perguntas)
+            calcSec.style.display = 'none';
+            
+            // 3. Mostra o resultado
             resultSec.classList.add('active');
             
+            // 4. Sobe a tela suavemente para o topo e roda a animação
             setTimeout(() => {
-                resultSec.scrollIntoView({ behavior: 'smooth' });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
                 // Anima o valor gigante
                 animateValue(document.getElementById('prejuizoValue'), 0, prejuizo_mensal, 2500);
-            }, 300);
+            }, 100);
         }
 
         async function handleLeadSubmit(event) {

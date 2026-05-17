@@ -524,14 +524,6 @@
     </section>
 
     <section class="calculator-section" id="calculator">
-       ```
-
-### O que isso resolve:
-1. **Posicionamento Perfeito:** O `position: absolute; bottom: 40px;` gruda o elemento exatamente no pé do monitor, sobre a imagem de fundo escura, independente do tamanho da tela do usuário.
-2. **Ícone Minimalista:** Usei um SVG idêntico ao da sua referência (uma seta simples e fina) em vez do caractere de texto (`&darr;`) que tínhamos antes.
-3. **Flutuação:** Adicionei a animação `bounce`, que faz a setinha subir e descer bem devagar, guiando o olho do usuário para rolar a página. E se ele clicar nela, a página já desce para a calculadora automaticamente!
-
-    <section class="calculator-section" id="calculator">
         <div class="container">
             <div class="section-header">
                 <span class="hero-label" style="margin-bottom: 15px; justify-content: center; display: flex;">Diagnóstico Financeiro</span>

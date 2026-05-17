@@ -340,6 +340,10 @@
             line-height: 1.6;
         }
 
+        #potencialValueText {
+             color: var(--gold);
+        }
+
         .locked-action {
             position: relative;
             padding: 40px 0;

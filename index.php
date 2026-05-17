@@ -544,7 +544,7 @@
                     ...window.calcData
                 };
 
-                const response = await fetch('/api/leads/submit', {
+                const response = await fetch('/api/leads/submit.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

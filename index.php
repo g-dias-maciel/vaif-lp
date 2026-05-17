@@ -79,7 +79,7 @@
             padding: 80px 24px;
             /* O gradiente escurece o lado esquerdo para dar leitura ao texto */
             background-image: 
-                linear-gradient(90deg, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0.7) 45%, rgba(10, 10, 10, 0.1) 100%),
+                linear-gradient(90deg, rgba(10, 10, 10, 0.98) 0%, rgba(10, 10, 10, 0.9) 45%, rgba(10, 10, 10, 0.6) 100%),
                 url('https://d2xsxph8kpxj0f.cloudfront.net/310519663486917648/irrCoUbQoV6yC8GdYKjsD9/hero-bg-FNevDH6u7dQ5qmXMetACwE.webp');
             background-size: cover;
             background-position: center;
@@ -187,6 +187,46 @@
         .btn-primary:hover {
             background-color: #E5C35E;
             transform: translateY(-2px);
+        }
+
+        /* ─── Indicador de Scroll (Role) ─── */
+        .hero {
+            position: relative; /* Necessário para ancorar o indicador no fundo */
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--gold);
+            cursor: pointer;
+            z-index: 10;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        .scroll-indicator span {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .scroll-indicator svg {
+            width: 14px;
+            height: 14px;
+            stroke: var(--gold);
+            stroke-width: 2.5;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, 8px); }
         }
 
         /* ─── Calculadora Section ─── */
@@ -452,7 +492,7 @@
 </head>
 <body>
 
-    <section class="hero">
+   <section class="hero">
         <div class="hero-content fade-in-up">
             <span class="hero-label">Exclusivo para artistas do realismo e alto padrão</span>
             <h1 class="hero-title">
@@ -474,11 +514,22 @@
                 <span class="small-text">Diagnóstico Gratuito • Sem Compromisso</span>
             </div>
         </div>
+
+        <div class="scroll-indicator fade-in-up delay-3" onclick="scrollToCalculator()">
+            <span>Role</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5v14M19 12l-7 7-7-7"/>
+            </svg>
+        </div>
     </section>
 
-    <div style="text-align: center; margin-bottom: 50px; color: var(--gold); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;">
-        Role <br> <span style="font-size: 16px;">&darr;</span>
-    </div>
+    <section class="calculator-section" id="calculator">
+       ```
+
+### O que isso resolve:
+1. **Posicionamento Perfeito:** O `position: absolute; bottom: 40px;` gruda o elemento exatamente no pé do monitor, sobre a imagem de fundo escura, independente do tamanho da tela do usuário.
+2. **Ícone Minimalista:** Usei um SVG idêntico ao da sua referência (uma seta simples e fina) em vez do caractere de texto (`&darr;`) que tínhamos antes.
+3. **Flutuação:** Adicionei a animação `bounce`, que faz a setinha subir e descer bem devagar, guiando o olho do usuário para rolar a página. E se ele clicar nela, a página já desce para a calculadora automaticamente!
 
     <section class="calculator-section" id="calculator">
         <div class="container">

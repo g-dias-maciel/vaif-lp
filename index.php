@@ -20,7 +20,7 @@
         fbq('init', '752550821217294');
         fbq('track', 'PageView');
     </script>
-    <!-- Matomo -->
+      <!-- Matomo -->
     <script>
       var _paq = window._paq = window._paq || [];
       /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
@@ -35,7 +35,6 @@
       })();
     </script>
     <!-- End Matomo Code -->
-
     <noscript><img height="1" width="1" style="display:none"
         src="https://www.facebook.com/tr?id=752550821217294&ev=PageView&noscript=1"
     /></noscript>

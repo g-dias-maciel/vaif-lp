@@ -742,6 +742,10 @@
 
         function handleCalculate(event) {
             event.preventDefault();
+
+            if (typeof _paq !== 'undefined') {
+                _paq.push(['trackEvent', 'Calculadora', 'Clique_Calcular', 'Viu_o_Prejuizo']);
+            }
             
             const form = event.target;
             
@@ -854,6 +858,10 @@
                 const data = await response.json();
 
                 if (data.success) {
+                    // Dispara evento de Lead Capturado no Matomo
+                    if (typeof _paq !== 'undefined') {
+                        _paq.push(['trackEvent', 'Lead', 'Conversao', 'Plano_de_Escala_Solicitado']);
+                    }
                     document.getElementById('leadForm').style.display = 'none';
                     document.querySelector('.locked-action').style.display = 'none';
                     document.getElementById('successMessage').style.display = 'block';

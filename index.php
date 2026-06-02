@@ -7,7 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Meta Pixel Code -->
     <script>
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -20,8 +19,7 @@
         fbq('init', '752550821217294');
         fbq('track', 'PageView');
     </script>
-      <!-- Matomo -->
-    <script>
+      <script>
       var _paq = window._paq = window._paq || [];
       /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
       _paq.push(['trackPageView']);
@@ -34,11 +32,9 @@
         g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
       })();
     </script>
-    <!-- End Matomo Code -->
     <noscript><img height="1" width="1" style="display:none"
         src="https://www.facebook.com/tr?id=752550821217294&ev=PageView&noscript=1"
     /></noscript>
-    <!-- End Meta Pixel Code -->
     <style>
         :root {
             --gold: #D4B04C; 
@@ -218,6 +214,36 @@
         .btn-primary:hover {
             background-color: #E5C35E;
             transform: translateY(-2px);
+        }
+
+        /* Botão WhatsApp Específico */
+        .btn-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 32px;
+            background-color: #25D366; 
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #1EBE5D;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            color: #fff;
         }
 
         /* ─── Indicador de Scroll (Role) ─── */
@@ -477,14 +503,15 @@
             .calc-card { padding: 30px 20px; }
             .hero-title { font-size: 2.5rem; }
         }
-        /* ─── Estilos Específicos do Sucesso (image_7.png) ─── */
+        
+        /* ─── Estilos Específicos do Sucesso ─── */
         .success-box-centralizer {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            min-height: 400px; /* Garante que o contêiner de sucesso tenha altura e fique centralizado no card */
+            min-height: 400px; 
         }
 
         .success-icon-box {
@@ -687,13 +714,21 @@
                                 <polyline points="20 6 9 17 4 12"></polyline>
                             </svg>
                         </div>
-                        <h3 class="success-title">Recebido com sucesso.</h3>
+                        <h3 class="success-title">Diagnóstico Salvo!</h3>
                         <div class="divider-center" style="max-width: 200px; margin: 20px auto;">
                             <div class="diamond"></div>
                         </div>
-                        <p class="success-text">
-                            Nossa equipe entrará em contato em breve com o seu plano de escala personalizado. Verifique seu WhatsApp.
+                        <p class="success-text" style="margin-bottom: 20px;">
+                            Seu diagnóstico foi recebido. Para liberar a nossa conversa e receber o seu plano de escala, clique no botão abaixo e me envie um "Olá" no WhatsApp:
                         </p>
+                        
+                        <a href="#" id="waLinkBtn" target="_blank" class="btn-whatsapp">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 12px;">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+                            </svg>
+                            Chamar no WhatsApp
+                        </a>
+                        <p style="font-size: 11px; color: var(--text-muted); opacity: 0.7; margin-top: 10px;">Passo obrigatório para confirmar o recebimento.</p>
                     </div>
                 </div>
             </div>
@@ -732,10 +767,9 @@
             window.requestAnimationFrame(step);
         }
 
-        // Corrigido: Função segura para ler números formatados no padrão BR (Ex: 15.000,50 vira 15000.50)
+        // Função segura para ler números formatados no padrão BR
         function parseBrNumber(val) {
             if (!val) return 0;
-            // Tira todos os pontos e troca a vírgula por ponto decimal
             let cleanVal = val.toString().replace(/\./g, '').replace(',', '.');
             return parseFloat(cleanVal) || 0;
         }
@@ -749,21 +783,14 @@
             
             const form = event.target;
             
-            // Lendo os valores e limpando os erros de digitação (pontos/vírgulas)
             const faturamento = parseBrNumber(form.faturamento.value);
             const ticket = parseBrNumber(form.ticket.value);
             const sessoes = parseBrNumber(form.sessoes.value);
             const horas_admin = parseBrNumber(form.horas_admin.value);
 
-            // Lógica matemática corrigida:
-            // Assumimos média de 8h por sessão para encontrar o "Valor da Hora" verdadeira tatuando
             const valor_hora = faturamento / (sessoes * 8); 
             const horasTotaisMes = horas_admin * 26;
-            
-            // Prejuízo = Horas gastas no mês * Valor da sua hora
             const prejuizo_mensal = Math.round(horasTotaisMes * valor_hora);
-            
-            // Potencial (Conforme sua regra de negócio anterior)
             const potencial_lucro = Math.round(faturamento + (prejuizo_mensal * 0.7));
 
             window.calcData = {
@@ -773,52 +800,41 @@
                 prejuizo_mensal, potencial_lucro
             };
 
-            // Aplica os textos na tela
             document.getElementById('horasMesValue').textContent = horasTotaisMes + ' horas por mês';
             document.getElementById('potencialValueText').textContent = 'R$ ' + potencial_lucro.toLocaleString('pt-BR') + ',00';
 
             const calcSec = document.getElementById('calculator');
             const resultSec = document.getElementById('resultSection');
             
-            // Esconde a calculadora (para não focar no hero, sumimos com ela)
             calcSec.style.display = 'none';
             resultSec.classList.add('active');
             
-            // Foca perfeitamente no topo do resultado
             setTimeout(() => {
                 resultSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 animateValue(document.getElementById('prejuizoValue'), 0, prejuizo_mensal, 2500);
             }, 100);
         }
-        // Aplica validação em tempo real aos inputs quando a página carrega
+
         document.addEventListener('DOMContentLoaded', function() {
             const instagramInput = document.querySelector('input[name="instagram"]');
             const whatsappInput = document.querySelector('input[name="whatsapp"]');
 
-            // 1. Bloqueia o "@" e espaços no campo do Instagram
             if (instagramInput) {
                 instagramInput.addEventListener('input', function(e) {
                     this.value = this.value.replace(/[@\s]/g, '');
                 });
             }
 
-            // 2. Cria a máscara automática para o WhatsApp: (99) 99999-9999
             if (whatsappInput) {
                 whatsappInput.addEventListener('input', function(e) {
-                    // Remove tudo que não for número
                     let v = this.value.replace(/\D/g, '');
-                    
-                    // Limita a 11 dígitos no máximo (DDD + 9 dígitos)
                     if (v.length > 11) v = v.substring(0, 11);
-                    
-                    // Aplica a formatação
                     if (v.length > 2) {
                         v = '(' + v.substring(0, 2) + ') ' + v.substring(2);
                     }
                     if (v.length > 10) {
                         v = v.substring(0, 10) + '-' + v.substring(10);
                     }
-                    
                     this.value = v;
                 });
             }
@@ -830,7 +846,6 @@
             const form = event.target;
             const submitBtn = document.getElementById('submitBtn');
             
-            // Validação de segurança do WhatsApp antes de enviar
             const whatsappNumeros = form.whatsapp.value.replace(/\D/g, '');
             if (whatsappNumeros.length < 10) {
                 alert('Por favor, insira um número de WhatsApp válido com o DDD.');
@@ -858,10 +873,21 @@
                 const data = await response.json();
 
                 if (data.success) {
-                    // Dispara evento de Lead Capturado no Matomo
                     if (typeof _paq !== 'undefined') {
                         _paq.push(['trackEvent', 'Lead', 'Conversao', 'Plano_de_Escala_Solicitado']);
                     }
+                    
+                    // --- MAGIA DO FUNIL INVERTIDO: Gerando Link do WhatsApp ---
+                    const nomeDoLead = form.nome.value.trim();
+                    const textoWa = encodeURIComponent(`Olá! Acabei de rodar a calculadora da VAIF e quero receber meu plano de escala. Meu nome é ${nomeDoLead}.`);
+                    
+                    // 👇👇 MUDE ESTE NÚMERO PARA O DA VAIF MARKETING 👇👇
+                    const numeroVaif = "5521999553136"; 
+                    
+                    const waLink = `https://wa.me/${numeroVaif}?text=${textoWa}`;
+                    document.getElementById('waLinkBtn').href = waLink;
+                    // --------------------------------------------------------
+
                     document.getElementById('leadForm').style.display = 'none';
                     document.querySelector('.locked-action').style.display = 'none';
                     document.getElementById('successMessage').style.display = 'block';

@@ -887,7 +887,7 @@
                         <div class="coupon-code">TATTOO10K</div>
                     </div>
                     
-                    <a href="URL_DO_SEU_CHECKOUT_EBOOK?coupon=TATTOO10K" target="_blank" class="btn-primary" style="max-width: 420px; margin: 0 auto; display: block; font-size: 13px; padding: 20px 32px;">
+                    <a href="https://ebook.vaif.com.br/tatuador-10k" target="_blank" class="btn-primary" style="max-width: 420px; margin: 0 auto; display: block; font-size: 13px; padding: 20px 32px;">
                         📖 GARANTIR MANUAL COM DESCONTO &rarr;
                     </a>
                     

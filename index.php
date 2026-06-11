@@ -970,9 +970,19 @@
                     document.getElementById('leadForm').style.display = 'none';
                     document.querySelector('.locked-action').style.display = 'none';
 
-                    // 2. Avalia o Faturamento
+                   // 2. Avalia o Faturamento
                     if (window.calcData.faturamento > 7000) {
-                        gerarDiasCalendario(); // Cria os blocos de Hoje e Amanhã
+                        // NOVO: Busca horários ocupados antes de gerar o calendário
+                        try {
+                            const resHorarios = await fetch('/api/leads/get_horarios.php');
+                            const dataHorarios = await resHorarios.json();
+                            const ocupados = dataHorarios.ocupados || [];
+                            
+                            gerarDiasCalendario(ocupados); // Passa a lista para a função
+                        } catch (e) {
+                            gerarDiasCalendario([]); // Se falhar, gera vazio
+                        }
+                        
                         document.getElementById('nativeCalendarBlock').style.display = 'block';
                     } else {
                         // Mostra a oferta do E-book ou a tela de sucesso simples
@@ -990,10 +1000,9 @@
             }
         }
 
-        // --- Funções do Calendário ---
-        function gerarDiasCalendario() {
+        function gerarDiasCalendario(horariosOcupados = []) {
             const container = document.getElementById('calendarContainer');
-            container.innerHTML = ''; // Limpa
+            container.innerHTML = ''; 
 
             const hoje = new Date();
             const amanha = new Date(hoje);
@@ -1003,24 +1012,30 @@
             const strHoje = hoje.toLocaleDateString('pt-BR', opcoesData);
             const strAmanha = amanha.toLocaleDateString('pt-BR', opcoesData);
 
-            // Os horários fixos que você solicitou
             const slots = ['10:00', '14:00', '17:00'];
 
-            // Coluna HOJE
-            let htmlHoje = `<div class="calendar-day-col"><h4>Hoje (${strHoje.split(',')[0]})</h4>`;
-            slots.forEach(hora => {
-                htmlHoje += `<button class="time-slot" onclick="selecionarSlot(this, '${strHoje}', '${hora}')">${hora}</button>`;
-            });
-            htmlHoje += `</div>`;
+            // Função interna para gerar os botões com verificação
+            const criarColuna = (titulo, dataTexto) => {
+                let html = `<div class="calendar-day-col"><h4>${titulo}</h4>`;
+                
+                slots.forEach(hora => {
+                    const slotCompleto = `${dataTexto} às ${hora}`; // O formato exato salvo no banco
+                    const estaOcupado = horariosOcupados.includes(slotCompleto);
+                    
+                    const btnStatus = estaOcupado ? 'disabled' : '';
+                    const textoExibicao = estaOcupado ? `${hora} (Indisponível)` : hora;
+                    
+                    html += `<button class="time-slot" onclick="if(!this.disabled) selecionarSlot(this, '${dataTexto}', '${hora}')" ${btnStatus}>${textoExibicao}</button>`;
+                });
+                
+                html += `</div>`;
+                return html;
+            };
 
-            // Coluna AMANHÃ
-            let htmlAmanha = `<div class="calendar-day-col"><h4>Amanhã (${strAmanha.split(',')[0]})</h4>`;
-            slots.forEach(hora => {
-                htmlAmanha += `<button class="time-slot" onclick="selecionarSlot(this, '${strAmanha}', '${hora}')">${hora}</button>`;
-            });
-            htmlAmanha += `</div>`;
+            const tituloHoje = `Hoje (${strHoje.split(',')[0]})`;
+            const tituloAmanha = `Amanhã (${strAmanha.split(',')[0]})`;
 
-            container.innerHTML = htmlHoje + htmlAmanha;
+            container.innerHTML = criarColuna(tituloHoje, strHoje) + criarColuna(tituloAmanha, strAmanha);
         }
 
         function selecionarSlot(elemento, dataTexto, hora) {

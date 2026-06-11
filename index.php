@@ -625,6 +625,73 @@
         @media (max-width: 600px) {
             .calendar-grid { grid-template-columns: 1fr; }
         }
+
+        /* --- UI Box Premium E-book --- */
+        .ebook-premium-box {
+            background: linear-gradient(145deg, #111111 0%, #0a0a0a 100%);
+            border: 1px solid rgba(212, 176, 76, 0.15);
+            border-top: 3px solid var(--gold); /* Linha dourada no topo para destaque */
+            border-radius: 8px;
+            padding: 50px 30px;
+            text-align: center;
+            margin-top: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .ebook-premium-box .funil-title {
+            font-size: 2.5rem;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .ebook-premium-box .highlight-gold {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .ebook-paragraph {
+            color: #d1cbc1;
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+
+        /* O Voucher Desenhado */
+        .coupon-card {
+            background: rgba(212, 176, 76, 0.05);
+            border: 2px dashed var(--gold);
+            border-radius: 8px;
+            padding: 25px;
+            display: inline-block;
+            margin: 35px 0;
+            position: relative;
+            min-width: 280px;
+        }
+
+        .coupon-label {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #111; /* Cor de fundo bate com o card */
+            padding: 0 15px;
+            font-size: 11px;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .coupon-code {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 5px;
+            color: var(--text-main);
+            text-shadow: 0 0 15px rgba(212, 176, 76, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -757,7 +824,7 @@
                     </div>
                 </div>
 
-                <p style="text-align: center; font-size: 14px; color: var(--text-muted); margin: 40px auto; max-width: 500px; line-height: 1.6;">
+                <p id="instrucaoForm" style="text-align: center; font-size: 14px; color: var(--text-muted); margin: 40px auto; max-width: 500px; line-height: 1.6;">
                     Para ver o plano de ação detalhado de como recuperar esse dinheiro e atrair clientes <strong>High-Ticket</strong>, preencha abaixo:
                 </p>
 
@@ -804,23 +871,29 @@
                     </div>
                 </div>
 
-                <div id="ebookBlock" class="funil-box" style="display: none;">
-                    <h3 class="funil-title">Diagnóstico Concluído!</h3>
-                    <div class="divider-center" style="max-width: 200px; margin: 20px auto;">
-                        <div class="diamond"></div>
+                <div id="ebookBlock" class="ebook-premium-box" style="display: none;">
+                    <h3 class="funil-title">Diagnóstico <span class="highlight-gold">Concluído!</span></h3>
+                    
+                    <p class="ebook-paragraph" style="margin-top: 30px;">
+                        Analisamos o seu perfil, <strong id="ebookLeadNome" style="color: #fff;"></strong>. No seu estágio atual, o caminho mais rápido para quebrar o teto do seu estúdio e <strong>atingir os R$ 10.000,00 mensais</strong> é estruturar a sua base de captação.
+                    </p>
+                    
+                    <p class="ebook-paragraph">
+                        Como você concluiu nossa análise, você acabou de desbloquear um <strong>presente exclusivo</strong> para ter acesso ao nosso manual prático:
+                    </p>
+                    
+                    <div class="coupon-card">
+                        <span class="coupon-label">Seu Cupom Ativo</span>
+                        <div class="coupon-code">TATTOO10K</div>
                     </div>
-                    <p class="success-text" style="margin-bottom: 20px; max-width: 550px; margin-left: auto; margin-right: auto; font-size: 15px;">
-                        Analisamos o seu perfil, <strong><span id="ebookLeadNome"></span></strong>. No seu estágio atual, o caminho mais rápido para quebrar o teto do seu estúdio e <strong>atingir os R$ 10.000,00 de faturamento</strong> é dominar a base de captação de clientes.
-                    </p>
-                    <p class="success-text" style="margin-bottom: 25px; max-width: 550px; margin-left: auto; margin-right: auto; font-size: 15px; color: var(--text-muted);">
-                        Como você concluiu o nosso diagnóstico completo, você ganhou um <strong>Cupom de Desconto Exclusivo</strong> de liberação imediata para o nosso manual prático:
-                    </p>
                     
-                    <div class="cupom-destaque" style="font-size: 16px;">CUPOM: TATTOO10K</div>
-                    
-                    <a href="https://ebook.vaif.com.br/tatuador-10k" target="_blank" class="btn-primary" style="max-width: 380px; margin: 0 auto; display: block;">
-                        📖 Garantir E-book com Desconto &rarr;
+                    <a href="URL_DO_SEU_CHECKOUT_EBOOK?coupon=TATTOO10K" target="_blank" class="btn-primary" style="max-width: 420px; margin: 0 auto; display: block; font-size: 13px; padding: 20px 32px;">
+                        📖 GARANTIR MANUAL COM DESCONTO &rarr;
                     </a>
+                    
+                    <p style="font-size: 11px; color: var(--text-muted); margin-top: 15px; text-transform: uppercase; letter-spacing: 1px;">
+                        Acesso Imediato • Pagamento Único
+                    </p>
                 </div>
             
                <div id="successMessage" style="display: none; padding: 40px 0;">
@@ -1018,6 +1091,7 @@
                 if (data.success) {
                     document.getElementById('leadForm').style.display = 'none';
                     document.querySelector('.locked-action').style.display = 'none';
+                    document.getElementById('instrucaoForm').style.display = 'none';
 
                     const nomePrimeiro = form.nome.value.split(' ')[0];
 

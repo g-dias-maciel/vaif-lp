@@ -546,6 +546,70 @@
             max-width: 400px;
             margin: 0 auto;
         }
+
+        /* --- Calendario Nativo --- */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .calendar-day-col h4 {
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .time-slot {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .time-slot:hover {
+            border-color: var(--gold);
+            background: rgba(212, 176, 76, 0.05);
+        }
+
+        .time-slot.selected {
+            background: var(--gold);
+            color: #000;
+            font-weight: 700;
+            border-color: var(--gold);
+        }
+
+        .skip-action {
+            display: inline-block;
+            margin-top: 25px;
+            color: var(--text-muted);
+            font-size: 12px;
+            text-decoration: underline;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .skip-action:hover {
+            color: var(--text-main);
+        }
+
+        @media (max-width: 600px) {
+            .calendar-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -706,7 +770,25 @@
                     <button type="submit" class="btn-primary" id="submitBtn">Quero o Plano de Escala &rarr;</button>
                     <p style="text-align: center; font-size: 11px; color: var(--text-muted); opacity: 0.7; margin-top: 20px;">Sem spam. Apenas conteúdo de alto valor para artistas sérios.</p>
                 </form>
-                
+
+                <div id="nativeCalendarBlock" class="funil-box" style="display: none;">
+                    <h3 class="funil-title">Você está qualificado.</h3>
+                    <p class="success-text" style="margin-bottom: 10px; max-width: 500px; margin-left: auto; margin-right: auto;">
+                        O seu estúdio tem a estrutura exata que nós escalamos. Liberei alguns horários na agenda do nosso especialista para montar o seu Plano de Escala gratuito.
+                    </p>
+                    
+                    <div class="calendar-grid" id="calendarContainer">
+                        </div>
+
+                    <button id="btnConfirmTime" class="btn-primary" style="display: none; max-width: 300px; margin: 0 auto;" onclick="confirmarAgendamento()">
+                        Confirmar Reunião
+                    </button>
+                    
+                    <div style="text-align: center;">
+                        <span class="skip-action" onclick="pularAgendamento()">Prefiro combinar o horário depois pelo WhatsApp</span>
+                    </div>
+                </div>
+            
                 <div id="successMessage" style="display: none; padding: 40px 0;">
                     <div class="success-box-centralizer">
                         <div class="success-icon-box">
@@ -840,23 +922,27 @@
             }
         });
 
+        let horarioSelecionado = null;
+        let leadWhatsAppAtual = null; // Para vincular o horário ao lead correto
+
         async function handleLeadSubmit(event) {
             event.preventDefault();
-            
             const form = event.target;
             const submitBtn = document.getElementById('submitBtn');
             
             const whatsappNumeros = form.whatsapp.value.replace(/\D/g, '');
             if (whatsappNumeros.length < 10) {
-                alert('Por favor, insira um número de WhatsApp válido com o DDD.');
-                form.whatsapp.focus();
+                alert('Por favor, insira um número de WhatsApp válido.');
                 return;
             }
 
-            submitBtn.textContent = 'Enviando...';
+            submitBtn.textContent = 'Analisando perfil...';
             submitBtn.disabled = true;
 
             try {
+                // Guarda o WhatsApp para usar no agendamento se necessário
+                leadWhatsAppAtual = form.whatsapp.value; 
+
                 const payload = {
                     nome: form.nome.value,
                     whatsapp: form.whatsapp.value,
@@ -864,6 +950,7 @@
                     ...window.calcData
                 };
 
+                // 1. Envia os dados para o seu submit.php original
                 const response = await fetch('/api/leads/submit.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -873,34 +960,116 @@
                 const data = await response.json();
 
                 if (data.success) {
-                    if (typeof _paq !== 'undefined') {
-                        _paq.push(['trackEvent', 'Lead', 'Conversao', 'Plano_de_Escala_Solicitado']);
-                    }
-                    
-                    // --- MAGIA DO FUNIL INVERTIDO: Gerando Link do WhatsApp ---
-                    const nomeDoLead = form.nome.value.trim();
-                    const textoWa = encodeURIComponent(`Olá! Acabei de rodar a calculadora da VAIF e quero receber meu plano de escala. Meu nome é ${nomeDoLead}.`);
-                    
-                    // 👇👇 MUDE ESTE NÚMERO PARA O DA VAIF MARKETING 👇👇
-                    const numeroVaif = "5521999553136"; 
-                    
-                    const waLink = `https://wa.me/${numeroVaif}?text=${textoWa}`;
-                    document.getElementById('waLinkBtn').href = waLink;
-                    // --------------------------------------------------------
-
                     document.getElementById('leadForm').style.display = 'none';
                     document.querySelector('.locked-action').style.display = 'none';
-                    document.getElementById('successMessage').style.display = 'block';
+
+                    // 2. Avalia o Faturamento
+                    if (window.calcData.faturamento > 7000) {
+                        gerarDiasCalendario(); // Cria os blocos de Hoje e Amanhã
+                        document.getElementById('nativeCalendarBlock').style.display = 'block';
+                    } else {
+                        // Mostra a oferta do E-book ou a tela de sucesso simples
+                        mostrarTelaSucessoWa(form.nome.value);
+                    }
                 } else {
-                    alert('Erro: ' + (data.error || 'Não foi possível enviar.'));
-                    submitBtn.textContent = 'Tentar Novamente';
+                    alert('Erro ao salvar os dados. Tente novamente.');
+                    submitBtn.textContent = 'Quero o Plano de Escala';
                     submitBtn.disabled = false;
                 }
             } catch (error) {
-                alert('Erro de conexão. Verifique sua internet.');
-                submitBtn.textContent = 'Quero o Plano de Escala \u2192';
+                alert('Erro de conexão.');
+                submitBtn.textContent = 'Quero o Plano de Escala';
                 submitBtn.disabled = false;
             }
+        }
+
+        // --- Funções do Calendário ---
+        function gerarDiasCalendario() {
+            const container = document.getElementById('calendarContainer');
+            container.innerHTML = ''; // Limpa
+
+            const hoje = new Date();
+            const amanha = new Date(hoje);
+            amanha.setDate(hoje.getDate() + 1);
+
+            const opcoesData = { weekday: 'long', day: '2-digit', month: '2-digit' };
+            const strHoje = hoje.toLocaleDateString('pt-BR', opcoesData);
+            const strAmanha = amanha.toLocaleDateString('pt-BR', opcoesData);
+
+            // Os horários fixos que você solicitou
+            const slots = ['09:30', '14:00', '17:00'];
+
+            // Coluna HOJE
+            let htmlHoje = `<div class="calendar-day-col"><h4>Hoje (${strHoje.split(',')[0]})</h4>`;
+            slots.forEach(hora => {
+                htmlHoje += `<button class="time-slot" onclick="selecionarSlot(this, '${strHoje}', '${hora}')">${hora}</button>`;
+            });
+            htmlHoje += `</div>`;
+
+            // Coluna AMANHÃ
+            let htmlAmanha = `<div class="calendar-day-col"><h4>Amanhã (${strAmanha.split(',')[0]})</h4>`;
+            slots.forEach(hora => {
+                htmlAmanha += `<button class="time-slot" onclick="selecionarSlot(this, '${strAmanha}', '${hora}')">${hora}</button>`;
+            });
+            htmlAmanha += `</div>`;
+
+            container.innerHTML = htmlHoje + htmlAmanha;
+        }
+
+        function selecionarSlot(elemento, dataTexto, hora) {
+            // Remove a seleção de todos os botões
+            document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
+            
+            // Adiciona a seleção no botão clicado
+            elemento.classList.add('selected');
+            
+            horarioSelecionado = `${dataTexto} às ${hora}`;
+            
+            // Exibe o botão de confirmar
+            document.getElementById('btnConfirmTime').style.display = 'block';
+        }
+
+        async function confirmarAgendamento() {
+            const btn = document.getElementById('btnConfirmTime');
+            btn.textContent = 'Agendando...';
+            btn.disabled = true;
+
+            try {
+                // Envia o horário escolhido para um novo arquivo PHP de Update
+                await fetch('/api/leads/update_agendamento.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        whatsapp: leadWhatsAppAtual,
+                        data_agendamento: horarioSelecionado
+                    })
+                });
+
+                // Prossegue para a tela do WhatsApp
+                mostrarTelaSucessoWa(document.querySelector('input[name="nome"]').value, horarioSelecionado);
+            } catch (e) {
+                alert('Erro ao confirmar horário, mas seus dados já foram salvos. Chame no WhatsApp.');
+                pularAgendamento();
+            }
+        }
+
+        function pularAgendamento() {
+            mostrarTelaSucessoWa(document.querySelector('input[name="nome"]').value, null);
+        }
+
+        function mostrarTelaSucessoWa(nome, horario = null) {
+            document.getElementById('nativeCalendarBlock').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+
+            let textoWa = `Olá! Acabei de rodar a calculadora da VAIF e quero receber meu plano de escala. Meu nome é ${nome}.`;
+            
+            if (horario) {
+                textoWa = `Olá! Acabei de rodar a calculadora da VAIF e já reservei o horário de ${horario} para nossa reunião. Meu nome é ${nome}.`;
+            }
+
+            const numeroVaif = "5521999553136"; 
+            const waLink = `https://wa.me/${numeroVaif}?text=${encodeURIComponent(textoWa)}`;
+            document.getElementById('waLinkBtn').href = waLink;
         }
     </script>
 </body>

@@ -556,29 +556,31 @@
             text-align: left;
         }
 
-        .calendar-day-col h4 {
-            color: var(--text-main);
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
-        }
-
         .time-slot {
             display: block;
             width: 100%;
-            padding: 12px;
-            margin-bottom: 10px;
+            padding: 18px; /* Aumentado de 12 para 18 */
+            margin-bottom: 15px; /* Mais respiro entre os botões */
             background: transparent;
-            border: 1px solid var(--border-color);
+            border: 2px solid var(--border-color); /* Borda mais grossa */
             color: var(--text-main);
             font-family: 'Montserrat', sans-serif;
-            font-size: 13px;
+            font-size: 16px; /* Fonte bem maior */
+            font-weight: 500;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            border-radius: 4px; /* Leve arredondamento para ficar mais clicável */
+        }
+
+        .calendar-day-col h4 {
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px; /* Título do dia maior também */
+            font-weight: 600;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
         }
 
         .time-slot:hover {
@@ -591,6 +593,19 @@
             color: #000;
             font-weight: 700;
             border-color: var(--gold);
+        }
+
+        .time-slot:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+        .time-slot:disabled:hover {
+            background: rgba(255, 255, 255, 0.05); /* Remove o efeito hover dourado */
+            border-color: rgba(255, 255, 255, 0.1);
         }
 
         .skip-action {
@@ -789,28 +804,20 @@
                     </div>
                 </div>
             
-                <div id="successMessage" style="display: none; padding: 40px 0;">
+               <div id="successMessage" style="display: none; padding: 40px 0;">
                     <div class="success-box-centralizer">
                         <div class="success-icon-box">
                             <svg class="success-checkmark" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="20 6 9 17 4 12"></polyline>
                             </svg>
                         </div>
-                        <h3 class="success-title">Diagnóstico Salvo!</h3>
+                        <h3 class="success-title" id="finalSuccessTitle">Horário Confirmado!</h3>
                         <div class="divider-center" style="max-width: 200px; margin: 20px auto;">
                             <div class="diamond"></div>
                         </div>
-                        <p class="success-text" style="margin-bottom: 20px;">
-                            Seu diagnóstico foi recebido. Para liberar a nossa conversa e receber o seu plano de escala, clique no botão abaixo e me envie um "Olá" no WhatsApp:
-                        </p>
-                        
-                        <a href="#" id="waLinkBtn" target="_blank" class="btn-whatsapp">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 12px;">
-                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
-                            </svg>
-                            Chamar no WhatsApp
-                        </a>
-                        <p style="font-size: 11px; color: var(--text-muted); opacity: 0.7; margin-top: 10px;">Passo obrigatório para confirmar o recebimento.</p>
+                        <p class="success-text" id="finalSuccessText" style="margin-bottom: 20px; font-size: 16px; color: var(--text-main);">
+                            </p>
+                        <p style="font-size: 13px; color: var(--gold); margin-top: 15px; font-weight: 600; letter-spacing: 1px;">FIQUE DE OLHO NO SEU WHATSAPP</p>
                     </div>
                 </div>
             </div>
@@ -997,7 +1004,7 @@
             const strAmanha = amanha.toLocaleDateString('pt-BR', opcoesData);
 
             // Os horários fixos que você solicitou
-            const slots = ['09:30', '14:00', '17:00'];
+            const slots = ['10:00', '14:00', '17:00'];
 
             // Coluna HOJE
             let htmlHoje = `<div class="calendar-day-col"><h4>Hoje (${strHoje.split(',')[0]})</h4>`;
@@ -1029,13 +1036,15 @@
             document.getElementById('btnConfirmTime').style.display = 'block';
         }
 
-        async function confirmarAgendamento() {
+     async function confirmarAgendamento() {
             const btn = document.getElementById('btnConfirmTime');
             btn.textContent = 'Agendando...';
             btn.disabled = true;
 
+            const nomeForm = document.querySelector('input[name="nome"]').value.split(' ')[0]; // Pega só o primeiro nome
+
             try {
-                // Envia o horário escolhido para um novo arquivo PHP de Update
+                // Envia o horário escolhido para atualizar no Banco de Dados
                 await fetch('/api/leads/update_agendamento.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -1045,31 +1054,33 @@
                     })
                 });
 
-                // Prossegue para a tela do WhatsApp
-                mostrarTelaSucessoWa(document.querySelector('input[name="nome"]').value, horarioSelecionado);
+                mostrarTelaSucessoFinal(nomeForm, horarioSelecionado);
             } catch (e) {
-                alert('Erro ao confirmar horário, mas seus dados já foram salvos. Chame no WhatsApp.');
-                pularAgendamento();
+                // Mesmo que dê erro no update, não quebramos a experiência do usuário
+                mostrarTelaSucessoFinal(nomeForm, horarioSelecionado);
             }
         }
 
         function pularAgendamento() {
-            mostrarTelaSucessoWa(document.querySelector('input[name="nome"]').value, null);
+            const nomeForm = document.querySelector('input[name="nome"]').value.split(' ')[0];
+            mostrarTelaSucessoFinal(nomeForm, null);
         }
 
-        function mostrarTelaSucessoWa(nome, horario = null) {
+        // Nova função que apenas altera os textos e exibe o aviso na tela
+        function mostrarTelaSucessoFinal(nome, horario) {
             document.getElementById('nativeCalendarBlock').style.display = 'none';
             document.getElementById('successMessage').style.display = 'block';
 
-            let textoWa = `Olá! Acabei de rodar a calculadora da VAIF e quero receber meu plano de escala. Meu nome é ${nome}.`;
-            
-            if (horario) {
-                textoWa = `Olá! Acabei de rodar a calculadora da VAIF e já reservei o horário de ${horario} para nossa reunião. Meu nome é ${nome}.`;
-            }
+            const titleElement = document.getElementById('finalSuccessTitle');
+            const textElement = document.getElementById('finalSuccessText');
 
-            const numeroVaif = "5521999553136"; 
-            const waLink = `https://wa.me/${numeroVaif}?text=${encodeURIComponent(textoWa)}`;
-            document.getElementById('waLinkBtn').href = waLink;
+            if (horario) {
+                titleElement.textContent = "Horário Confirmado!";
+                textElement.innerHTML = `Excelente, <strong>${nome}</strong>! Sua reunião está agendada para <strong>${horario}</strong>.<br><br>Nosso especialista vai te enviar uma mensagem no WhatsApp em breve com o link de acesso da nossa sala.`;
+            } else {
+                titleElement.textContent = "Diagnóstico Salvo!";
+                textElement.innerHTML = `Excelente, <strong>${nome}</strong>! Recebemos os seus dados.<br><br>Como você optou por não escolher um horário agora, nosso especialista vai te chamar no WhatsApp para combinarmos o melhor momento da semana para conversarmos.`;
+            }
         }
     </script>
 </body>

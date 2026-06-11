@@ -803,6 +803,25 @@
                         <span class="skip-action" onclick="pularAgendamento()">Prefiro combinar o horário depois pelo WhatsApp</span>
                     </div>
                 </div>
+
+                <div id="ebookBlock" class="funil-box" style="display: none;">
+                    <h3 class="funil-title">Diagnóstico Concluído!</h3>
+                    <div class="divider-center" style="max-width: 200px; margin: 20px auto;">
+                        <div class="diamond"></div>
+                    </div>
+                    <p class="success-text" style="margin-bottom: 20px; max-width: 550px; margin-left: auto; margin-right: auto; font-size: 15px;">
+                        Analisamos o seu perfil, <strong><span id="ebookLeadNome"></span></strong>. No seu estágio atual, o caminho mais rápido para quebrar o teto do seu estúdio e <strong>atingir os R$ 10.000,00 de faturamento</strong> é dominar a base de captação de clientes.
+                    </p>
+                    <p class="success-text" style="margin-bottom: 25px; max-width: 550px; margin-left: auto; margin-right: auto; font-size: 15px; color: var(--text-muted);">
+                        Como você concluiu o nosso diagnóstico completo, você ganhou um <strong>Cupom de Desconto Exclusivo</strong> de liberação imediata para o nosso manual prático:
+                    </p>
+                    
+                    <div class="cupom-destaque" style="font-size: 16px;">CUPOM: TATTOO10K</div>
+                    
+                    <a href="https://ebook.vaif.com.br/tatuador-10k" target="_blank" class="btn-primary" style="max-width: 380px; margin: 0 auto; display: block;">
+                        📖 Garantir E-book com Desconto &rarr;
+                    </a>
+                </div>
             
                <div id="successMessage" style="display: none; padding: 40px 0;">
                     <div class="success-box-centralizer">
@@ -929,8 +948,40 @@
             }
         });
 
-        let horarioSelecionado = null;
-        let leadWhatsAppAtual = null; // Para vincular o horário ao lead correto
+       let horarioSelecionado = null;
+        let leadWhatsAppAtual = null;
+
+        // NOVA FUNÇÃO: Varre o calendário de 2 em 2 dias até achar uma vaga livre
+        function encontrarProximaJanelaDisponivel(horariosOcupados) {
+            let offset = 0;
+            const slots = ['10:00', '14:00', '17:00'];
+            const opcoesData = { weekday: 'long', day: '2-digit', month: '2-digit' };
+
+            while (offset < 60) { // Limite de segurança de busca (até 2 meses para frente)
+                const hoje = new Date();
+                const data1 = new Date(hoje); data1.setDate(hoje.getDate() + offset);
+                const data2 = new Date(hoje); data2.setDate(hoje.getDate() + offset + 1);
+
+                const strData1 = data1.toLocaleDateString('pt-BR', opcoesData);
+                const strData2 = data2.toLocaleDateString('pt-BR', opcoesData);
+
+                let slotsLivres = 0;
+
+                for (let hora of slots) {
+                    if (!horariosOcupados.includes(`${strData1} às ${hora}`)) slotsLivres++;
+                    if (!horariosOcupados.includes(`${strData2} às ${hora}`)) slotsLivres++;
+                }
+
+                // Se houver pelo menos 1 horário livre nessa dupla de dias, essa é a janela ideal!
+                if (slotsLivres > 0) {
+                    return offset;
+                }
+
+                // Se os 2 dias estiverem 100% lotados, pula para os próximos 2 dias
+                offset += 2;
+            }
+            return 0;
+        }
 
         async function handleLeadSubmit(event) {
             event.preventDefault();
@@ -947,7 +998,6 @@
             submitBtn.disabled = true;
 
             try {
-                // Guarda o WhatsApp para usar no agendamento se necessário
                 leadWhatsAppAtual = form.whatsapp.value; 
 
                 const payload = {
@@ -957,7 +1007,6 @@
                     ...window.calcData
                 };
 
-                // 1. Envia os dados para o seu submit.php original
                 const response = await fetch('/api/leads/submit.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -970,26 +1019,30 @@
                     document.getElementById('leadForm').style.display = 'none';
                     document.querySelector('.locked-action').style.display = 'none';
 
-                   // 2. Avalia o Faturamento
+                    const nomePrimeiro = form.nome.value.split(' ')[0];
+
+                    // --- QUALIFICAÇÃO DO FATURAMENTO ---
                     if (window.calcData.faturamento > 7000) {
-                        // NOVO: Busca horários ocupados antes de gerar o calendário
                         try {
                             const resHorarios = await fetch('/api/leads/get_horarios.php');
                             const dataHorarios = await resHorarios.json();
                             const ocupados = dataHorarios.ocupados || [];
                             
-                            gerarDiasCalendario(ocupados); // Passa a lista para a função
+                            // Calcula dinamicamente o salto de dias necessário
+                            const offsetNecessario = encontrarProximaJanelaDisponivel(ocupados);
+                            gerarDiasCalendario(ocupados, offsetNecessario);
+                            
                         } catch (e) {
-                            gerarDiasCalendario([]); // Se falhar, gera vazio
+                            gerarDiasCalendario([], 0);
                         }
-                        
                         document.getElementById('nativeCalendarBlock').style.display = 'block';
                     } else {
-                        // Mostra a oferta do E-book ou a tela de sucesso simples
-                        mostrarTelaSucessoWa(form.nome.value);
+                        // RESOLVIDO: Injeta o nome e mostra o e-book sem gerar erro de conexão
+                        document.getElementById('ebookLeadNome').textContent = nomePrimeiro;
+                        document.getElementById('ebookBlock').style.display = 'block';
                     }
                 } else {
-                    alert('Erro ao salvar os dados. Tente novamente.');
+                    alert('Erro ao salvar dados. Tente novamente.');
                     submitBtn.textContent = 'Quero o Plano de Escala';
                     submitBtn.disabled = false;
                 }
@@ -1000,42 +1053,49 @@
             }
         }
 
-        function gerarDiasCalendario(horariosOcupados = []) {
+        function gerarDiasCalendario(horariosOcupados = [], offset = 0) {
             const container = document.getElementById('calendarContainer');
             container.innerHTML = ''; 
 
             const hoje = new Date();
-            const amanha = new Date(hoje);
-            amanha.setDate(hoje.getDate() + 1);
+            const data1 = new Date(hoje); data1.setDate(hoje.getDate() + offset);
+            const data2 = new Date(hoje); data2.setDate(hoje.getDate() + offset + 1);
 
             const opcoesData = { weekday: 'long', day: '2-digit', month: '2-digit' };
-            const strHoje = hoje.toLocaleDateString('pt-BR', opcoesData);
-            const strAmanha = amanha.toLocaleDateString('pt-BR', opcoesData);
+            const strData1 = data1.toLocaleDateString('pt-BR', opcoesData);
+            const strData2 = data2.toLocaleDateString('pt-BR', opcoesData);
 
-            const slots = ['10:00', '14:00', '17:00'];
+            const slots = ['10:00', '14:00', '17:00']; // Atualizado para começar às 10h
 
-            // Função interna para gerar os botões com verificação
             const criarColuna = (titulo, dataTexto) => {
                 let html = `<div class="calendar-day-col"><h4>${titulo}</h4>`;
-                
                 slots.forEach(hora => {
-                    const slotCompleto = `${dataTexto} às ${hora}`; // O formato exato salvo no banco
+                    const slotCompleto = `${dataTexto} às ${hora}`;
                     const estaOcupado = horariosOcupados.includes(slotCompleto);
                     
                     const btnStatus = estaOcupado ? 'disabled' : '';
-                    const textoExibicao = estaOcupado ? `${hora} (Indisponível)` : hora;
+                    const textoExibicao = estaOcupado ? `${hora} (Lotado)` : hora;
                     
                     html += `<button class="time-slot" onclick="if(!this.disabled) selecionarSlot(this, '${dataTexto}', '${hora}')" ${btnStatus}>${textoExibicao}</button>`;
                 });
-                
                 html += `</div>`;
                 return html;
             };
 
-            const tituloHoje = `Hoje (${strHoje.split(',')[0]})`;
-            const tituloAmanha = `Amanhã (${strAmanha.split(',')[0]})`;
+            // Formatação inteligente dos cabeçalhos dos dias
+            const formatarTitulo = (dateObj, isFirst) => {
+                const dia = String(dateObj.getDate()).padStart(2, '0');
+                const mes = String(dateObj.getMonth() + 1).padStart(2, '0');
+                let nomeDia = dateObj.toLocaleDateString('pt-BR', { weekday: 'long' }).split('-')[0];
+                
+                if (offset === 0) {
+                    nomeDia = isFirst ? "Hoje" : "Amanhã";
+                }
+                nomeDia = nomeDia.charAt(0).toUpperCase() + nomeDia.slice(1);
+                return `${nomeDia} (${dia}/${mes})`;
+            };
 
-            container.innerHTML = criarColuna(tituloHoje, strHoje) + criarColuna(tituloAmanha, strAmanha);
+            container.innerHTML = criarColuna(formatarTitulo(data1, true), strData1) + criarColuna(formatarTitulo(data2, false), strData2);
         }
 
         function selecionarSlot(elemento, dataTexto, hora) {

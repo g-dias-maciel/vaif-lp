@@ -548,66 +548,107 @@
         }
 
         /* --- Calendario Nativo --- */
+        /* --- Painel VIP de Agendamento --- */
+        #nativeCalendarBlock {
+            background: linear-gradient(145deg, #111111 0%, #0a0a0a 100%);
+            border: 1px solid rgba(212, 176, 76, 0.15);
+            border-top: 3px solid var(--gold);
+            border-radius: 8px;
+            padding: 50px 40px;
+            text-align: center;
+            margin-top: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
         .calendar-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin: 30px 0;
+            gap: 40px; /* Mais respiro entre as colunas */
+            margin: 40px 0;
             text-align: left;
         }
 
-        .time-slot {
-            display: block;
-            width: 100%;
-            padding: 18px; /* Aumentado de 12 para 18 */
-            margin-bottom: 15px; /* Mais respiro entre os botões */
-            background: transparent;
-            border: 2px solid var(--border-color); /* Borda mais grossa */
-            color: var(--text-main);
+        /* Títulos dos Dias (Hoje / Amanhã) */
+        .calendar-day-col h4 {
+            color: var(--gold); 
             font-family: 'Montserrat', sans-serif;
-            font-size: 16px; /* Fonte bem maior */
-            font-weight: 500;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 4px; /* Leve arredondamento para ficar mais clicável */
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            border-bottom: 1px dashed rgba(212, 176, 76, 0.3);
+            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .calendar-day-col h4 {
+        /* Pequeno diamante antes do dia */
+        .calendar-day-col h4::before {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 6px;
+            background-color: var(--gold);
+            transform: rotate(45deg);
+        }
+
+        /* Botões de Horário */
+        .time-slot {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 16px;
+            margin-bottom: 12px;
+            background: #161616; /* Levemente mais claro que o fundo para destacar */
+            border: 1px solid #2a2a2a;
             color: var(--text-main);
             font-family: 'Montserrat', sans-serif;
-            font-size: 16px; /* Título do dia maior também */
-            font-weight: 600;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 6px;
         }
 
         .time-slot:hover {
             border-color: var(--gold);
-            background: rgba(212, 176, 76, 0.05);
+            background: rgba(212, 176, 76, 0.08);
+            transform: translateY(-2px); /* Efeito de levantar ao passar o mouse */
         }
 
+        /* Quando o usuário clica e seleciona */
         .time-slot.selected {
             background: var(--gold);
             color: #000;
             font-weight: 700;
             border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(212, 176, 76, 0.3);
+            transform: translateY(-2px);
         }
 
+        /* Quando está ocupado */
         .time-slot:disabled {
-            opacity: 0.4;
+            opacity: 1;
             cursor: not-allowed;
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.1);
-            text-decoration: line-through;
-            color: var(--text-muted);
-        }
-        .time-slot:disabled:hover {
-            background: rgba(255, 255, 255, 0.05); /* Remove o efeito hover dourado */
-            border-color: rgba(255, 255, 255, 0.1);
+            background: #0a0a0a;
+            border-color: #1a1a1a;
+            color: #444; /* Cinza escuro elegante */
+            text-decoration: none; /* Tira aquele riscado feio */
+            transform: none;
+            box-shadow: none;
         }
 
+        .slot-status {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-left: 10px;
+            color: #555;
+        }
         .skip-action {
             display: inline-block;
             margin-top: 25px;
@@ -853,20 +894,20 @@
                     <p style="text-align: center; font-size: 11px; color: var(--text-muted); opacity: 0.7; margin-top: 20px;">Sem spam. Apenas conteúdo de alto valor para artistas sérios.</p>
                 </form>
 
-                <div id="nativeCalendarBlock" class="funil-box" style="display: none;">
-                    <h3 class="funil-title">Você está qualificado.</h3>
-                    <p class="success-text" style="margin-bottom: 10px; max-width: 500px; margin-left: auto; margin-right: auto;">
-                        O seu estúdio tem a estrutura exata que nós escalamos. Liberei alguns horários na agenda do nosso especialista para montar o seu Plano de Escala gratuito.
+                <div id="nativeCalendarBlock" style="display: none;">
+                    <h3 class="funil-title" style="font-size: 2.5rem; margin-bottom: 10px;">Você está <span style="color: var(--gold); font-style: italic;">qualificado.</span></h3>
+                    <p class="success-text" style="margin-bottom: 10px; max-width: 500px; margin-left: auto; margin-right: auto; font-size: 16px;">
+                        O seu estúdio tem a estrutura exata que nós escalamos. Liberei um acesso direto à agenda do nosso especialista.
                     </p>
                     
                     <div class="calendar-grid" id="calendarContainer">
                         </div>
 
-                    <button id="btnConfirmTime" class="btn-primary" style="display: none; max-width: 300px; margin: 0 auto;" onclick="confirmarAgendamento()">
-                        Confirmar Reunião
+                    <button id="btnConfirmTime" class="btn-primary" style="display: none; max-width: 350px; margin: 0 auto 20px;" onclick="confirmarAgendamento()">
+                        CONFIRMAR REUNIÃO &rarr;
                     </button>
                     
-                    <div style="text-align: center;">
+                    <div style="text-align: center; margin-top: 15px;">
                         <span class="skip-action" onclick="pularAgendamento()">Prefiro combinar o horário depois pelo WhatsApp</span>
                     </div>
                 </div>
@@ -1148,9 +1189,13 @@
                     const estaOcupado = horariosOcupados.includes(slotCompleto);
                     
                     const btnStatus = estaOcupado ? 'disabled' : '';
-                    const textoExibicao = estaOcupado ? `${hora} (Lotado)` : hora;
                     
-                    html += `<button class="time-slot" onclick="if(!this.disabled) selecionarSlot(this, '${dataTexto}', '${hora}')" ${btnStatus}>${textoExibicao}</button>`;
+                    // Separa a hora da tag de "Lotado" para ficar com design premium
+                    const statusHtml = estaOcupado ? `<span class="slot-status">• Lotado</span>` : '';
+                    
+                    html += `<button class="time-slot" onclick="if(!this.disabled) selecionarSlot(this, '${dataTexto}', '${hora}')" ${btnStatus}>
+                                <span>${hora}</span> ${statusHtml}
+                             </button>`;
                 });
                 html += `</div>`;
                 return html;

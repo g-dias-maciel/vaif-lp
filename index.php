@@ -903,6 +903,10 @@
                     <div class="calendar-grid" id="calendarContainer">
                         </div>
 
+                    <p style="text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 10px;">
+                        * Todos os horários estão no Horário de Brasília (BRT).
+                    </p>
+                    
                     <button id="btnConfirmTime" class="btn-primary" style="display: none; max-width: 350px; margin: 0 auto 20px;" onclick="confirmarAgendamento()">
                         CONFIRMAR REUNIÃO &rarr;
                     </button>
@@ -1062,39 +1066,138 @@
             }
         });
 
-       let horarioSelecionado = null;
+        let horarioSelecionadoDB = null; // Para enviar ao banco de dados (YYYY-MM-DD HH:mm:ss)
+        let horarioSelecionadoUI = null; // Para exibir ao usuário (sexta-feira às 14:00)
         let leadWhatsAppAtual = null;
 
-        // NOVA FUNÇÃO: Varre o calendário de 2 em 2 dias até achar uma vaga livre
+       // --- NOVO: Definir a Timezone Matriz (Horário de Brasília) ---
+        const TIMEZONE_AGENCIA = 'America/Sao_Paulo';
+
+        // Função que converte qualquer momento para a data real de Brasília
+        function obterDataEmBrasilia(offsetDias = 0) {
+            // Pega a data atual de Brasília
+            const dataBR = new Date(new Date().toLocaleString("en-US", { timeZone: TIMEZONE_AGENCIA }));
+            // Adiciona os dias necessários
+            dataBR.setDate(dataBR.getDate() + offsetDias);
+            return dataBR;
+        }
+
+        // --- ATUALIZADO: Tradutor Universal para o Banco de Dados ---
+        function formatarParaBanco(dateObjBR, horaStr) {
+            const ano = dateObjBR.getFullYear();
+            const mes = String(dateObjBR.getMonth() + 1).padStart(2, '0');
+            const dia = String(dateObjBR.getDate()).padStart(2, '0');
+            return `${ano}-${mes}-${dia} ${horaStr}:00`; 
+        }
+
+        // --- LÓGICA DE BLOQUEIO ATUALIZADA ---
         function encontrarProximaJanelaDisponivel(horariosOcupados) {
             let offset = 0;
             const slots = ['10:00', '14:00', '17:00'];
-            const opcoesData = { weekday: 'long', day: '2-digit', month: '2-digit' };
 
-            while (offset < 60) { // Limite de segurança de busca (até 2 meses para frente)
-                const hoje = new Date();
-                const data1 = new Date(hoje); data1.setDate(hoje.getDate() + offset);
-                const data2 = new Date(hoje); data2.setDate(hoje.getDate() + offset + 1);
-
-                const strData1 = data1.toLocaleDateString('pt-BR', opcoesData);
-                const strData2 = data2.toLocaleDateString('pt-BR', opcoesData);
+            while (offset < 60) { 
+                const data1 = obterDataEmBrasilia(offset);
+                const data2 = obterDataEmBrasilia(offset + 1);
 
                 let slotsLivres = 0;
 
                 for (let hora of slots) {
-                    if (!horariosOcupados.includes(`${strData1} às ${hora}`)) slotsLivres++;
-                    if (!horariosOcupados.includes(`${strData2} às ${hora}`)) slotsLivres++;
+                    // Agora ele compara com a string matemática
+                    if (!horariosOcupados.includes(formatarParaBanco(data1, hora))) slotsLivres++;
+                    if (!horariosOcupados.includes(formatarParaBanco(data2, hora))) slotsLivres++;
                 }
 
-                // Se houver pelo menos 1 horário livre nessa dupla de dias, essa é a janela ideal!
-                if (slotsLivres > 0) {
-                    return offset;
-                }
-
-                // Se os 2 dias estiverem 100% lotados, pula para os próximos 2 dias
+                if (slotsLivres > 0) return offset;
                 offset += 2;
             }
             return 0;
+        }
+
+        // --- RENDERIZAÇÃO INTELIGENTE ---
+        function gerarDiasCalendario(horariosOcupados = [], offset = 0) {
+            const container = document.getElementById('calendarContainer');
+            container.innerHTML = ''; 
+
+            const data1 = obterDataEmBrasilia(offset);
+            const data2 = obterDataEmBrasilia(offset + 1);
+
+            const slots = ['10:00', '14:00', '17:00'];
+
+            const criarColuna = (titulo, dateObj) => {
+                let html = `<div class="calendar-day-col"><h4>${titulo}</h4>`;
+                
+                slots.forEach(hora => {
+                    // 1. Gera o valor de máquina
+                    const valorSQL = formatarParaBanco(dateObj, hora);
+                    const estaOcupado = horariosOcupados.includes(valorSQL);
+                    
+                    // 2. Gera o valor humano (Apenas para a tela de Sucesso)
+                    const opcoesUI = { weekday: 'long', day: '2-digit', month: '2-digit' };
+                    let nomeDia = dateObj.toLocaleDateString('pt-BR', opcoesUI).split(',')[0];
+                    const textoUI = `${nomeDia}, ${String(dateObj.getDate()).padStart(2, '0')}/${String(dateObj.getMonth() + 1).padStart(2, '0')} às ${hora}`;
+
+                    const btnStatus = estaOcupado ? 'disabled' : '';
+                    const statusHtml = estaOcupado ? `<span class="slot-status">• Lotado</span>` : '';
+                    
+                    // Passa ambos os valores na hora do clique
+                    html += `<button class="time-slot" onclick="if(!this.disabled) selecionarSlot(this, '${valorSQL}', '${textoUI}')" ${btnStatus}>
+                                <span>${hora}</span> ${statusHtml}
+                             </button>`;
+                });
+                html += `</div>`;
+                return html;
+            };
+
+            const formatarTitulo = (dateObj, isFirst) => {
+                const dia = String(dateObj.getDate()).padStart(2, '0');
+                const mes = String(dateObj.getMonth() + 1).padStart(2, '0');
+                let nomeDia = dateObj.toLocaleDateString('pt-BR', { weekday: 'long' }).split('-')[0];
+                
+                if (offset === 0) {
+                    nomeDia = isFirst ? "Hoje" : "Amanhã";
+                }
+                nomeDia = nomeDia.charAt(0).toUpperCase() + nomeDia.slice(1);
+                return `${nomeDia} (${dia}/${mes})`;
+            };
+
+            // Passamos o objeto Date real para a função de criar coluna
+            container.innerHTML = criarColuna(formatarTitulo(data1, true), data1) + criarColuna(formatarTitulo(data2, false), data2);
+        }
+
+        // --- ATUALIZAÇÃO DO CLIQUE ---
+        function selecionarSlot(elemento, valorDB, valorUI) {
+            document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
+            elemento.classList.add('selected');
+            
+            horarioSelecionadoDB = valorDB; // 2026-06-12 14:00:00
+            horarioSelecionadoUI = valorUI; // Sexta-feira, 12/06 às 14:00
+            
+            document.getElementById('btnConfirmTime').style.display = 'block';
+        }
+
+        // --- SALVANDO NO BANCO ---
+        async function confirmarAgendamento() {
+            const btn = document.getElementById('btnConfirmTime');
+            btn.textContent = 'Agendando...';
+            btn.disabled = true;
+
+            const nomeForm = document.querySelector('input[name="nome"]').value.split(' ')[0]; 
+
+            try {
+                await fetch('/api/leads/update_agendamento.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        whatsapp: leadWhatsAppAtual,
+                        data_agendamento: horarioSelecionadoDB // Envia o dado de máquina
+                    })
+                });
+
+                // Mas mostra o dado humano na tela!
+                mostrarTelaSucessoFinal(nomeForm, horarioSelecionadoUI);
+            } catch (e) {
+                mostrarTelaSucessoFinal(nomeForm, horarioSelecionadoUI);
+            }
         }
 
         async function handleLeadSubmit(event) {
@@ -1168,92 +1271,6 @@
             }
         }
 
-        function gerarDiasCalendario(horariosOcupados = [], offset = 0) {
-            const container = document.getElementById('calendarContainer');
-            container.innerHTML = ''; 
-
-            const hoje = new Date();
-            const data1 = new Date(hoje); data1.setDate(hoje.getDate() + offset);
-            const data2 = new Date(hoje); data2.setDate(hoje.getDate() + offset + 1);
-
-            const opcoesData = { weekday: 'long', day: '2-digit', month: '2-digit' };
-            const strData1 = data1.toLocaleDateString('pt-BR', opcoesData);
-            const strData2 = data2.toLocaleDateString('pt-BR', opcoesData);
-
-            const slots = ['10:00', '14:00', '17:00']; // Atualizado para começar às 10h
-
-            const criarColuna = (titulo, dataTexto) => {
-                let html = `<div class="calendar-day-col"><h4>${titulo}</h4>`;
-                slots.forEach(hora => {
-                    const slotCompleto = `${dataTexto} às ${hora}`;
-                    const estaOcupado = horariosOcupados.includes(slotCompleto);
-                    
-                    const btnStatus = estaOcupado ? 'disabled' : '';
-                    
-                    // Separa a hora da tag de "Lotado" para ficar com design premium
-                    const statusHtml = estaOcupado ? `<span class="slot-status">• Lotado</span>` : '';
-                    
-                    html += `<button class="time-slot" onclick="if(!this.disabled) selecionarSlot(this, '${dataTexto}', '${hora}')" ${btnStatus}>
-                                <span>${hora}</span> ${statusHtml}
-                             </button>`;
-                });
-                html += `</div>`;
-                return html;
-            };
-
-            // Formatação inteligente dos cabeçalhos dos dias
-            const formatarTitulo = (dateObj, isFirst) => {
-                const dia = String(dateObj.getDate()).padStart(2, '0');
-                const mes = String(dateObj.getMonth() + 1).padStart(2, '0');
-                let nomeDia = dateObj.toLocaleDateString('pt-BR', { weekday: 'long' }).split('-')[0];
-                
-                if (offset === 0) {
-                    nomeDia = isFirst ? "Hoje" : "Amanhã";
-                }
-                nomeDia = nomeDia.charAt(0).toUpperCase() + nomeDia.slice(1);
-                return `${nomeDia} (${dia}/${mes})`;
-            };
-
-            container.innerHTML = criarColuna(formatarTitulo(data1, true), strData1) + criarColuna(formatarTitulo(data2, false), strData2);
-        }
-
-        function selecionarSlot(elemento, dataTexto, hora) {
-            // Remove a seleção de todos os botões
-            document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
-            
-            // Adiciona a seleção no botão clicado
-            elemento.classList.add('selected');
-            
-            horarioSelecionado = `${dataTexto} às ${hora}`;
-            
-            // Exibe o botão de confirmar
-            document.getElementById('btnConfirmTime').style.display = 'block';
-        }
-
-     async function confirmarAgendamento() {
-            const btn = document.getElementById('btnConfirmTime');
-            btn.textContent = 'Agendando...';
-            btn.disabled = true;
-
-            const nomeForm = document.querySelector('input[name="nome"]').value.split(' ')[0]; // Pega só o primeiro nome
-
-            try {
-                // Envia o horário escolhido para atualizar no Banco de Dados
-                await fetch('/api/leads/update_agendamento.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        whatsapp: leadWhatsAppAtual,
-                        data_agendamento: horarioSelecionado
-                    })
-                });
-
-                mostrarTelaSucessoFinal(nomeForm, horarioSelecionado);
-            } catch (e) {
-                // Mesmo que dê erro no update, não quebramos a experiência do usuário
-                mostrarTelaSucessoFinal(nomeForm, horarioSelecionado);
-            }
-        }
 
         function pularAgendamento() {
             const nomeForm = document.querySelector('input[name="nome"]').value.split(' ')[0];

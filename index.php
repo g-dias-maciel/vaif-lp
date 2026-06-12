@@ -1066,23 +1066,18 @@
             }
         });
 
-        let horarioSelecionadoDB = null; // Para enviar ao banco de dados (YYYY-MM-DD HH:mm:ss)
-        let horarioSelecionadoUI = null; // Para exibir ao usuário (sexta-feira às 14:00)
+        let horarioSelecionadoDB = null; 
+        let horarioSelecionadoUI = null; 
         let leadWhatsAppAtual = null;
 
-       // --- NOVO: Definir a Timezone Matriz (Horário de Brasília) ---
         const TIMEZONE_AGENCIA = 'America/Sao_Paulo';
 
-        // Função que converte qualquer momento para a data real de Brasília
         function obterDataEmBrasilia(offsetDias = 0) {
-            // Pega a data atual de Brasília
             const dataBR = new Date(new Date().toLocaleString("en-US", { timeZone: TIMEZONE_AGENCIA }));
-            // Adiciona os dias necessários
             dataBR.setDate(dataBR.getDate() + offsetDias);
             return dataBR;
         }
 
-        // --- ATUALIZADO: Tradutor Universal para o Banco de Dados ---
         function formatarParaBanco(dateObjBR, horaStr) {
             const ano = dateObjBR.getFullYear();
             const mes = String(dateObjBR.getMonth() + 1).padStart(2, '0');
@@ -1090,10 +1085,11 @@
             return `${ano}-${mes}-${dia} ${horaStr}:00`; 
         }
 
-        // --- LÓGICA DE BLOQUEIO ATUALIZADA ---
+        // --- ATUALIZADO: Motor agora descarta horários do passado ---
         function encontrarProximaJanelaDisponivel(horariosOcupados) {
             let offset = 0;
             const slots = ['10:00', '14:00', '17:00'];
+            const agoraBR = obterDataEmBrasilia(0); // Hora atual exata em Brasília
 
             while (offset < 60) { 
                 const data1 = obterDataEmBrasilia(offset);
@@ -1101,25 +1097,49 @@
 
                 let slotsLivres = 0;
 
+                // Valida cada slot para o Dia 1
                 for (let hora of slots) {
-                    // Agora ele compara com a string matemática
-                    if (!horariosOcupados.includes(formatarParaBanco(data1, hora))) slotsLivres++;
-                    if (!horariosOcupados.includes(formatarParaBanco(data2, hora))) slotsLivres++;
+                    const [slotHora, slotMin] = hora.split(':').map(Number);
+                    const dataSlot1 = new Date(data1);
+                    dataSlot1.setHours(slotHora, slotMin, 0, 0);
+
+                    const estaOcupado = horariosOcupados.includes(formatarParaBanco(data1, hora));
+                    const estaNoPassado = dataSlot1 <= agoraBR;
+
+                    if (!estaOcupado && !estaNoPassado) slotsLivres++;
                 }
 
-                if (slotsLivres > 0) return offset;
-                offset += 2;
+                // Valida cada slot para o Dia 2
+                for (let hora of slots) {
+                    const [slotHora, slotMin] = hora.split(':').map(Number);
+                    const dataSlot2 = new Date(data2);
+                    dataSlot2.setHours(slotHora, slotMin, 0, 0);
+
+                    const estaOcupado = horariosOcupados.includes(formatarParaBanco(data2, hora));
+                    const estaNoPassado = dataSlot2 <= agoraBR;
+
+                    if (!estaOcupado && !estaNoPassado) slotsLivres++;
+                }
+
+                // Se esta dupla de dias tiver pelo menos 1 horário futuro e livre, escolhe esta janela!
+                if (slotsLivres > 0) {
+                    return offset;
+                }
+
+                // Se o dia de hoje já passou das 17h (ou está lotado), ele avança 1 dia para testar a próxima dupla
+                offset += 1; 
             }
             return 0;
         }
 
-        // --- RENDERIZAÇÃO INTELIGENTE ---
+        // --- RENDERIZAÇÃO COM VALIDAÇÃO DE HORAS ---
         function gerarDiasCalendario(horariosOcupados = [], offset = 0) {
             const container = document.getElementById('calendarContainer');
             container.innerHTML = ''; 
 
             const data1 = obterDataEmBrasilia(offset);
             const data2 = obterDataEmBrasilia(offset + 1);
+            const agoraBR = obterDataEmBrasilia(0); // Para comparação de horas em tempo real
 
             const slots = ['10:00', '14:00', '17:00'];
 
@@ -1127,21 +1147,31 @@
                 let html = `<div class="calendar-day-col"><h4>${titulo}</h4>`;
                 
                 slots.forEach(hora => {
-                    // 1. Gera o valor de máquina
                     const valorSQL = formatarParaBanco(dateObj, hora);
                     const estaOcupado = horariosOcupados.includes(valorSQL);
                     
-                    // 2. Gera o valor humano (Apenas para a tela de Sucesso)
+                    // Cria um objeto de data completo para o slot para comparar milisegundos
+                    const [slotHora, slotMin] = hora.split(':').map(Number);
+                    const dataSlot = new Date(dateObj);
+                    dataSlot.setHours(slotHora, slotMin, 0, 0);
+                    
+                    // REGRA DE OURO: Está indisponível se já estiver reservado OU se já passou da hora
+                    const estaNoPassado = dataSlot <= agoraBR;
+                    const desativarBotao = estaOcupado || estaNoPassado;
+
                     const opcoesUI = { weekday: 'long', day: '2-digit', month: '2-digit' };
                     let nomeDia = dateObj.toLocaleDateString('pt-BR', opcoesUI).split(',')[0];
                     const textoUI = `${nomeDia}, ${String(dateObj.getDate()).padStart(2, '0')}/${String(dateObj.getMonth() + 1).padStart(2, '0')} às ${hora}`;
 
-                    const btnStatus = estaOcupado ? 'disabled' : '';
-                    const statusHtml = estaOcupado ? `<span class="slot-status">• Lotado</span>` : '';
+                    const btnStatus = desativarBotao ? 'disabled' : '';
                     
-                    // Passa ambos os valores na hora do clique
+                    // Label inteligente: mostra "Lotado" ou "Encerrado" dependendo do motivo
+                    let statusTexto = "";
+                    if (estaOcupado) statusTexto = `<span class="slot-status">• Lotado</span>`;
+                    else if (estaNoPassado) statusTexto = `<span class="slot-status">• Encerrado</span>`;
+
                     html += `<button class="time-slot" onclick="if(!this.disabled) selecionarSlot(this, '${valorSQL}', '${textoUI}')" ${btnStatus}>
-                                <span>${hora}</span> ${statusHtml}
+                                <span>${hora}</span> ${statusTexto}
                              </button>`;
                 });
                 html += `</div>`;
@@ -1153,14 +1183,15 @@
                 const mes = String(dateObj.getMonth() + 1).padStart(2, '0');
                 let nomeDia = dateObj.toLocaleDateString('pt-BR', { weekday: 'long' }).split('-')[0];
                 
+                // Só chama de Hoje/Amanhã se o offset for zero (ou seja, se a janela incluir o dia atual real)
                 if (offset === 0) {
                     nomeDia = isFirst ? "Hoje" : "Amanhã";
+                } else {
+                    nomeDia = nomeDia.charAt(0).toUpperCase() + nomeDia.slice(1);
                 }
-                nomeDia = nomeDia.charAt(0).toUpperCase() + nomeDia.slice(1);
                 return `${nomeDia} (${dia}/${mes})`;
             };
 
-            // Passamos o objeto Date real para a função de criar coluna
             container.innerHTML = criarColuna(formatarTitulo(data1, true), data1) + criarColuna(formatarTitulo(data2, false), data2);
         }
 

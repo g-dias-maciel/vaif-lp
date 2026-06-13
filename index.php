@@ -546,6 +546,193 @@
             max-width: 400px;
             margin: 0 auto;
         }
+
+        /* --- Calendario Nativo --- */
+        /* --- Painel VIP de Agendamento --- */
+        #nativeCalendarBlock {
+            background: linear-gradient(145deg, #111111 0%, #0a0a0a 100%);
+            border: 1px solid rgba(212, 176, 76, 0.15);
+            border-top: 3px solid var(--gold);
+            border-radius: 8px;
+            padding: 50px 40px;
+            text-align: center;
+            margin-top: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px; /* Mais respiro entre as colunas */
+            margin: 40px 0;
+            text-align: left;
+        }
+
+        /* Títulos dos Dias (Hoje / Amanhã) */
+        .calendar-day-col h4 {
+            color: var(--gold); 
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            border-bottom: 1px dashed rgba(212, 176, 76, 0.3);
+            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Pequeno diamante antes do dia */
+        .calendar-day-col h4::before {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 6px;
+            background-color: var(--gold);
+            transform: rotate(45deg);
+        }
+
+        /* Botões de Horário */
+        .time-slot {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 16px;
+            margin-bottom: 12px;
+            background: #161616; /* Levemente mais claro que o fundo para destacar */
+            border: 1px solid #2a2a2a;
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 6px;
+        }
+
+        .time-slot:hover {
+            border-color: var(--gold);
+            background: rgba(212, 176, 76, 0.08);
+            transform: translateY(-2px); /* Efeito de levantar ao passar o mouse */
+        }
+
+        /* Quando o usuário clica e seleciona */
+        .time-slot.selected {
+            background: var(--gold);
+            color: #000;
+            font-weight: 700;
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(212, 176, 76, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Quando está ocupado */
+        .time-slot:disabled {
+            opacity: 1;
+            cursor: not-allowed;
+            background: #0a0a0a;
+            border-color: #1a1a1a;
+            color: #444; /* Cinza escuro elegante */
+            text-decoration: none; /* Tira aquele riscado feio */
+            transform: none;
+            box-shadow: none;
+        }
+
+        .slot-status {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-left: 10px;
+            color: #555;
+        }
+        .skip-action {
+            display: inline-block;
+            margin-top: 25px;
+            color: var(--text-muted);
+            font-size: 12px;
+            text-decoration: underline;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .skip-action:hover {
+            color: var(--text-main);
+        }
+
+        @media (max-width: 600px) {
+            .calendar-grid { grid-template-columns: 1fr; }
+        }
+
+        /* --- UI Box Premium E-book --- */
+        .ebook-premium-box {
+            background: linear-gradient(145deg, #111111 0%, #0a0a0a 100%);
+            border: 1px solid rgba(212, 176, 76, 0.15);
+            border-top: 3px solid var(--gold); /* Linha dourada no topo para destaque */
+            border-radius: 8px;
+            padding: 50px 30px;
+            text-align: center;
+            margin-top: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .ebook-premium-box .funil-title {
+            font-size: 2.5rem;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+
+        .ebook-premium-box .highlight-gold {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .ebook-paragraph {
+            color: #d1cbc1;
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+
+        /* O Voucher Desenhado */
+        .coupon-card {
+            background: rgba(212, 176, 76, 0.05);
+            border: 2px dashed var(--gold);
+            border-radius: 8px;
+            padding: 25px;
+            display: inline-block;
+            margin: 35px 0;
+            position: relative;
+            min-width: 280px;
+        }
+
+        .coupon-label {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #111; /* Cor de fundo bate com o card */
+            padding: 0 15px;
+            font-size: 11px;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .coupon-code {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 5px;
+            color: var(--text-main);
+            text-shadow: 0 0 15px rgba(212, 176, 76, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -678,7 +865,7 @@
                     </div>
                 </div>
 
-                <p style="text-align: center; font-size: 14px; color: var(--text-muted); margin: 40px auto; max-width: 500px; line-height: 1.6;">
+                <p id="instrucaoForm" style="text-align: center; font-size: 14px; color: var(--text-muted); margin: 40px auto; max-width: 500px; line-height: 1.6;">
                     Para ver o plano de ação detalhado de como recuperar esse dinheiro e atrair clientes <strong>High-Ticket</strong>, preencha abaixo:
                 </p>
 
@@ -706,29 +893,68 @@
                     <button type="submit" class="btn-primary" id="submitBtn">Quero o Plano de Escala &rarr;</button>
                     <p style="text-align: center; font-size: 11px; color: var(--text-muted); opacity: 0.7; margin-top: 20px;">Sem spam. Apenas conteúdo de alto valor para artistas sérios.</p>
                 </form>
-                
-                <div id="successMessage" style="display: none; padding: 40px 0;">
+
+                <div id="nativeCalendarBlock" style="display: none;">
+                    <h3 class="funil-title" style="font-size: 2.5rem; margin-bottom: 10px;">Você está <span style="color: var(--gold); font-style: italic;">qualificado.</span></h3>
+                    <p class="success-text" style="margin-bottom: 10px; max-width: 500px; margin-left: auto; margin-right: auto; font-size: 16px;">
+                        O seu estúdio tem a estrutura exata que nós escalamos. Liberei um acesso direto à agenda do nosso especialista.
+                    </p>
+                    
+                    <div class="calendar-grid" id="calendarContainer">
+                        </div>
+
+                    <p style="text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 10px;">
+                        * Todos os horários estão no Horário de Brasília (BRT).
+                    </p>
+                    
+                    <button id="btnConfirmTime" class="btn-primary" style="display: none; max-width: 350px; margin: 0 auto 20px;" onclick="confirmarAgendamento()">
+                        CONFIRMAR REUNIÃO &rarr;
+                    </button>
+                    
+                    <div style="text-align: center; margin-top: 15px;">
+                        <span class="skip-action" onclick="pularAgendamento()">Prefiro combinar o horário depois pelo WhatsApp</span>
+                    </div>
+                </div>
+
+                <div id="ebookBlock" class="ebook-premium-box" style="display: none;">
+                    <h3 class="funil-title">Diagnóstico <span class="highlight-gold">Concluído!</span></h3>
+                    
+                    <p class="ebook-paragraph" style="margin-top: 30px;">
+                        Analisamos o seu perfil, <strong id="ebookLeadNome" style="color: #fff;"></strong>. No seu estágio atual, o caminho mais rápido para quebrar o teto do seu estúdio e <strong>atingir os R$ 10.000,00 mensais</strong> é estruturar a sua base de captação.
+                    </p>
+                    
+                    <p class="ebook-paragraph">
+                        Como você concluiu nossa análise, você acabou de desbloquear um <strong>presente exclusivo</strong> para ter acesso ao nosso manual prático:
+                    </p>
+                    
+                    <div class="coupon-card">
+                        <span class="coupon-label">Seu Cupom Ativo</span>
+                        <div class="coupon-code">TATTOO10K</div>
+                    </div>
+                    
+                    <a href="https://ebook.vaif.com.br/tatuador-10k" target="_blank" class="btn-primary" style="max-width: 420px; margin: 0 auto; display: block; font-size: 13px; padding: 20px 32px;">
+                        📖 GARANTIR MANUAL COM DESCONTO &rarr;
+                    </a>
+                    
+                    <p style="font-size: 11px; color: var(--text-muted); margin-top: 15px; text-transform: uppercase; letter-spacing: 1px;">
+                        Acesso Imediato • Pagamento Único
+                    </p>
+                </div>
+            
+               <div id="successMessage" style="display: none; padding: 40px 0;">
                     <div class="success-box-centralizer">
                         <div class="success-icon-box">
                             <svg class="success-checkmark" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="20 6 9 17 4 12"></polyline>
                             </svg>
                         </div>
-                        <h3 class="success-title">Diagnóstico Salvo!</h3>
+                        <h3 class="success-title" id="finalSuccessTitle">Horário Confirmado!</h3>
                         <div class="divider-center" style="max-width: 200px; margin: 20px auto;">
                             <div class="diamond"></div>
                         </div>
-                        <p class="success-text" style="margin-bottom: 20px;">
-                            Seu diagnóstico foi recebido. Para liberar a nossa conversa e receber o seu plano de escala, clique no botão abaixo e me envie um "Olá" no WhatsApp:
-                        </p>
-                        
-                        <a href="#" id="waLinkBtn" target="_blank" class="btn-whatsapp">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 12px;">
-                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
-                            </svg>
-                            Chamar no WhatsApp
-                        </a>
-                        <p style="font-size: 11px; color: var(--text-muted); opacity: 0.7; margin-top: 10px;">Passo obrigatório para confirmar o recebimento.</p>
+                        <p class="success-text" id="finalSuccessText" style="margin-bottom: 20px; font-size: 16px; color: var(--text-main);">
+                            </p>
+                        <p style="font-size: 13px; color: var(--gold); margin-top: 15px; font-weight: 600; letter-spacing: 1px;">FIQUE DE OLHO NO SEU WHATSAPP</p>
                     </div>
                 </div>
             </div>
@@ -840,23 +1066,188 @@
             }
         });
 
+        let horarioSelecionadoDB = null; 
+        let horarioSelecionadoUI = null; 
+        let leadWhatsAppAtual = null;
+
+        const TIMEZONE_AGENCIA = 'America/Sao_Paulo';
+
+        function obterDataEmBrasilia(offsetDias = 0) {
+            const dataBR = new Date(new Date().toLocaleString("en-US", { timeZone: TIMEZONE_AGENCIA }));
+            dataBR.setDate(dataBR.getDate() + offsetDias);
+            return dataBR;
+        }
+
+        function formatarParaBanco(dateObjBR, horaStr) {
+            const ano = dateObjBR.getFullYear();
+            const mes = String(dateObjBR.getMonth() + 1).padStart(2, '0');
+            const dia = String(dateObjBR.getDate()).padStart(2, '0');
+            return `${ano}-${mes}-${dia} ${horaStr}:00`; 
+        }
+
+        // --- ATUALIZADO: Motor agora descarta horários do passado ---
+        function encontrarProximaJanelaDisponivel(horariosOcupados) {
+            let offset = 0;
+            const slots = ['10:00', '14:00', '17:00'];
+            const agoraBR = obterDataEmBrasilia(0); // Hora atual exata em Brasília
+
+            while (offset < 60) { 
+                const data1 = obterDataEmBrasilia(offset);
+                const data2 = obterDataEmBrasilia(offset + 1);
+
+                let slotsLivres = 0;
+
+                // Valida cada slot para o Dia 1
+                for (let hora of slots) {
+                    const [slotHora, slotMin] = hora.split(':').map(Number);
+                    const dataSlot1 = new Date(data1);
+                    dataSlot1.setHours(slotHora, slotMin, 0, 0);
+
+                    const estaOcupado = horariosOcupados.includes(formatarParaBanco(data1, hora));
+                    const estaNoPassado = dataSlot1 <= agoraBR;
+
+                    if (!estaOcupado && !estaNoPassado) slotsLivres++;
+                }
+
+                // Valida cada slot para o Dia 2
+                for (let hora of slots) {
+                    const [slotHora, slotMin] = hora.split(':').map(Number);
+                    const dataSlot2 = new Date(data2);
+                    dataSlot2.setHours(slotHora, slotMin, 0, 0);
+
+                    const estaOcupado = horariosOcupados.includes(formatarParaBanco(data2, hora));
+                    const estaNoPassado = dataSlot2 <= agoraBR;
+
+                    if (!estaOcupado && !estaNoPassado) slotsLivres++;
+                }
+
+                // Se esta dupla de dias tiver pelo menos 1 horário futuro e livre, escolhe esta janela!
+                if (slotsLivres > 0) {
+                    return offset;
+                }
+
+                // Se o dia de hoje já passou das 17h (ou está lotado), ele avança 1 dia para testar a próxima dupla
+                offset += 1; 
+            }
+            return 0;
+        }
+
+        // --- RENDERIZAÇÃO COM VALIDAÇÃO DE HORAS ---
+        function gerarDiasCalendario(horariosOcupados = [], offset = 0) {
+            const container = document.getElementById('calendarContainer');
+            container.innerHTML = ''; 
+
+            const data1 = obterDataEmBrasilia(offset);
+            const data2 = obterDataEmBrasilia(offset + 1);
+            const agoraBR = obterDataEmBrasilia(0); // Para comparação de horas em tempo real
+
+            const slots = ['10:00', '14:00', '17:00'];
+
+            const criarColuna = (titulo, dateObj) => {
+                let html = `<div class="calendar-day-col"><h4>${titulo}</h4>`;
+                
+                slots.forEach(hora => {
+                    const valorSQL = formatarParaBanco(dateObj, hora);
+                    const estaOcupado = horariosOcupados.includes(valorSQL);
+                    
+                    // Cria um objeto de data completo para o slot para comparar milisegundos
+                    const [slotHora, slotMin] = hora.split(':').map(Number);
+                    const dataSlot = new Date(dateObj);
+                    dataSlot.setHours(slotHora, slotMin, 0, 0);
+                    
+                    // REGRA DE OURO: Está indisponível se já estiver reservado OU se já passou da hora
+                    const estaNoPassado = dataSlot <= agoraBR;
+                    const desativarBotao = estaOcupado || estaNoPassado;
+
+                    const opcoesUI = { weekday: 'long', day: '2-digit', month: '2-digit' };
+                    let nomeDia = dateObj.toLocaleDateString('pt-BR', opcoesUI).split(',')[0];
+                    const textoUI = `${nomeDia}, ${String(dateObj.getDate()).padStart(2, '0')}/${String(dateObj.getMonth() + 1).padStart(2, '0')} às ${hora}`;
+
+                    const btnStatus = desativarBotao ? 'disabled' : '';
+                    
+                    // Label inteligente: mostra "Lotado" ou "Encerrado" dependendo do motivo
+                    let statusTexto = "";
+                    if (estaOcupado) statusTexto = `<span class="slot-status">• Lotado</span>`;
+                    else if (estaNoPassado) statusTexto = `<span class="slot-status">• Encerrado</span>`;
+
+                    html += `<button class="time-slot" onclick="if(!this.disabled) selecionarSlot(this, '${valorSQL}', '${textoUI}')" ${btnStatus}>
+                                <span>${hora}</span> ${statusTexto}
+                             </button>`;
+                });
+                html += `</div>`;
+                return html;
+            };
+
+            const formatarTitulo = (dateObj, isFirst) => {
+                const dia = String(dateObj.getDate()).padStart(2, '0');
+                const mes = String(dateObj.getMonth() + 1).padStart(2, '0');
+                let nomeDia = dateObj.toLocaleDateString('pt-BR', { weekday: 'long' }).split('-')[0];
+                
+                // Só chama de Hoje/Amanhã se o offset for zero (ou seja, se a janela incluir o dia atual real)
+                if (offset === 0) {
+                    nomeDia = isFirst ? "Hoje" : "Amanhã";
+                } else {
+                    nomeDia = nomeDia.charAt(0).toUpperCase() + nomeDia.slice(1);
+                }
+                return `${nomeDia} (${dia}/${mes})`;
+            };
+
+            container.innerHTML = criarColuna(formatarTitulo(data1, true), data1) + criarColuna(formatarTitulo(data2, false), data2);
+        }
+
+        // --- ATUALIZAÇÃO DO CLIQUE ---
+        function selecionarSlot(elemento, valorDB, valorUI) {
+            document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
+            elemento.classList.add('selected');
+            
+            horarioSelecionadoDB = valorDB; // 2026-06-12 14:00:00
+            horarioSelecionadoUI = valorUI; // Sexta-feira, 12/06 às 14:00
+            
+            document.getElementById('btnConfirmTime').style.display = 'block';
+        }
+
+        // --- SALVANDO NO BANCO ---
+        async function confirmarAgendamento() {
+            const btn = document.getElementById('btnConfirmTime');
+            btn.textContent = 'Agendando...';
+            btn.disabled = true;
+
+            const nomeForm = document.querySelector('input[name="nome"]').value.split(' ')[0]; 
+
+            try {
+                await fetch('/api/leads/update_agendamento.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        whatsapp: leadWhatsAppAtual,
+                        data_agendamento: horarioSelecionadoDB // Envia o dado de máquina
+                    })
+                });
+
+                // Mas mostra o dado humano na tela!
+                mostrarTelaSucessoFinal(nomeForm, horarioSelecionadoUI);
+            } catch (e) {
+                mostrarTelaSucessoFinal(nomeForm, horarioSelecionadoUI);
+            }
+        }
+
         async function handleLeadSubmit(event) {
             event.preventDefault();
-            
             const form = event.target;
             const submitBtn = document.getElementById('submitBtn');
             
             const whatsappNumeros = form.whatsapp.value.replace(/\D/g, '');
             if (whatsappNumeros.length < 10) {
-                alert('Por favor, insira um número de WhatsApp válido com o DDD.');
-                form.whatsapp.focus();
+                alert('Por favor, insira um número de WhatsApp válido.');
                 return;
             }
 
-            submitBtn.textContent = 'Enviando...';
+            submitBtn.textContent = 'Analisando perfil...';
             submitBtn.disabled = true;
 
             try {
+                leadWhatsAppAtual = form.whatsapp.value; 
+
                 const payload = {
                     nome: form.nome.value,
                     whatsapp: form.whatsapp.value,
@@ -873,33 +1264,64 @@
                 const data = await response.json();
 
                 if (data.success) {
-                    if (typeof _paq !== 'undefined') {
-                        _paq.push(['trackEvent', 'Lead', 'Conversao', 'Plano_de_Escala_Solicitado']);
-                    }
-                    
-                    // --- MAGIA DO FUNIL INVERTIDO: Gerando Link do WhatsApp ---
-                    const nomeDoLead = form.nome.value.trim();
-                    const textoWa = encodeURIComponent(`Olá! Acabei de rodar a calculadora da VAIF e quero receber meu plano de escala. Meu nome é ${nomeDoLead}.`);
-                    
-                    // 👇👇 MUDE ESTE NÚMERO PARA O DA VAIF MARKETING 👇👇
-                    const numeroVaif = "5521999553136"; 
-                    
-                    const waLink = `https://wa.me/${numeroVaif}?text=${textoWa}`;
-                    document.getElementById('waLinkBtn').href = waLink;
-                    // --------------------------------------------------------
-
                     document.getElementById('leadForm').style.display = 'none';
                     document.querySelector('.locked-action').style.display = 'none';
-                    document.getElementById('successMessage').style.display = 'block';
+                    document.getElementById('instrucaoForm').style.display = 'none';
+
+                    const nomePrimeiro = form.nome.value.split(' ')[0];
+
+                    // --- QUALIFICAÇÃO DO FATURAMENTO ---
+                    if (window.calcData.faturamento > 7000) {
+                        try {
+                            const resHorarios = await fetch('/api/leads/get_horarios.php');
+                            const dataHorarios = await resHorarios.json();
+                            const ocupados = dataHorarios.ocupados || [];
+                            
+                            // Calcula dinamicamente o salto de dias necessário
+                            const offsetNecessario = encontrarProximaJanelaDisponivel(ocupados);
+                            gerarDiasCalendario(ocupados, offsetNecessario);
+                            
+                        } catch (e) {
+                            gerarDiasCalendario([], 0);
+                        }
+                        document.getElementById('nativeCalendarBlock').style.display = 'block';
+                    } else {
+                        // RESOLVIDO: Injeta o nome e mostra o e-book sem gerar erro de conexão
+                        document.getElementById('ebookLeadNome').textContent = nomePrimeiro;
+                        document.getElementById('ebookBlock').style.display = 'block';
+                    }
                 } else {
-                    alert('Erro: ' + (data.error || 'Não foi possível enviar.'));
-                    submitBtn.textContent = 'Tentar Novamente';
+                    alert('Erro ao salvar dados. Tente novamente.');
+                    submitBtn.textContent = 'Quero o Plano de Escala';
                     submitBtn.disabled = false;
                 }
             } catch (error) {
-                alert('Erro de conexão. Verifique sua internet.');
-                submitBtn.textContent = 'Quero o Plano de Escala \u2192';
+                alert('Erro de conexão.');
+                submitBtn.textContent = 'Quero o Plano de Escala';
                 submitBtn.disabled = false;
+            }
+        }
+
+
+        function pularAgendamento() {
+            const nomeForm = document.querySelector('input[name="nome"]').value.split(' ')[0];
+            mostrarTelaSucessoFinal(nomeForm, null);
+        }
+
+        // Nova função que apenas altera os textos e exibe o aviso na tela
+        function mostrarTelaSucessoFinal(nome, horario) {
+            document.getElementById('nativeCalendarBlock').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+
+            const titleElement = document.getElementById('finalSuccessTitle');
+            const textElement = document.getElementById('finalSuccessText');
+
+            if (horario) {
+                titleElement.textContent = "Horário Confirmado!";
+                textElement.innerHTML = `Excelente, <strong>${nome}</strong>! Sua reunião está agendada para <strong>${horario}</strong>.<br><br>Nosso especialista vai te enviar uma mensagem no WhatsApp em breve com o link de acesso da nossa sala.`;
+            } else {
+                titleElement.textContent = "Diagnóstico Salvo!";
+                textElement.innerHTML = `Excelente, <strong>${nome}</strong>! Recebemos os seus dados.<br><br>Como você optou por não escolher um horário agora, nosso especialista vai te chamar no WhatsApp para combinarmos o melhor momento da semana para conversarmos.`;
             }
         }
     </script>

@@ -10,20 +10,21 @@ if (!$data) {
     exit;
 }
 
-// 1. Database & Webhook Credentials from Coolify Environment Variables
+// 1. Variáveis de ambiente vindas do Coolify
 $host = getenv('DB_HOST');
 $dbname = getenv('DB_NAME');
 $user = getenv('DB_USER');
 $pass = getenv('DB_PASSWORD');
-$makeWebhookUrl = getenv('MAKE_WEBHOOK_URL');
+// 👇 Nova variável para o n8n (Substituindo o Make)
+$n8nLeadWebhookUrl = getenv('N8N_LEAD_WEBHOOK_URL'); 
 
 try {
-    // 2. Connect to the Database
+    // 2. Conectar ao Banco de Dados
     $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
     $pdo = new PDO($dsn, $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // 3. Insert into Database
+    // 3. Inserir no Banco de Dados
     $sql = "INSERT INTO leads (nome, whatsapp, instagram, faturamento, ticket, sessoes, horas_admin, valor_hora, horas_secretario, prejuizo_mensal, potencial_lucro) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
@@ -42,25 +43,23 @@ try {
         $data['potencial_lucro']
     ]);
 
-    // 4. If DB insert succeeds, forward to Make.com Webhook
-    if ($makeWebhookUrl) {
-        $ch = curl_init($makeWebhookUrl);
+    // 4. 👇 Disparar para o n8n INSTANTANEAMENTE se o insert no banco der certo
+    if ($n8nLeadWebhookUrl) {
+        $ch = curl_init($n8nLeadWebhookUrl);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5); // Don't hang the site if Make is down
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5); // Não trava o site se o n8n oscilar
         
         curl_exec($ch);
         curl_close($ch);
     }
 
-    // 5. Send success back to the frontend
+    // 5. Retorna sucesso para o frontend continuar o fluxo (abrir calendário ou e-book)
     echo json_encode(['success' => true]);
 
 } catch (PDOException $e) {
-    // If the database fails, we return an error so the user can try again
     echo json_encode(['success' => false, 'error' => 'Erro Real: ' . $e->getMessage()]);
-    // Optional: error_log($e->getMessage()); to keep your exact DB errors hidden from the public
 }
 ?>

@@ -503,7 +503,7 @@
             .calc-card { padding: 30px 20px; }
             .hero-title { font-size: 2.5rem; }
         }
-        
+         
         /* ─── Estilos Específicos do Sucesso ─── */
         .success-box-centralizer {
             display: flex;
@@ -932,7 +932,7 @@
                         <div class="coupon-code">TATTOO10K</div>
                     </div>
                     
-                    <a href="https://ebook.vaif.com.br/tatuador-10k" target="_blank" class="btn-primary" style="max-width: 420px; margin: 0 auto; display: block; font-size: 13px; padding: 20px 32px;">
+                    <a href="https://ebook.vaif.com.br/tatuador-10k" target="_blank" class="btn-primary" style="max-width: 420px; margin: 0 auto; display: block; font-size: 13px; padding: 20px 32px;" onclick="trackEbookClick()">
                         📖 GARANTIR MANUAL COM DESCONTO &rarr;
                     </a>
                     
@@ -941,7 +941,7 @@
                     </p>
                 </div>
             
-               <div id="successMessage" style="display: none; padding: 40px 0;">
+                <div id="successMessage" style="display: none; padding: 40px 0;">
                     <div class="success-box-centralizer">
                         <div class="success-icon-box">
                             <svg class="success-checkmark" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1085,7 +1085,6 @@
             return `${ano}-${mes}-${dia} ${horaStr}:00`; 
         }
 
-        // --- ATUALIZADO: Motor agora descarta horários do passado ---
         function encontrarProximaJanelaDisponivel(horariosOcupados) {
             let offset = 0;
             const slots = ['10:00', '14:00', '17:00'];
@@ -1121,7 +1120,7 @@
                     if (!estaOcupado && !estaNoPassado) slotsLivres++;
                 }
 
-                // Se esta dupla de dias tiver pelo menos 1 horário futuro e livre, escolhe esta janela!
+                // Se esta duplas de dias tiver pelo menos 1 horário futuro e livre, escolhe esta janela!
                 if (slotsLivres > 0) {
                     return offset;
                 }
@@ -1132,7 +1131,6 @@
             return 0;
         }
 
-        // --- RENDERIZAÇÃO COM VALIDAÇÃO DE HORAS ---
         function gerarDiasCalendario(horariosOcupados = [], offset = 0) {
             const container = document.getElementById('calendarContainer');
             container.innerHTML = ''; 
@@ -1195,7 +1193,6 @@
             container.innerHTML = criarColuna(formatarTitulo(data1, true), data1) + criarColuna(formatarTitulo(data2, false), data2);
         }
 
-        // --- ATUALIZAÇÃO DO CLIQUE ---
         function selecionarSlot(elemento, valorDB, valorUI) {
             document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
             elemento.classList.add('selected');
@@ -1206,13 +1203,16 @@
             document.getElementById('btnConfirmTime').style.display = 'block';
         }
 
-        // --- SALVANDO NO BANCO ---
         async function confirmarAgendamento() {
             const btn = document.getElementById('btnConfirmTime');
             btn.textContent = 'Agendando...';
             btn.disabled = true;
 
             const nomeForm = document.querySelector('input[name="nome"]').value.split(' ')[0]; 
+
+            // EVENTOS: Reunião Marcada com Sucesso
+            if (typeof fbq !== 'undefined') fbq('track', 'Schedule');
+            if (typeof _paq !== 'undefined') _paq.push(['trackEvent', 'Funil_Agendamento', 'Horario_Confirmado', horarioSelecionadoDB]);
 
             try {
                 await fetch('/api/leads/update_agendamento.php', {
@@ -1302,8 +1302,11 @@
             }
         }
 
-
         function pularAgendamento() {
+            // EVENTOS: O Lead clicou em combinar depois via WhatsApp
+            if (typeof fbq !== 'undefined') fbq('trackCustom', 'ScheduleSkippedToWhatsapp');
+            if (typeof _paq !== 'undefined') _paq.push(['trackEvent', 'Funil_Agendamento', 'Preferiu_WhatsApp', 'Pular_Calendario']);
+
             const nomeForm = document.querySelector('input[name="nome"]').value.split(' ')[0];
             mostrarTelaSucessoFinal(nomeForm, null);
         }
@@ -1322,6 +1325,19 @@
             } else {
                 titleElement.textContent = "Diagnóstico Salvo!";
                 textElement.innerHTML = `Excelente, <strong>${nome}</strong>! Recebemos os seus dados.<br><br>Como você optou por não escolher um horário agora, nosso especialista vai te chamar no WhatsApp para combinarmos o melhor momento da semana para conversarmos.`;
+            }
+        }
+
+        // EVENTOS: Rastreia quando o usuário qualificado como "E-book" clica no botão de compra
+        function trackEbookClick() {
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'InitiateCheckout', {
+                    content_name: 'Manual Tatuador 10k',
+                    currency: 'BRL'
+                });
+            }
+            if (typeof _paq !== 'undefined') {
+                _paq.push(['trackEvent', 'Funil_Ebook', 'Redirecionado_Pagina_Ebook', 'TATTOO10K']);
             }
         }
     </script>

@@ -40,8 +40,8 @@
             --gold: #D4B04C; 
             --bg-dark: #0A0A0A;
             --bg-card: #121212;
-            --text-main: rgb(242, 237, 228);   /* Off-white para textos em destaque/Headers */
-            --text-muted: rgb(160, 154, 142);  /* Tom neutro para parágrafos */
+            --text-main: rgb(242, 237, 228);
+            --text-muted: rgb(160, 154, 142);
             --border-color: #222222;
         }
 
@@ -67,7 +67,6 @@
             padding: 0 24px;
         }
 
-        /* ─── Animações Globais ─── */
         .fade-in-up {
             opacity: 0;
             transform: translateY(40px);
@@ -85,7 +84,6 @@
             }
         }
 
-        /* ─── Tipografia Geral ─── */
         h1, h2, h3, .serif-font {
             font-family: 'Cormorant Garamond', serif;
             color: var(--text-main);
@@ -97,14 +95,12 @@
             font-weight: 600;
         }
 
-        /* ─── Hero Section Atualizada com Imagem ─── */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             width: 100%;
             padding: 80px 24px;
-            /* O gradiente escurece o lado esquerdo para dar leitura ao texto */
             background-image: 
                 linear-gradient(90deg, rgba(10, 10, 10, 0.98) 0%, rgba(10, 10, 10, 0.9) 45%, rgba(10, 10, 10, 0.6) 100%),
                 url('https://d2xsxph8kpxj0f.cloudfront.net/310519663486917648/irrCoUbQoV6yC8GdYKjsD9/hero-bg-FNevDH6u7dQ5qmXMetACwE.webp');
@@ -115,7 +111,6 @@
 
         .hero-content {
             max-width: 650px;
-            /* Esse cálculo genial mantém o texto alinhado com o restante do site (max-width: 1200px) mesmo com o fundo ocupando 100% da tela */
             margin-left: max(0px, calc((100vw - 1200px) / 2));
         }
 
@@ -187,14 +182,13 @@
             text-transform: uppercase;
         }
 
-        /* ─── Botões ─── */
         .btn-primary {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             padding: 16px 32px;
             background-color: var(--gold);
-            color: #000; /* Fica escuro para legibilidade no botão dourado */
+            color: #000;
             border: none;
             font-family: 'Montserrat', sans-serif;
             font-size: 12px;
@@ -214,41 +208,6 @@
         .btn-primary:hover {
             background-color: #E5C35E;
             transform: translateY(-2px);
-        }
-
-        /* Botão WhatsApp Específico */
-        .btn-whatsapp {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 18px 32px;
-            background-color: #25D366; 
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            width: 100%;
-            max-width: 400px;
-            margin: 20px auto;
-        }
-
-        .btn-whatsapp:hover {
-            background-color: #1EBE5D;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-            color: #fff;
-        }
-
-        /* ─── Indicador de Scroll (Role) ─── */
-        .hero {
-            position: relative; /* Necessário para ancorar o indicador no fundo */
         }
 
         .scroll-indicator {
@@ -286,9 +245,15 @@
             50% { transform: translate(-50%, 8px); }
         }
 
-        /* ─── Calculadora Section ─── */
+        /* Progresso UI */
+        .progress-wrapper {
+            background-color: #0d0d0d;
+            padding-top: 80px;
+            text-align: center;
+        }
+
         .calculator-section {
-            padding: 100px 0;
+            padding: 60px 0 100px;
             text-align: center;
             background-color: #0d0d0d;
         }
@@ -384,11 +349,11 @@
             background-color: var(--border-color);
         }
 
-        /* ─── Resultados Específicos ─── */
         .result-section {
             display: none;
-            padding: 80px 0;
+            padding: 20px 0 80px;
             text-align: center;
+            background-color: #0d0d0d;
         }
 
         .result-section.active {
@@ -492,7 +457,6 @@
             text-transform: uppercase;
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 60px 20px;
@@ -504,7 +468,6 @@
             .hero-title { font-size: 2.5rem; }
         }
         
-        /* ─── Estilos Específicos do Sucesso ─── */
         .success-box-centralizer {
             display: flex;
             flex-direction: column;
@@ -547,8 +510,6 @@
             margin: 0 auto;
         }
 
-        /* --- Calendario Nativo --- */
-        /* --- Painel VIP de Agendamento --- */
         #nativeCalendarBlock {
             background: linear-gradient(145deg, #111111 0%, #0a0a0a 100%);
             border: 1px solid rgba(212, 176, 76, 0.15);
@@ -564,12 +525,11 @@
         .calendar-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px; /* Mais respiro entre as colunas */
+            gap: 40px;
             margin: 40px 0;
             text-align: left;
         }
 
-        /* Títulos dos Dias (Hoje / Amanhã) */
         .calendar-day-col h4 {
             color: var(--gold); 
             font-family: 'Montserrat', sans-serif;
@@ -585,7 +545,6 @@
             gap: 10px;
         }
 
-        /* Pequeno diamante antes do dia */
         .calendar-day-col h4::before {
             content: '';
             display: block;
@@ -595,7 +554,6 @@
             transform: rotate(45deg);
         }
 
-        /* Botões de Horário */
         .time-slot {
             display: flex;
             justify-content: center;
@@ -603,7 +561,7 @@
             width: 100%;
             padding: 16px;
             margin-bottom: 12px;
-            background: #161616; /* Levemente mais claro que o fundo para destacar */
+            background: #161616;
             border: 1px solid #2a2a2a;
             color: var(--text-main);
             font-family: 'Montserrat', sans-serif;
@@ -617,10 +575,9 @@
         .time-slot:hover {
             border-color: var(--gold);
             background: rgba(212, 176, 76, 0.08);
-            transform: translateY(-2px); /* Efeito de levantar ao passar o mouse */
+            transform: translateY(-2px);
         }
 
-        /* Quando o usuário clica e seleciona */
         .time-slot.selected {
             background: var(--gold);
             color: #000;
@@ -630,14 +587,13 @@
             transform: translateY(-2px);
         }
 
-        /* Quando está ocupado */
         .time-slot:disabled {
             opacity: 1;
             cursor: not-allowed;
             background: #0a0a0a;
             border-color: #1a1a1a;
-            color: #444; /* Cinza escuro elegante */
-            text-decoration: none; /* Tira aquele riscado feio */
+            color: #444;
+            text-decoration: none;
             transform: none;
             box-shadow: none;
         }
@@ -667,11 +623,10 @@
             .calendar-grid { grid-template-columns: 1fr; }
         }
 
-        /* --- UI Box Premium E-book --- */
         .ebook-premium-box {
             background: linear-gradient(145deg, #111111 0%, #0a0a0a 100%);
             border: 1px solid rgba(212, 176, 76, 0.15);
-            border-top: 3px solid var(--gold); /* Linha dourada no topo para destaque */
+            border-top: 3px solid var(--gold);
             border-radius: 8px;
             padding: 50px 30px;
             text-align: center;
@@ -699,7 +654,6 @@
             margin: 0 auto 20px;
         }
 
-        /* O Voucher Desenhado */
         .coupon-card {
             background: rgba(212, 176, 76, 0.05);
             border: 2px dashed var(--gold);
@@ -716,7 +670,7 @@
             top: -10px;
             left: 50%;
             transform: translateX(-50%);
-            background: #111; /* Cor de fundo bate com o card */
+            background: #111;
             padding: 0 15px;
             font-size: 11px;
             color: var(--gold);
@@ -767,6 +721,18 @@
             </svg>
         </div>
     </section>
+
+    <!-- OTIMIZAÇÃO: Barra de Progresso Global do Funil -->
+    <div class="progress-wrapper" id="progressWrapper">
+        <div class="container">
+            <div style="max-width: 500px; margin: 0 auto;">
+                <span id="progressLabel" style="font-size: 10px; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; display: block; text-align: center; font-weight: 700;">Passo 1 de 2: Diagnóstico Inicial (50%)</span>
+                <div style="width: 100%; background-color: #222; border-radius: 4px; height: 6px; overflow: hidden;">
+                    <div id="progressBar" style="height: 100%; background-color: var(--gold); width: 50%; transition: width 1s cubic-bezier(0.165, 0.84, 0.44, 1);"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <section class="calculator-section" id="calculator">
         <div class="container">
@@ -865,8 +831,9 @@
                     </div>
                 </div>
 
-                <p id="instrucaoForm" style="text-align: center; font-size: 14px; color: var(--text-muted); margin: 40px auto; max-width: 500px; line-height: 1.6;">
-                    Para ver o plano de ação detalhado de como recuperar esse dinheiro e atrair clientes <strong>High-Ticket</strong>, preencha abaixo:
+                <!-- OTIMIZAÇÃO: Gatilho de Curiosidade no Texto -->
+                <p id="instrucaoForm" style="text-align: center; font-size: 15px; color: var(--text-muted); margin: 40px auto; max-width: 550px; line-height: 1.6;">
+                    O nosso especialista analisou o seu vazamento de <strong style="color: var(--gold);" id="prejuizoCopyValue">R$ 0,00</strong>. Preencha os dados abaixo para destravar as 3 campanhas exatas que recuperam esse valor em 30 dias.
                 </p>
 
                 <form id="leadForm" onsubmit="handleLeadSubmit(event)" style="text-align: left;">
@@ -889,6 +856,12 @@
                     <div class="divider-center">
                         <div class="diamond"></div>
                     </div>
+
+                    <!-- OTIMIZAÇÃO: Prova Social Discreta -->
+                    <p style="text-align: center; font-size: 12px; color: var(--text-muted); margin-bottom: 25px; font-style: italic;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 5px; margin-top: -2px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        Junte-se a outros 142 estúdios de alto padrão que já fecharam essa torneira.
+                    </p>
 
                     <button type="submit" class="btn-primary" id="submitBtn">Quero o Plano de Escala &rarr;</button>
                     <p style="text-align: center; font-size: 11px; color: var(--text-muted); opacity: 0.7; margin-top: 20px;">Sem spam. Apenas conteúdo de alto valor para artistas sérios.</p>
@@ -932,7 +905,7 @@
                         <div class="coupon-code">TATTOO10K</div>
                     </div>
                     
-                    <a href="https://ebook.vaif.com.br/tatuador-10k" target="_blank" class="btn-primary" style="max-width: 420px; margin: 0 auto; display: block; font-size: 13px; padding: 20px 32px;">
+                    <a href="https://ebook.vaif.com.br/tatuador-10k" target="_blank" class="btn-primary" style="max-width: 420px; margin: 0 auto; display: block; font-size: 13px; padding: 20px 32px;" onclick="trackEbookClick()">
                         📖 GARANTIR MANUAL COM DESCONTO &rarr;
                     </a>
                     
@@ -941,7 +914,7 @@
                     </p>
                 </div>
             
-               <div id="successMessage" style="display: none; padding: 40px 0;">
+                <div id="successMessage" style="display: none; padding: 40px 0;">
                     <div class="success-box-centralizer">
                         <div class="success-icon-box">
                             <svg class="success-checkmark" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -971,7 +944,7 @@
 
     <script>
         function scrollToCalculator() {
-            document.getElementById('calculator').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('progressWrapper').scrollIntoView({ behavior: 'smooth' });
         }
 
         function animateValue(element, start, end, duration) {
@@ -993,7 +966,6 @@
             window.requestAnimationFrame(step);
         }
 
-        // Função segura para ler números formatados no padrão BR
         function parseBrNumber(val) {
             if (!val) return 0;
             let cleanVal = val.toString().replace(/\./g, '').replace(',', '.');
@@ -1028,6 +1000,13 @@
 
             document.getElementById('horasMesValue').textContent = horasTotaisMes + ' horas por mês';
             document.getElementById('potencialValueText').textContent = 'R$ ' + potencial_lucro.toLocaleString('pt-BR') + ',00';
+            
+            // Injeção do valor gerado no texto persuasivo do formulário
+            document.getElementById('prejuizoCopyValue').textContent = 'R$ ' + prejuizo_mensal.toLocaleString('pt-BR') + ',00';
+
+            // Atualização da Barra de Progresso
+            document.getElementById('progressBar').style.width = '80%';
+            document.getElementById('progressLabel').textContent = 'Passo 2 de 2: Liberação do Plano Estratégico (80%)';
 
             const calcSec = document.getElementById('calculator');
             const resultSec = document.getElementById('resultSection');
@@ -1036,7 +1015,7 @@
             resultSec.classList.add('active');
             
             setTimeout(() => {
-                resultSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                document.getElementById('progressWrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 animateValue(document.getElementById('prejuizoValue'), 0, prejuizo_mensal, 2500);
             }, 100);
         }
@@ -1085,11 +1064,10 @@
             return `${ano}-${mes}-${dia} ${horaStr}:00`; 
         }
 
-        // --- ATUALIZADO: Motor agora descarta horários do passado ---
         function encontrarProximaJanelaDisponivel(horariosOcupados) {
             let offset = 0;
             const slots = ['10:00', '14:00', '17:00'];
-            const agoraBR = obterDataEmBrasilia(0); // Hora atual exata em Brasília
+            const agoraBR = obterDataEmBrasilia(0); 
 
             while (offset < 60) { 
                 const data1 = obterDataEmBrasilia(offset);
@@ -1097,7 +1075,6 @@
 
                 let slotsLivres = 0;
 
-                // Valida cada slot para o Dia 1
                 for (let hora of slots) {
                     const [slotHora, slotMin] = hora.split(':').map(Number);
                     const dataSlot1 = new Date(data1);
@@ -1109,7 +1086,6 @@
                     if (!estaOcupado && !estaNoPassado) slotsLivres++;
                 }
 
-                // Valida cada slot para o Dia 2
                 for (let hora of slots) {
                     const [slotHora, slotMin] = hora.split(':').map(Number);
                     const dataSlot2 = new Date(data2);
@@ -1121,25 +1097,22 @@
                     if (!estaOcupado && !estaNoPassado) slotsLivres++;
                 }
 
-                // Se esta dupla de dias tiver pelo menos 1 horário futuro e livre, escolhe esta janela!
                 if (slotsLivres > 0) {
                     return offset;
                 }
 
-                // Se o dia de hoje já passou das 17h (ou está lotado), ele avança 1 dia para testar a próxima dupla
                 offset += 1; 
             }
             return 0;
         }
 
-        // --- RENDERIZAÇÃO COM VALIDAÇÃO DE HORAS ---
         function gerarDiasCalendario(horariosOcupados = [], offset = 0) {
             const container = document.getElementById('calendarContainer');
             container.innerHTML = ''; 
 
             const data1 = obterDataEmBrasilia(offset);
             const data2 = obterDataEmBrasilia(offset + 1);
-            const agoraBR = obterDataEmBrasilia(0); // Para comparação de horas em tempo real
+            const agoraBR = obterDataEmBrasilia(0); 
 
             const slots = ['10:00', '14:00', '17:00'];
 
@@ -1150,12 +1123,10 @@
                     const valorSQL = formatarParaBanco(dateObj, hora);
                     const estaOcupado = horariosOcupados.includes(valorSQL);
                     
-                    // Cria um objeto de data completo para o slot para comparar milisegundos
                     const [slotHora, slotMin] = hora.split(':').map(Number);
                     const dataSlot = new Date(dateObj);
                     dataSlot.setHours(slotHora, slotMin, 0, 0);
                     
-                    // REGRA DE OURO: Está indisponível se já estiver reservado OU se já passou da hora
                     const estaNoPassado = dataSlot <= agoraBR;
                     const desativarBotao = estaOcupado || estaNoPassado;
 
@@ -1165,7 +1136,6 @@
 
                     const btnStatus = desativarBotao ? 'disabled' : '';
                     
-                    // Label inteligente: mostra "Lotado" ou "Encerrado" dependendo do motivo
                     let statusTexto = "";
                     if (estaOcupado) statusTexto = `<span class="slot-status">• Lotado</span>`;
                     else if (estaNoPassado) statusTexto = `<span class="slot-status">• Encerrado</span>`;
@@ -1183,7 +1153,6 @@
                 const mes = String(dateObj.getMonth() + 1).padStart(2, '0');
                 let nomeDia = dateObj.toLocaleDateString('pt-BR', { weekday: 'long' }).split('-')[0];
                 
-                // Só chama de Hoje/Amanhã se o offset for zero (ou seja, se a janela incluir o dia atual real)
                 if (offset === 0) {
                     nomeDia = isFirst ? "Hoje" : "Amanhã";
                 } else {
@@ -1195,18 +1164,16 @@
             container.innerHTML = criarColuna(formatarTitulo(data1, true), data1) + criarColuna(formatarTitulo(data2, false), data2);
         }
 
-        // --- ATUALIZAÇÃO DO CLIQUE ---
         function selecionarSlot(elemento, valorDB, valorUI) {
             document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
             elemento.classList.add('selected');
             
-            horarioSelecionadoDB = valorDB; // 2026-06-12 14:00:00
-            horarioSelecionadoUI = valorUI; // Sexta-feira, 12/06 às 14:00
+            horarioSelecionadoDB = valorDB; 
+            horarioSelecionadoUI = valorUI; 
             
             document.getElementById('btnConfirmTime').style.display = 'block';
         }
 
-        // --- SALVANDO NO BANCO ---
         async function confirmarAgendamento() {
             const btn = document.getElementById('btnConfirmTime');
             btn.textContent = 'Agendando...';
@@ -1214,17 +1181,19 @@
 
             const nomeForm = document.querySelector('input[name="nome"]').value.split(' ')[0]; 
 
+            if (typeof fbq !== 'undefined') fbq('track', 'Schedule');
+            if (typeof _paq !== 'undefined') _paq.push(['trackEvent', 'Funil_Agendamento', 'Horario_Confirmado', horarioSelecionadoDB]);
+
             try {
                 await fetch('/api/leads/update_agendamento.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         whatsapp: leadWhatsAppAtual,
-                        data_agendamento: horarioSelecionadoDB // Envia o dado de máquina
+                        data_agendamento: horarioSelecionadoDB 
                     })
                 });
 
-                // Mas mostra o dado humano na tela!
                 mostrarTelaSucessoFinal(nomeForm, horarioSelecionadoUI);
             } catch (e) {
                 mostrarTelaSucessoFinal(nomeForm, horarioSelecionadoUI);
@@ -1270,14 +1239,12 @@
 
                     const nomePrimeiro = form.nome.value.split(' ')[0];
 
-                    // --- QUALIFICAÇÃO DO FATURAMENTO ---
                     if (window.calcData.faturamento > 7000) {
                         try {
                             const resHorarios = await fetch('/api/leads/get_horarios.php');
                             const dataHorarios = await resHorarios.json();
                             const ocupados = dataHorarios.ocupados || [];
                             
-                            // Calcula dinamicamente o salto de dias necessário
                             const offsetNecessario = encontrarProximaJanelaDisponivel(ocupados);
                             gerarDiasCalendario(ocupados, offsetNecessario);
                             
@@ -1286,9 +1253,12 @@
                         }
                         document.getElementById('nativeCalendarBlock').style.display = 'block';
                     } else {
-                        // RESOLVIDO: Injeta o nome e mostra o e-book sem gerar erro de conexão
                         document.getElementById('ebookLeadNome').textContent = nomePrimeiro;
                         document.getElementById('ebookBlock').style.display = 'block';
+                        
+                        // Atualiza a Barra para 100% (Funil do E-book Finalizado)
+                        document.getElementById('progressBar').style.width = '100%';
+                        document.getElementById('progressLabel').textContent = 'Processo Concluído (100%)';
                     }
                 } else {
                     alert('Erro ao salvar dados. Tente novamente.');
@@ -1302,16 +1272,21 @@
             }
         }
 
-
         function pularAgendamento() {
+            if (typeof fbq !== 'undefined') fbq('trackCustom', 'ScheduleSkippedToWhatsapp');
+            if (typeof _paq !== 'undefined') _paq.push(['trackEvent', 'Funil_Agendamento', 'Preferiu_WhatsApp', 'Pular_Calendario']);
+
             const nomeForm = document.querySelector('input[name="nome"]').value.split(' ')[0];
             mostrarTelaSucessoFinal(nomeForm, null);
         }
 
-        // Nova função que apenas altera os textos e exibe o aviso na tela
         function mostrarTelaSucessoFinal(nome, horario) {
             document.getElementById('nativeCalendarBlock').style.display = 'none';
             document.getElementById('successMessage').style.display = 'block';
+            
+            // Atualiza a Barra para 100% (Funil de Agendamento Finalizado)
+            document.getElementById('progressBar').style.width = '100%';
+            document.getElementById('progressLabel').textContent = 'Processo Concluído (100%)';
 
             const titleElement = document.getElementById('finalSuccessTitle');
             const textElement = document.getElementById('finalSuccessText');
@@ -1322,6 +1297,18 @@
             } else {
                 titleElement.textContent = "Diagnóstico Salvo!";
                 textElement.innerHTML = `Excelente, <strong>${nome}</strong>! Recebemos os seus dados.<br><br>Como você optou por não escolher um horário agora, nosso especialista vai te chamar no WhatsApp para combinarmos o melhor momento da semana para conversarmos.`;
+            }
+        }
+
+        function trackEbookClick() {
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'InitiateCheckout', {
+                    content_name: 'Manual Tatuador 10k',
+                    currency: 'BRL'
+                });
+            }
+            if (typeof _paq !== 'undefined') {
+                _paq.push(['trackEvent', 'Funil_Ebook', 'Redirecionado_Pagina_Ebook', 'TATTOO10K']);
             }
         }
     </script>

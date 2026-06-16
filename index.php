@@ -467,7 +467,8 @@
             .calc-card { padding: 30px 20px; }
             .hero-title { font-size: 2.5rem; }
         }
-        
+         
+        /* ─── Estilos Específicos do Sucesso ─── */
         .success-box-centralizer {
             display: flex;
             flex-direction: column;
@@ -1097,6 +1098,7 @@
                     if (!estaOcupado && !estaNoPassado) slotsLivres++;
                 }
 
+                // Se esta duplas de dias tiver pelo menos 1 horário futuro e livre, escolhe esta janela!
                 if (slotsLivres > 0) {
                     return offset;
                 }
@@ -1181,6 +1183,7 @@
 
             const nomeForm = document.querySelector('input[name="nome"]').value.split(' ')[0]; 
 
+            // EVENTOS: Reunião Marcada com Sucesso
             if (typeof fbq !== 'undefined') fbq('track', 'Schedule');
             if (typeof _paq !== 'undefined') _paq.push(['trackEvent', 'Funil_Agendamento', 'Horario_Confirmado', horarioSelecionadoDB]);
 
@@ -1273,6 +1276,7 @@
         }
 
         function pularAgendamento() {
+            // EVENTOS: O Lead clicou em combinar depois via WhatsApp
             if (typeof fbq !== 'undefined') fbq('trackCustom', 'ScheduleSkippedToWhatsapp');
             if (typeof _paq !== 'undefined') _paq.push(['trackEvent', 'Funil_Agendamento', 'Preferiu_WhatsApp', 'Pular_Calendario']);
 
@@ -1300,6 +1304,7 @@
             }
         }
 
+        // EVENTOS: Rastreia quando o usuário qualificado como "E-book" clica no botão de compra
         function trackEbookClick() {
             if (typeof fbq !== 'undefined') {
                 fbq('track', 'InitiateCheckout', {

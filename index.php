@@ -833,7 +833,7 @@
 
                 <!-- OTIMIZAÇÃO: Gatilho de Curiosidade no Texto -->
                 <p id="instrucaoForm" style="text-align: center; font-size: 15px; color: var(--text-muted); margin: 40px auto; max-width: 550px; line-height: 1.6;">
-                    O nosso especialista analisou o seu vazamento de <strong style="color: var(--gold);" id="prejuizoCopyValue">R$ 0,00</strong>. Preencha os dados abaixo para destravar as 3 campanhas exatas que recuperam esse valor em 30 dias.
+                    O nosso especialista analisou o seu prejuízo de <strong style="color: var(--gold);" id="prejuizoCopyValue">R$ 0,00</strong>. Preencha os dados abaixo para destravar exatamente como recuperar esse valor em 30 dias.
                 </p>
 
                 <form id="leadForm" onsubmit="handleLeadSubmit(event)" style="text-align: left;">
@@ -860,7 +860,7 @@
                     <!-- OTIMIZAÇÃO: Prova Social Discreta -->
                     <p style="text-align: center; font-size: 12px; color: var(--text-muted); margin-bottom: 25px; font-style: italic;">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 5px; margin-top: -2px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                        Junte-se a outros 142 estúdios de alto padrão que já fecharam essa torneira.
+                        Junte-se a mais de 40 estúdios de alto padrão que já resolveram esse problema.
                     </p>
 
                     <button type="submit" class="btn-primary" id="submitBtn">Quero o Plano de Escala &rarr;</button>

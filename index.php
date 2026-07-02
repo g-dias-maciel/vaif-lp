@@ -583,6 +583,223 @@
             line-height: 1.7;
         }
 
+        /* ─── Post-Booking Premium Panel ─── */
+        .post-booking-wrapper {
+            padding: 20px 0 40px;
+            text-align: center;
+        }
+
+        .post-booking-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .post-booking-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-main);
+            font-size: 16px;
+            line-height: 1.6;
+            max-width: 550px;
+            margin: 0 auto 40px;
+        }
+
+        .post-booking-subtitle strong {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .transform-panel {
+            background: var(--bg-card);
+            border: 1px solid rgba(212, 176, 76, 0.2);
+            border-top: 3px solid var(--gold);
+            padding: 40px;
+            margin: 0 auto 50px;
+            text-align: left;
+        }
+
+        .transform-panel-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 35px;
+            font-weight: 700;
+        }
+
+        .transform-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .transform-block {
+            text-align: center;
+            padding: 30px 25px;
+            border: 1px solid var(--border-color);
+            background: #0A0A0A;
+        }
+
+        .transform-block-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .transform-block-number {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--gold);
+            font-size: clamp(2rem, 4.5vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+
+        .transform-block-sub {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        .transform-block-sub span {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .mini-social-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .mini-social-card {
+            background: #0A0A0A;
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--gold);
+            padding: 18px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .mini-social-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            flex-shrink: 0;
+            background: #1A1A1A;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 11px;
+        }
+
+        .mini-social-body {
+            text-align: left;
+        }
+
+        .mini-social-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .mini-social-result {
+            font-size: 12px;
+            color: var(--text-main);
+            line-height: 1.3;
+        }
+
+        .mini-social-result span {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .pre-call-section {
+            padding: 10px 0;
+        }
+
+        .pre-call-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            color: var(--text-main);
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .pre-call-video-wrap {
+            position: relative;
+            max-width: 560px;
+            margin: 0 auto 25px;
+            cursor: pointer;
+        }
+
+        .pre-call-video-thumb {
+            width: 100%;
+            display: block;
+            border: 1px solid var(--border-color);
+        }
+
+        .pre-call-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 64px;
+            height: 64px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .pre-call-video-wrap:hover .pre-call-play-btn {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .pre-call-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            color: var(--text-muted);
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .whatsapp-reminder {
+            margin-top: 20px;
+            padding: 15px 22px;
+            border: 1px dashed rgba(212, 176, 76, 0.3);
+            display: inline-block;
+        }
+
+        .whatsapp-reminder span {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            vertical-align: middle;
+        }
+
         @media (max-width: 768px) {
             .calc-card { padding: 30px 20px; }
             .hero-title { font-size: 2.5rem; }
@@ -590,8 +807,12 @@
             .cases-grid { grid-template-columns: 1fr; gap: 20px; }
             .trusted-logos { gap: 30px; }
             .trusted-logo-item { height: 28px; }
+            .transform-grid { grid-template-columns: 1fr; }
+            .mini-social-grid { grid-template-columns: 1fr; }
+            .transform-panel { padding: 25px 20px; }
+            .post-booking-title { font-size: 2rem; }
         }
-         
+
         /* ─── Estilos Específicos do Sucesso ─── */
         .success-box-centralizer {
             display: flex;
@@ -1071,20 +1292,70 @@
                     </p>
                 </div>
             
-                <div id="successMessage" style="display: none; padding: 40px 0;">
-                    <div class="success-box-centralizer">
-                        <div class="success-icon-box">
-                            <svg class="success-checkmark" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
+                <div id="successMessage" style="display: none;">
+                    <div class="post-booking-wrapper">
+
+                        <!-- Cabeçalho de Confirmação Premium -->
+                        <h3 class="post-booking-title" id="postBookingTitle">Horário Confirmado</h3>
+                        <p class="post-booking-subtitle" id="postBookingSubtitle"></p>
+
+                        <!-- Painel da Transformação Travada -->
+                        <div class="transform-panel">
+                            <h4 class="transform-panel-title">Sua Pré-Visualização de Lucro Exclusiva</h4>
+
+                            <div class="transform-grid">
+                                <!-- Bloco Esq.: Problema Solucionado -->
+                                <div class="transform-block">
+                                    <div class="transform-block-label">Diagnóstico de Custo Mensal (O Que Estamos Fechando)</div>
+                                    <div class="transform-block-number" id="painelPrejuizo">R$ 0,00</div>
+                                    <p class="transform-block-sub"><span id="painelPrejuizoCopy">R$ 0,00</span> que você estava deixando na mesa. Isso acabou.</p>
+                                </div>
+
+                                <!-- Bloco Dir.: Ganho Travado -->
+                                <div class="transform-block">
+                                    <div class="transform-block-label">Ganho Potencial Mensal Travado (Sua Transformação)</div>
+                                    <div class="transform-block-number" id="painelGanho">R$ 0,00</div>
+                                    <p class="transform-block-sub"><span id="painelGanhoCopy">R$ 0,00</span>. Esse é o potencial que vamos destravar juntos na nossa reunião.</p>
+                                </div>
+                            </div>
+
+                            <!-- Micro Cartões de Depoimentos -->
+                            <div class="mini-social-grid">
+                                <div class="mini-social-card">
+                                    <div class="mini-social-avatar">EI</div>
+                                    <div class="mini-social-body">
+                                        <div class="mini-social-name">Eclipse Ink</div>
+                                        <div class="mini-social-result">De <span>R$ 18k</span> p/ <span>R$ 52k</span> (90 dias)</div>
+                                    </div>
+                                </div>
+                                <div class="mini-social-card">
+                                    <div class="mini-social-avatar">NT</div>
+                                    <div class="mini-social-body">
+                                        <div class="mini-social-name">Noir Tattoo</div>
+                                        <div class="mini-social-result">De <span>R$ 9k</span> p/ <span>R$ 38k</span> (60 dias)</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="success-title" id="finalSuccessTitle">Horário Confirmado!</h3>
-                        <div class="divider-center" style="max-width: 200px; margin: 20px auto;">
-                            <div class="diamond"></div>
+
+                        <!-- Seção de Engajamento Pré-Call -->
+                        <div class="pre-call-section">
+                            <h4 class="pre-call-title">Assista a Este Vídeo Antes da Reunião</h4>
+                            <div class="pre-call-video-wrap">
+                                <img class="pre-call-video-thumb" src="https://placehold.co/560x315/1a1a1a/999?text=V%C3%ADdeo+Pr%C3%A9-Reuni%C3%A3o&font=montserrat" alt="Vídeo pré-reunião">
+                                <div class="pre-call-play-btn">
+                                    <svg width="20" height="22" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"></polygon></svg>
+                                </div>
+                            </div>
+                            <p class="pre-call-text">Você está a um passo de destravar este potencial de lucro. Assista a este vídeo rápido de 1 minuto antes da nossa reunião para garantir que nossa call seja 100% produtiva.</p>
+                            <div class="whatsapp-reminder">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="vertical-align: middle; margin-right: 6px;">
+                                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                </svg>
+                                <span>O link da sala será enviado por WhatsApp 5 minutos antes</span>
+                            </div>
                         </div>
-                        <p class="success-text" id="finalSuccessText" style="margin-bottom: 20px; font-size: 16px; color: var(--text-main);">
-                            </p>
-                        <p style="font-size: 13px; color: var(--gold); margin-top: 15px; font-weight: 600; letter-spacing: 1px;">FIQUE DE OLHO NO SEU WHATSAPP</p>
+
                     </div>
                 </div>
             </div>
@@ -1476,21 +1747,41 @@
         function mostrarTelaSucessoFinal(nome, horario) {
             document.getElementById('nativeCalendarBlock').style.display = 'none';
             document.getElementById('successMessage').style.display = 'block';
-            
+
             // Atualiza a Barra para 100% (Funil de Agendamento Finalizado)
             document.getElementById('progressBar').style.width = '100%';
             document.getElementById('progressLabel').textContent = 'Processo Concluído (100%)';
 
-            const titleElement = document.getElementById('finalSuccessTitle');
-            const textElement = document.getElementById('finalSuccessText');
+            const titleElement = document.getElementById('postBookingTitle');
+            const subtitleElement = document.getElementById('postBookingSubtitle');
 
             if (horario) {
-                titleElement.textContent = "Horário Confirmado!";
-                textElement.innerHTML = `Excelente, <strong>${nome}</strong>! Sua reunião está agendada para <strong>${horario}</strong>.<br><br>Nosso especialista vai te enviar uma mensagem no WhatsApp em breve com o link de acesso da nossa sala.`;
+                titleElement.textContent = 'Horário Confirmado';
+                subtitleElement.innerHTML = `Excelente, <strong>${nome}</strong>! Sua reunião para travar sua agenda está agendada para <strong>${horario}</strong>.`;
             } else {
-                titleElement.textContent = "Diagnóstico Salvo!";
-                textElement.innerHTML = `Excelente, <strong>${nome}</strong>! Recebemos os seus dados.<br><br>Como você optou por não escolher um horário agora, nosso especialista vai te chamar no WhatsApp para combinarmos o melhor momento da semana para conversarmos.`;
+                titleElement.textContent = 'Diagnóstico Salvo';
+                subtitleElement.innerHTML = `Excelente, <strong>${nome}</strong>! Recebemos os seus dados.<br><br>Nosso especialista vai te chamar no WhatsApp para combinarmos o melhor momento da semana para conversarmos.`;
             }
+
+            // Preencher painel com dados reais do cálculo
+            const calc = window.calcData || {};
+            const prejuizo = calc.prejuizo_mensal || 0;
+            const ganho = calc.potencial_lucro || 0;
+
+            const fmt = (v) => 'R$ ' + Number(v).toLocaleString('pt-BR') + ',00';
+
+            document.getElementById('painelPrejuizo').textContent = fmt(prejuizo);
+            document.getElementById('painelPrejuizoCopy').textContent = fmt(prejuizo);
+            document.getElementById('painelGanho').textContent = fmt(ganho);
+            document.getElementById('painelGanhoCopy').textContent = fmt(ganho);
+
+            // Animar os números grandes com delay escalonado
+            setTimeout(() => {
+                animateValue(document.getElementById('painelPrejuizo'), 0, prejuizo, 1800);
+            }, 200);
+            setTimeout(() => {
+                animateValue(document.getElementById('painelGanho'), 0, ganho, 2000);
+            }, 600);
         }
 
         // EVENTOS: Rastreia quando o usuário qualificado como "E-book" clica no botão de compra

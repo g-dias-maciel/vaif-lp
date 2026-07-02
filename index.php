@@ -463,40 +463,53 @@
             border-top: 1px solid var(--border-color);
         }
 
-        /* ─── Social Proof 1: Trusted By Banner ─── */
+        /* ─── Trusted By Banner (Marquee) ─── */
         .trusted-section {
             padding: 50px 0 60px;
             text-align: center;
+            overflow: hidden;
         }
 
         .trusted-label {
-            font-size: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
             font-weight: 600;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 30px;
+            color: var(--gold);
+            margin-bottom: 35px;
         }
 
-        .trusted-logos {
+        .marquee-wrap {
+            overflow: hidden;
+            mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+        }
+
+        .marquee-track {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 50px;
-            flex-wrap: wrap;
+            gap: 60px;
+            width: fit-content;
+            animation: marqueeScroll 35s linear infinite;
         }
 
-        .trusted-logo-item {
-            height: 36px;
-            filter: grayscale(100%) brightness(45%);
-            opacity: 0.3;
+        .marquee-logo {
+            height: 32px;
+            flex-shrink: 0;
+            filter: grayscale(100%) brightness(50%);
+            opacity: 0.45;
             transition: all 0.4s ease;
             cursor: default;
         }
 
-        .trusted-logo-item:hover {
-            filter: grayscale(0%) brightness(100%);
+        .marquee-logo:hover {
+            filter: grayscale(0%) brightness(110%) drop-shadow(0 0 8px rgba(212, 176, 76, 0.5));
             opacity: 1;
+        }
+
+        @keyframes marqueeScroll {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         /* ─── Social Proof 2: Track Record Grid ─── */
@@ -535,234 +548,147 @@
             color: var(--text-muted);
         }
 
-        /* ─── Social Proof 3: Micro Case Studies ─── */
-        .case-studies {
-            padding: 80px 0 0;
+        /* ─── Testimonial Grid (5 Clientes) ─── */
+        .testimonial-section {
+            padding: 80px 0;
         }
 
-        .cases-grid {
+        .testimonial-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 25px;
             margin-top: 45px;
         }
 
-        .case-card {
+        .testimonial-card {
             background: var(--bg-card);
-            padding: 35px 30px;
-            text-align: left;
             border: 1px solid var(--border-color);
             border-top: 2px solid var(--gold);
+            padding: 35px 30px;
+            text-align: left;
         }
 
-        .case-studio {
-            font-size: 10px;
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--gold);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .testimonial-headline {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
             font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
             color: var(--gold);
+            line-height: 1.2;
             margin-bottom: 15px;
         }
 
-        .case-headline {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(1.3rem, 3vw, 1.8rem);
-            font-weight: 700;
-            color: var(--text-main);
-            line-height: 1.2;
-            margin-bottom: 14px;
-        }
-
-        .case-headline span {
-            color: var(--gold);
-        }
-
-        .case-text {
+        .testimonial-text {
+            font-family: 'Montserrat', sans-serif;
             font-size: 13px;
             color: var(--text-muted);
             line-height: 1.7;
+            font-style: italic;
+            margin-bottom: 20px;
         }
 
-        /* ─── Post-Booking Premium Panel ─── */
-        .post-booking-wrapper {
-            padding: 20px 0 40px;
-            text-align: center;
-        }
-
-        .post-booking-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.8rem;
-            color: var(--gold);
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-
-        .post-booking-subtitle {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--text-main);
-            font-size: 16px;
-            line-height: 1.6;
-            max-width: 550px;
-            margin: 0 auto 40px;
-        }
-
-        .post-booking-subtitle strong {
-            color: var(--gold);
-            font-weight: 600;
-        }
-
-        .transform-panel {
-            background: var(--bg-card);
-            border: 1px solid rgba(212, 176, 76, 0.2);
-            border-top: 3px solid var(--gold);
-            padding: 40px;
-            margin: 0 auto 50px;
-            text-align: left;
-        }
-
-        .transform-panel-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem;
-            color: var(--gold);
-            text-align: center;
-            margin-bottom: 35px;
-            font-weight: 700;
-        }
-
-        .transform-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .transform-block {
-            text-align: center;
-            padding: 30px 25px;
-            border: 1px solid var(--border-color);
-            background: #0A0A0A;
-        }
-
-        .transform-block-label {
+        .testimonial-author {
             font-family: 'Montserrat', sans-serif;
             font-size: 10px;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-        }
-
-        .transform-block-number {
-            font-family: 'Cormorant Garamond', serif;
             color: var(--gold);
-            font-size: clamp(2rem, 4.5vw, 3rem);
-            font-weight: 700;
-            margin-bottom: 10px;
-            line-height: 1.1;
         }
 
-        .transform-block-sub {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 13px;
-            color: var(--text-main);
-            line-height: 1.5;
+        /* ─── Post-Booking Limpo (Confirmação) ─── */
+        .confirmation-page {
+            padding: 30px 0 20px;
+            text-align: center;
         }
 
-        .transform-block-sub span {
-            color: var(--gold);
-            font-weight: 600;
-        }
-
-        .mini-social-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .mini-social-card {
-            background: #0A0A0A;
-            border: 1px solid var(--border-color);
-            border-left: 3px solid var(--gold);
-            padding: 18px;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .mini-social-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+        .confirmation-checkmark {
+            width: 64px;
+            height: 64px;
             border: 2px solid var(--gold);
-            flex-shrink: 0;
-            background: #1A1A1A;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--gold);
-            font-family: 'Montserrat', sans-serif;
+            margin: 0 auto 30px;
+        }
+
+        .confirmation-checkmark svg {
+            stroke: var(--gold);
+        }
+
+        .confirmation-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            color: var(--text-main);
             font-weight: 700;
-            font-size: 11px;
+            margin-bottom: 16px;
         }
 
-        .mini-social-body {
-            text-align: left;
+        .confirmation-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            max-width: 520px;
+            margin: 0 auto 40px;
         }
 
-        .mini-social-name {
+        .confirmation-subtitle strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .confirmation-subtitle .highlight-gold {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .homework-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-top: 2px solid var(--gold);
+            padding: 35px 30px;
+            max-width: 560px;
+            margin: 0 auto 35px;
+        }
+
+        .homework-label {
             font-family: 'Montserrat', sans-serif;
             font-size: 10px;
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: var(--gold);
-            margin-bottom: 4px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
         }
 
-        .mini-social-result {
-            font-size: 12px;
-            color: var(--text-main);
-            line-height: 1.3;
-        }
-
-        .mini-social-result span {
-            color: var(--gold);
-            font-weight: 600;
-        }
-
-        .pre-call-section {
-            padding: 10px 0;
-        }
-
-        .pre-call-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.2rem;
-            color: var(--text-main);
-            font-weight: 600;
-            margin-bottom: 25px;
-        }
-
-        .pre-call-video-wrap {
+        .homework-video {
             position: relative;
-            max-width: 560px;
-            margin: 0 auto 25px;
             cursor: pointer;
         }
 
-        .pre-call-video-thumb {
+        .homework-video img {
             width: 100%;
             display: block;
             border: 1px solid var(--border-color);
         }
 
-        .pre-call-play-btn {
+        .homework-play {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 64px;
-            height: 64px;
+            width: 56px;
+            height: 56px;
             background: var(--gold);
             border-radius: 50%;
             display: flex;
@@ -771,78 +697,38 @@
             transition: transform 0.3s ease;
         }
 
-        .pre-call-video-wrap:hover .pre-call-play-btn {
+        .homework-video:hover .homework-play {
             transform: translate(-50%, -50%) scale(1.1);
         }
 
-        .pre-call-text {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 13px;
-            color: var(--text-muted);
-            max-width: 500px;
-            margin: 0 auto;
-            line-height: 1.7;
-        }
-
-        .whatsapp-reminder {
-            margin-top: 20px;
-            padding: 15px 22px;
-            border: 1px dashed rgba(212, 176, 76, 0.3);
-            display: inline-block;
-        }
-
-        .whatsapp-reminder span {
+        .confirmation-footer {
             font-family: 'Montserrat', sans-serif;
             font-size: 11px;
             color: var(--text-muted);
             letter-spacing: 1px;
             text-transform: uppercase;
+            padding: 15px 22px;
+            border: 1px dashed rgba(212, 176, 76, 0.3);
+            display: inline-block;
+        }
+
+        .confirmation-footer svg {
             vertical-align: middle;
+            margin-right: 6px;
+            stroke: var(--gold);
         }
 
         @media (max-width: 768px) {
             .calc-card { padding: 30px 20px; }
             .hero-title { font-size: 2.5rem; }
             .track-grid { grid-template-columns: 1fr; gap: 15px; }
-            .cases-grid { grid-template-columns: 1fr; gap: 20px; }
-            .trusted-logos { gap: 30px; }
-            .trusted-logo-item { height: 28px; }
-            .transform-grid { grid-template-columns: 1fr; }
-            .mini-social-grid { grid-template-columns: 1fr; }
-            .transform-panel { padding: 25px 20px; }
-            .post-booking-title { font-size: 2rem; }
+            .testimonial-grid { grid-template-columns: 1fr; gap: 20px; }
+            .marquee-logo { height: 26px; }
+            .marquee-track { gap: 40px; }
+            .confirmation-title { font-size: 2rem; }
         }
 
-        /* ─── Estilos Específicos do Sucesso ─── */
-        .success-box-centralizer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            min-height: 400px; 
-        }
-
-        .success-icon-box {
-            width: 60px;
-            height: 60px;
-            border: 1px solid rgba(212, 176, 76, 0.3);
-            background: #0A0A0A;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 30px;
-        }
-
-        .success-checkmark {
-            stroke: var(--gold);
-        }
-
-        .success-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.5rem;
-            color: var(--text-main);
-            margin-bottom: 20px;
+        /* ─── Estilos do Calendário Nativo ─── */
             font-weight: 600;
         }
 
@@ -1068,16 +954,26 @@
         </div>
     </section>
 
-    <!-- ─── Social Proof: Trusted By Banner ─── -->
+    <!-- ─── Trusted By: Marquee ─── -->
     <section class="trusted-section">
         <div class="container fade-in-up">
             <p class="trusted-label">Acelerando estúdios de alto padrão em todo o Brasil</p>
-            <div class="trusted-logos">
-                <img class="trusted-logo-item" src="https://placehold.co/120x36/333/999?text=INK+STUDIO&font=montserrat" alt="Ink Studio">
-                <img class="trusted-logo-item" src="https://placehold.co/120x36/333/999?text=REAL+ART&font=montserrat" alt="Real Art Tattoo">
-                <img class="trusted-logo-item" src="https://placehold.co/120x36/333/999?text=BLACK+WORK&font=montserrat" alt="Black Work">
-                <img class="trusted-logo-item" src="https://placehold.co/120x36/333/999?text=GOLD+NEEDLE&font=montserrat" alt="Gold Needle">
-                <img class="trusted-logo-item" src="https://placehold.co/120x36/333/999?text=STUDIO+Z+&font=montserrat" alt="Studio Z">
+        </div>
+        <div class="marquee-wrap">
+            <div class="marquee-track">
+                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=INK+STUDIO&font=montserrat" alt="Ink Studio">
+                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=REAL+ART&font=montserrat" alt="Real Art Tattoo">
+                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=BLACK+WORK&font=montserrat" alt="Black Work">
+                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=GOLD+NEEDLE&font=montserrat" alt="Gold Needle">
+                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=STUDIO+Z&font=montserrat" alt="Studio Z">
+                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=IRON+INK&font=montserrat" alt="Iron Ink">
+                <!-- Duplicata para loop infinito -->
+                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=INK+STUDIO&font=montserrat" alt="Ink Studio">
+                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=REAL+ART&font=montserrat" alt="Real Art Tattoo">
+                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=BLACK+WORK&font=montserrat" alt="Black Work">
+                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=GOLD+NEEDLE&font=montserrat" alt="Gold Needle">
+                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=STUDIO+Z&font=montserrat" alt="Studio Z">
+                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=IRON+INK&font=montserrat" alt="Iron Ink">
             </div>
         </div>
     </section>
@@ -1293,67 +1189,40 @@
                 </div>
             
                 <div id="successMessage" style="display: none;">
-                    <div class="post-booking-wrapper">
+                    <div class="confirmation-page">
 
-                        <!-- Cabeçalho de Confirmação Premium -->
-                        <h3 class="post-booking-title" id="postBookingTitle">Horário Confirmado</h3>
-                        <p class="post-booking-subtitle" id="postBookingSubtitle"></p>
+                        <!-- Grande Checkmark Dourado -->
+                        <div class="confirmation-checkmark">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
 
-                        <!-- Painel da Transformação Travada -->
-                        <div class="transform-panel">
-                            <h4 class="transform-panel-title">Sua Pré-Visualização de Lucro Exclusiva</h4>
+                        <!-- Título -->
+                        <h3 class="confirmation-title" id="confirmationTitle">Horário Confirmado!</h3>
 
-                            <div class="transform-grid">
-                                <!-- Bloco Esq.: Problema Solucionado -->
-                                <div class="transform-block">
-                                    <div class="transform-block-label">Diagnóstico de Custo Mensal (O Que Estamos Fechando)</div>
-                                    <div class="transform-block-number" id="painelPrejuizo">R$ 0,00</div>
-                                    <p class="transform-block-sub"><span id="painelPrejuizoCopy">R$ 0,00</span> que você estava deixando na mesa. Isso acabou.</p>
-                                </div>
+                        <!-- Texto Principal com Placeholders JS -->
+                        <p class="confirmation-subtitle" id="confirmationSubtitle">
+                            Excelente, <strong id="confNamePlaceholder">[Nome]</strong>. Seu horário foi reservado para <strong id="confDateTimePlaceholder">[Data] às [Hora]</strong>. Na nossa reunião, vamos estruturar o plano exato para recuperar os <span class="highlight-gold" id="confLossPlaceholder">R$ 9.750,00</span> que você estava deixando na mesa.
+                        </p>
 
-                                <!-- Bloco Dir.: Ganho Travado -->
-                                <div class="transform-block">
-                                    <div class="transform-block-label">Ganho Potencial Mensal Travado (Sua Transformação)</div>
-                                    <div class="transform-block-number" id="painelGanho">R$ 0,00</div>
-                                    <p class="transform-block-sub"><span id="painelGanhoCopy">R$ 0,00</span>. Esse é o potencial que vamos destravar juntos na nossa reunião.</p>
-                                </div>
-                            </div>
-
-                            <!-- Micro Cartões de Depoimentos -->
-                            <div class="mini-social-grid">
-                                <div class="mini-social-card">
-                                    <div class="mini-social-avatar">EI</div>
-                                    <div class="mini-social-body">
-                                        <div class="mini-social-name">Eclipse Ink</div>
-                                        <div class="mini-social-result">De <span>R$ 18k</span> p/ <span>R$ 52k</span> (90 dias)</div>
-                                    </div>
-                                </div>
-                                <div class="mini-social-card">
-                                    <div class="mini-social-avatar">NT</div>
-                                    <div class="mini-social-body">
-                                        <div class="mini-social-name">Noir Tattoo</div>
-                                        <div class="mini-social-result">De <span>R$ 9k</span> p/ <span>R$ 38k</span> (60 dias)</div>
-                                    </div>
+                        <!-- Card: Dever de Casa -->
+                        <div class="homework-card">
+                            <p class="homework-label">Passo Obrigatório antes da nossa Reunião:</p>
+                            <div class="homework-video">
+                                <img src="https://placehold.co/560x315/1a1a1a/555?text=Assista+ao+V%C3%ADdeo+de+Aquecimento&font=montserrat" alt="Vídeo de aquecimento">
+                                <div class="homework-play">
+                                    <svg width="18" height="20" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"></polygon></svg>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Seção de Engajamento Pré-Call -->
-                        <div class="pre-call-section">
-                            <h4 class="pre-call-title">Assista a Este Vídeo Antes da Reunião</h4>
-                            <div class="pre-call-video-wrap">
-                                <img class="pre-call-video-thumb" src="https://placehold.co/560x315/1a1a1a/999?text=V%C3%ADdeo+Pr%C3%A9-Reuni%C3%A3o&font=montserrat" alt="Vídeo pré-reunião">
-                                <div class="pre-call-play-btn">
-                                    <svg width="20" height="22" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"></polygon></svg>
-                                </div>
-                            </div>
-                            <p class="pre-call-text">Você está a um passo de destravar este potencial de lucro. Assista a este vídeo rápido de 1 minuto antes da nossa reunião para garantir que nossa call seja 100% produtiva.</p>
-                            <div class="whatsapp-reminder">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="vertical-align: middle; margin-right: 6px;">
-                                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-                                </svg>
-                                <span>O link da sala será enviado por WhatsApp 5 minutos antes</span>
-                            </div>
+                        <!-- Aviso Footer -->
+                        <div class="confirmation-footer">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                            </svg>
+                            O link da sala de reunião será enviado no seu WhatsApp 5 minutos antes
                         </div>
 
                     </div>
@@ -1362,8 +1231,8 @@
         </div>
     </section>
 
-    <!-- ─── Social Proof: Micro Case Studies ─── -->
-    <section class="case-studies">
+    <!-- ─── Testimonial Grid (5 Clientes) ─── -->
+    <section class="testimonial-section">
         <div class="container">
             <div class="section-header fade-in-up">
                 <span class="hero-label" style="margin-bottom: 15px; justify-content: center; display: flex;">Resultados Reais</span>
@@ -1373,23 +1242,45 @@
                 </div>
             </div>
 
-            <div class="cases-grid fade-in-up delay-1">
-                <!-- Case 1 -->
-                <div class="case-card">
-                    <div class="case-studio">Estúdio Eclipse Ink</div>
-                    <div class="case-headline">De <span>R$ 18 mil</span> para <span>R$ 52 mil</span> em <span>90 dias</span></div>
-                    <p class="case-text">
-                        Automatizou o atendimento no WhatsApp com roteiros de vendas para tatuagens de realismo. Reduziu o tempo de resposta de 4h para 15 min e triplicou a taxa de fechamento.
-                    </p>
+            <div class="testimonial-grid fade-in-up delay-1">
+                <!-- Card 1 -->
+                <div class="testimonial-card">
+                    <img class="testimonial-avatar" src="https://placehold.co/60x60/d4b04c/0a0a0a?text=EI&font=montserrat" alt="Eclipse Ink">
+                    <div class="testimonial-headline">De R$ 12k para R$ 45k em 60 dias</div>
+                    <p class="testimonial-text">"A VAIF não só trouxe tráfego, mas estruturou minha captação. Tripliquei o faturamento faturando tatuagens de Realismo sem aumentar as horas no estúdio."</p>
+                    <div class="testimonial-author">Gabriel — Eclipse Ink</div>
                 </div>
 
-                <!-- Case 2 -->
-                <div class="case-card">
-                    <div class="case-studio">Estúdio Noir Tattoo</div>
-                    <div class="case-headline">De <span>R$ 9 mil</span> para <span>R$ 38 mil</span> em <span>60 dias</span></div>
-                    <p class="case-text">
-                        Implementou um funil de captação high-ticket com isca digital e qualificação automatizada. Passou de 5 para 18 sessões mensais sem aumentar a carga horária.
-                    </p>
+                <!-- Card 2 -->
+                <div class="testimonial-card">
+                    <img class="testimonial-avatar" src="https://placehold.co/60x60/d4b04c/0a0a0a?text=NT&font=montserrat" alt="Noir Tattoo">
+                    <div class="testimonial-headline">De R$ 9k para R$ 38k em 60 dias</div>
+                    <p class="testimonial-text">"Implementei o funil de captação high-ticket e em dois meses já estava com a agenda cheia. O melhor investimento que fiz no meu estúdio."</p>
+                    <div class="testimonial-author">Rafael — Noir Tattoo</div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="testimonial-card">
+                    <img class="testimonial-avatar" src="https://placehold.co/60x60/d4b04c/0a0a0a?text=BW&font=montserrat" alt="Black Wave">
+                    <div class="testimonial-headline">De R$ 15k para R$ 48k em 75 dias</div>
+                    <p class="testimonial-text">"O diagnóstico mostrou exatamente onde eu perdia dinheiro. Em 3 meses reorganizei o atendimento e praticamente tripliquei o faturamento mensal."</p>
+                    <div class="testimonial-author">Lucas — Black Wave Ink</div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="testimonial-card">
+                    <img class="testimonial-avatar" src="https://placehold.co/60x60/d4b04c/0a0a0a?text=GS&font=montserrat" alt="Gold Studio">
+                    <div class="testimonial-headline">De R$ 7k para R$ 31k em 90 dias</div>
+                    <p class="testimonial-text">"Sempre achei que era só fazer um bom trabalho. Descobri que estava deixando mais de R$ 8 mil na mesa todo mês. Hoje tenho processo e não dependo mais de indicação."</p>
+                    <div class="testimonial-author">Felipe — Gold Studio Tattoo</div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="testimonial-card">
+                    <img class="testimonial-avatar" src="https://placehold.co/60x60/d4b04c/0a0a0a?text=IA&font=montserrat" alt="Iron Art">
+                    <div class="testimonial-headline">De R$ 11k para R$ 42k em 45 dias</div>
+                    <p class="testimonial-text">"Em apenas 45 dias a VAIF estruturou tudo. Meu WhatsApp parou de ser um caos e virou máquina de vendas. O retorno veio muito mais rápido do que eu esperava."</p>
+                    <div class="testimonial-author">Thiago — Iron Art Tattoo</div>
                 </div>
             </div>
         </div>
@@ -1748,40 +1639,24 @@
             document.getElementById('nativeCalendarBlock').style.display = 'none';
             document.getElementById('successMessage').style.display = 'block';
 
-            // Atualiza a Barra para 100% (Funil de Agendamento Finalizado)
             document.getElementById('progressBar').style.width = '100%';
             document.getElementById('progressLabel').textContent = 'Processo Concluído (100%)';
 
-            const titleElement = document.getElementById('postBookingTitle');
-            const subtitleElement = document.getElementById('postBookingSubtitle');
-
-            if (horario) {
-                titleElement.textContent = 'Horário Confirmado';
-                subtitleElement.innerHTML = `Excelente, <strong>${nome}</strong>! Sua reunião para travar sua agenda está agendada para <strong>${horario}</strong>.`;
-            } else {
-                titleElement.textContent = 'Diagnóstico Salvo';
-                subtitleElement.innerHTML = `Excelente, <strong>${nome}</strong>! Recebemos os seus dados.<br><br>Nosso especialista vai te chamar no WhatsApp para combinarmos o melhor momento da semana para conversarmos.`;
-            }
-
-            // Preencher painel com dados reais do cálculo
             const calc = window.calcData || {};
             const prejuizo = calc.prejuizo_mensal || 0;
-            const ganho = calc.potencial_lucro || 0;
+            const lossFmt = 'R$ ' + Number(prejuizo).toLocaleString('pt-BR') + ',00';
 
-            const fmt = (v) => 'R$ ' + Number(v).toLocaleString('pt-BR') + ',00';
-
-            document.getElementById('painelPrejuizo').textContent = fmt(prejuizo);
-            document.getElementById('painelPrejuizoCopy').textContent = fmt(prejuizo);
-            document.getElementById('painelGanho').textContent = fmt(ganho);
-            document.getElementById('painelGanhoCopy').textContent = fmt(ganho);
-
-            // Animar os números grandes com delay escalonado
-            setTimeout(() => {
-                animateValue(document.getElementById('painelPrejuizo'), 0, prejuizo, 1800);
-            }, 200);
-            setTimeout(() => {
-                animateValue(document.getElementById('painelGanho'), 0, ganho, 2000);
-            }, 600);
+            if (horario) {
+                document.getElementById('confirmationTitle').textContent = 'Horário Confirmado!';
+                document.getElementById('confNamePlaceholder').textContent = nome;
+                document.getElementById('confDateTimePlaceholder').textContent = horario;
+                document.getElementById('confLossPlaceholder').textContent = lossFmt;
+            } else {
+                document.getElementById('confirmationTitle').textContent = 'Diagnóstico Salvo!';
+                document.getElementById('confNamePlaceholder').textContent = nome;
+                document.getElementById('confDateTimePlaceholder').textContent = 'em breve';
+                document.getElementById('confLossPlaceholder').textContent = lossFmt;
+            }
         }
 
         // EVENTOS: Rastreia quando o usuário qualificado como "E-book" clica no botão de compra

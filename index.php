@@ -463,9 +463,133 @@
             border-top: 1px solid var(--border-color);
         }
 
+        /* ─── Social Proof 1: Trusted By Banner ─── */
+        .trusted-section {
+            padding: 50px 0 60px;
+            text-align: center;
+        }
+
+        .trusted-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .trusted-logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .trusted-logo-item {
+            height: 36px;
+            filter: grayscale(100%) brightness(45%);
+            opacity: 0.3;
+            transition: all 0.4s ease;
+            cursor: default;
+        }
+
+        .trusted-logo-item:hover {
+            filter: grayscale(0%) brightness(100%);
+            opacity: 1;
+        }
+
+        /* ─── Social Proof 2: Track Record Grid ─── */
+        .track-record {
+            padding: 30px 0;
+            margin: 30px 0 20px;
+        }
+
+        .track-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .track-item {
+            text-align: center;
+            padding: 35px 15px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+        }
+
+        .track-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
+
+        .track-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* ─── Social Proof 3: Micro Case Studies ─── */
+        .case-studies {
+            padding: 80px 0 0;
+        }
+
+        .cases-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 45px;
+        }
+
+        .case-card {
+            background: var(--bg-card);
+            padding: 35px 30px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+            border-top: 2px solid var(--gold);
+        }
+
+        .case-studio {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .case-headline {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.2;
+            margin-bottom: 14px;
+        }
+
+        .case-headline span {
+            color: var(--gold);
+        }
+
+        .case-text {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
         @media (max-width: 768px) {
             .calc-card { padding: 30px 20px; }
             .hero-title { font-size: 2.5rem; }
+            .track-grid { grid-template-columns: 1fr; gap: 15px; }
+            .cases-grid { grid-template-columns: 1fr; gap: 20px; }
+            .trusted-logos { gap: 30px; }
+            .trusted-logo-item { height: 28px; }
         }
          
         /* ─── Estilos Específicos do Sucesso ─── */
@@ -723,6 +847,20 @@
         </div>
     </section>
 
+    <!-- ─── Social Proof: Trusted By Banner ─── -->
+    <section class="trusted-section">
+        <div class="container fade-in-up">
+            <p class="trusted-label">Acelerando estúdios de alto padrão em todo o Brasil</p>
+            <div class="trusted-logos">
+                <img class="trusted-logo-item" src="https://placehold.co/120x36/333/999?text=INK+STUDIO&font=montserrat" alt="Ink Studio">
+                <img class="trusted-logo-item" src="https://placehold.co/120x36/333/999?text=REAL+ART&font=montserrat" alt="Real Art Tattoo">
+                <img class="trusted-logo-item" src="https://placehold.co/120x36/333/999?text=BLACK+WORK&font=montserrat" alt="Black Work">
+                <img class="trusted-logo-item" src="https://placehold.co/120x36/333/999?text=GOLD+NEEDLE&font=montserrat" alt="Gold Needle">
+                <img class="trusted-logo-item" src="https://placehold.co/120x36/333/999?text=STUDIO+Z+&font=montserrat" alt="Studio Z">
+            </div>
+        </div>
+    </section>
+
     <!-- OTIMIZAÇÃO: Barra de Progresso Global do Funil -->
     <div class="progress-wrapper" id="progressWrapper">
         <div class="container">
@@ -832,6 +970,24 @@
                     </div>
                 </div>
 
+                <!-- ─── Social Proof: Track Record Grid ─── -->
+                <div class="track-record fade-in-up">
+                    <div class="track-grid">
+                        <div class="track-item">
+                            <div class="track-number">+4</div>
+                            <div class="track-label">Anos de Mercado</div>
+                        </div>
+                        <div class="track-item">
+                            <div class="track-number">+R$ 2M</div>
+                            <div class="track-label">Faturamento Gerado</div>
+                        </div>
+                        <div class="track-item">
+                            <div class="track-number">+140</div>
+                            <div class="track-label">Estúdios Escalados</div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- OTIMIZAÇÃO: Gatilho de Curiosidade no Texto -->
                 <p id="instrucaoForm" style="text-align: center; font-size: 15px; color: var(--text-muted); margin: 40px auto; max-width: 550px; line-height: 1.6;">
                     O nosso especialista analisou o seu prejuízo de <strong style="color: var(--gold);" id="prejuizoCopyValue">R$ 0,00</strong>. Preencha os dados abaixo para destravar exatamente como recuperar esse valor em 30 dias.
@@ -930,6 +1086,39 @@
                             </p>
                         <p style="font-size: 13px; color: var(--gold); margin-top: 15px; font-weight: 600; letter-spacing: 1px;">FIQUE DE OLHO NO SEU WHATSAPP</p>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Social Proof: Micro Case Studies ─── -->
+    <section class="case-studies">
+        <div class="container">
+            <div class="section-header fade-in-up">
+                <span class="hero-label" style="margin-bottom: 15px; justify-content: center; display: flex;">Resultados Reais</span>
+                <h2 class="section-title">Quem já usou, escalou</h2>
+                <div class="divider-center" style="max-width: 200px; margin: 20px auto;">
+                    <div class="diamond"></div>
+                </div>
+            </div>
+
+            <div class="cases-grid fade-in-up delay-1">
+                <!-- Case 1 -->
+                <div class="case-card">
+                    <div class="case-studio">Estúdio Eclipse Ink</div>
+                    <div class="case-headline">De <span>R$ 18 mil</span> para <span>R$ 52 mil</span> em <span>90 dias</span></div>
+                    <p class="case-text">
+                        Automatizou o atendimento no WhatsApp com roteiros de vendas para tatuagens de realismo. Reduziu o tempo de resposta de 4h para 15 min e triplicou a taxa de fechamento.
+                    </p>
+                </div>
+
+                <!-- Case 2 -->
+                <div class="case-card">
+                    <div class="case-studio">Estúdio Noir Tattoo</div>
+                    <div class="case-headline">De <span>R$ 9 mil</span> para <span>R$ 38 mil</span> em <span>60 dias</span></div>
+                    <p class="case-text">
+                        Implementou um funil de captação high-ticket com isca digital e qualificação automatizada. Passou de 5 para 18 sessões mensais sem aumentar a carga horária.
+                    </p>
                 </div>
             </div>
         </div>

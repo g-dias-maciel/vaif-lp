@@ -265,6 +265,9 @@
         .section-title {
             font-size: 2.5rem;
             margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            text-align: center;
         }
 
         .calc-card {
@@ -465,7 +468,7 @@
 
         /* ─── Trusted By Banner (Marquee) ─── */
         .trusted-section {
-            padding: 50px 0 60px;
+            padding: 0px 0 60px;
             text-align: center;
             overflow: hidden;
         }
@@ -488,6 +491,7 @@
 
         .marquee-track {
             display: flex;
+            align-items: center;
             gap: 60px;
             width: fit-content;
             animation: marqueeScroll 35s linear infinite;
@@ -496,10 +500,17 @@
         .marquee-logo {
             height: 32px;
             flex-shrink: 0;
+            display: block;
             filter: grayscale(100%) brightness(50%);
             opacity: 0.45;
             transition: all 0.4s ease;
-            cursor: default;
+            cursor: pointer;
+        }
+
+        .marquee-track a {
+            flex-shrink: 0;
+            line-height: 0;
+            text-decoration: none;
         }
 
         .marquee-logo:hover {
@@ -522,6 +533,9 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
+        }
+        .track-grid.track-grid-4 {
+            grid-template-columns: repeat(4, 1fr);
         }
 
         .track-item {
@@ -548,60 +562,149 @@
             color: var(--text-muted);
         }
 
-        /* ─── Testimonial Grid (5 Clientes) ─── */
+        .conviction-block {
+            background: rgba(212, 176, 76, 0.03);
+            border-left: 3px solid var(--gold);
+            padding: 20px 24px;
+            margin: 30px auto 15px;
+            max-width: 550px;
+        }
+
+        /* ─── Carrossel de Depoimentos ─── */
         .testimonial-section {
             padding: 80px 0;
+            overflow: hidden;
         }
 
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-            margin-top: 45px;
+        .carousel-viewport {
+            max-width: 640px;
+            margin: 40px auto 0;
+            position: relative;
+            perspective: 1200px;
+            overflow: hidden;
+            padding: 20px 0;
         }
 
-        .testimonial-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-top: 2px solid var(--gold);
-            padding: 35px 30px;
-            text-align: left;
+        .carousel-track {
+            position: relative;
+            min-height: 420px;
         }
 
-        .testimonial-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            width: 240px;
+            text-align: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        filter 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .carousel-slide-inactive {
+            filter: blur(4px) brightness(0.6);
+        }
+        .carousel-slide-inactive .carousel-instagram,
+        .carousel-slide-inactive .carousel-instagram a,
+        .carousel-slide-inactive .carousel-result span {
+            color: var(--text-muted) !important;
+        }
+
+        .carousel-photo {
+            width: 200px;
+            height: 200px;
             object-fit: cover;
             border: 2px solid var(--gold);
-            margin-bottom: 20px;
+            margin: 0 auto 18px;
             display: block;
         }
 
-        .testimonial-headline {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
+        .carousel-instagram {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
             color: var(--gold);
-            line-height: 1.2;
-            margin-bottom: 15px;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
         }
 
-        .testimonial-text {
+        .carousel-instagram a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .carousel-instagram a:hover {
+            opacity: 0.7;
+        }
+
+        .carousel-result {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
+        .carousel-result span {
+            color: var(--gold);
+        }
+
+        .carousel-quote {
             font-family: 'Montserrat', sans-serif;
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-muted);
             line-height: 1.7;
+            max-width: 220px;
+            margin: 0 auto 20px;
             font-style: italic;
-            margin-bottom: 20px;
         }
 
-        .testimonial-author {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-color);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: var(--gold);
+            box-shadow: 0 0 10px rgba(212, 176, 76, 0.4);
+        }
+
+        .carousel-arrows {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .carousel-arrow {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .carousel-arrow:hover {
+            border-color: var(--gold);
             color: var(--gold);
         }
 
@@ -718,20 +821,128 @@
             stroke: var(--gold);
         }
 
+        /* Call Outcomes */
+        .call-outcomes {
+            background: rgba(212, 176, 76, 0.04);
+            border: 1px solid rgba(212, 176, 76, 0.12);
+            max-width: 560px;
+            margin: 0 auto 30px;
+            padding: 30px;
+            text-align: left;
+        }
+        .outcomes-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .outcomes-list {
+            list-style: none;
+            padding: 0;
+        }
+        .outcomes-list li {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            color: var(--text-main);
+            line-height: 1.7;
+            padding: 8px 0 8px 28px;
+            position: relative;
+        }
+        .outcomes-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 14px;
+            width: 5px;
+            height: 5px;
+            background: var(--gold);
+            transform: rotate(45deg);
+        }
+
+        /* Specialist Card */
+        .specialist-card {
+            max-width: 560px;
+            margin: 0 auto 35px;
+            padding: 20px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+        }
+        .specialist-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+        .specialist-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .specialist-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .specialist-info {
+            text-align: left;
+        }
+        .specialist-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+        .specialist-role {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Homework Commitment */
+        .homework-commitment {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border-color);
+        }
+        .homework-commitment span {
+            color: var(--gold);
+            font-weight: 600;
+            font-style: italic;
+        }
+
         @media (max-width: 768px) {
             .calc-card { padding: 30px 20px; }
             .hero-title { font-size: 2.5rem; }
             .track-grid { grid-template-columns: 1fr; gap: 15px; }
-            .testimonial-grid { grid-template-columns: 1fr; gap: 20px; }
+            .track-grid.track-grid-4 { grid-template-columns: repeat(2, 1fr); }
+            .carousel-viewport { max-width: 480px; }
+            .carousel-photo { width: 160px; height: 160px; }
             .marquee-logo { height: 26px; }
             .marquee-track { gap: 40px; }
             .confirmation-title { font-size: 2rem; }
         }
 
         /* ─── Estilos do Calendário Nativo ─── */
-            font-weight: 600;
-        }
-
         .success-text {
             font-family: 'Inter', sans-serif;
             font-size: 14px;
@@ -878,6 +1089,41 @@
             font-style: italic;
         }
 
+        /* ─── Analyzing Overlay ─── */
+        .analyzing-content {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .analyzing-spinner {
+            width: 44px;
+            height: 44px;
+            border: 2px solid var(--border-color);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .analyzing-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            color: var(--text-main);
+        }
+        .analyzing-detail {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .analyzing-detail strong {
+            color: var(--gold);
+        }
+        .analyzing-status {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
         .ebook-paragraph {
             color: #d1cbc1;
             font-size: 16px;
@@ -925,11 +1171,11 @@
 
    <section class="hero">
         <div class="hero-content fade-in-up">
-            <span class="hero-label">Exclusivo para artistas do realismo e alto padrão</span>
+            <span class="hero-label">Exclusivo para tatuadores de realismo e blackwork</span>
             <h1 class="hero-title">
-                Descubra quanto dinheiro você está <br>
-                <span>"deixando na mesa"</span> <br>
-                todos os meses no WhatsApp.
+                Quanto dinheiro você perde <br>
+                <span>negociando orçamento</span> <br>
+                no WhatsApp todo mês?
             </h1>
             
             <div class="hero-divider fade-in-up delay-1">
@@ -937,7 +1183,7 @@
             </div>
 
             <p class="hero-subtitle fade-in-up delay-2">
-                Você domina a agulha e já fatura múltiplos 5 dígitos. Mas se ainda perde horas negociando com clientes que pedem desconto, você atingiu o <strong>teto do seu estúdio.</strong>
+                Você já fatura 5 dígitos com realismo. Mas enquanto você negocia desconto no direct, outro tatuador do seu nível está fechando 3 sessões de <strong>R$ 2.000 cada</strong> — com processo, não com talento.
             </p>
 
             <div class="hero-links fade-in-up delay-3">
@@ -954,29 +1200,6 @@
         </div>
     </section>
 
-    <!-- ─── Trusted By: Marquee ─── -->
-    <section class="trusted-section">
-        <div class="container fade-in-up">
-            <p class="trusted-label">Acelerando estúdios de alto padrão em todo o Brasil</p>
-        </div>
-        <div class="marquee-wrap">
-            <div class="marquee-track">
-                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=INK+STUDIO&font=montserrat" alt="Ink Studio">
-                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=REAL+ART&font=montserrat" alt="Real Art Tattoo">
-                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=BLACK+WORK&font=montserrat" alt="Black Work">
-                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=GOLD+NEEDLE&font=montserrat" alt="Gold Needle">
-                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=STUDIO+Z&font=montserrat" alt="Studio Z">
-                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=IRON+INK&font=montserrat" alt="Iron Ink">
-                <!-- Duplicata para loop infinito -->
-                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=INK+STUDIO&font=montserrat" alt="Ink Studio">
-                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=REAL+ART&font=montserrat" alt="Real Art Tattoo">
-                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=BLACK+WORK&font=montserrat" alt="Black Work">
-                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=GOLD+NEEDLE&font=montserrat" alt="Gold Needle">
-                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=STUDIO+Z&font=montserrat" alt="Studio Z">
-                <img class="marquee-logo" src="https://placehold.co/120x32/333/555?text=IRON+INK&font=montserrat" alt="Iron Ink">
-            </div>
-        </div>
-    </section>
 
     <!-- OTIMIZAÇÃO: Barra de Progresso Global do Funil -->
     <div class="progress-wrapper" id="progressWrapper">
@@ -1001,6 +1224,30 @@
                 <p style="color: var(--text-muted); font-size: 13px; max-width: 400px; margin: 0 auto;">Preencha os campos abaixo com honestidade. O diagnóstico é preciso apenas com dados reais.</p>
             </div>
 
+            <!-- ─── Trusted By: Marquee ─── -->
+            <section class="trusted-section">
+                <div class="container fade-in-up">
+                    <p class="trusted-label">Acelerando estúdios de alto padrão em todo o Brasil</p>
+                </div>
+                <div class="marquee-wrap">
+                    <div class="marquee-track">
+                        <a href="https://www.instagram.com/jhonatanmasters" target="_blank" rel="noopener noreferrer" title="Ver estúdio Jhonatan Masters"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=JHONATAN+MASTERS&font=montserrat" alt="Jhonatan Masters"></a>
+                        <a href="https://www.instagram.com/rsilvatattoo" target="_blank" rel="noopener noreferrer" title="Ver estúdio Rodrigo Silva"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=RODRIGO+SILVA&font=montserrat" alt="Rodrigo Silva"></a>
+                        <a href="https://www.instagram.com/sergiomoraestattoo" target="_blank" rel="noopener noreferrer" title="Ver estúdio Sergio Moraes"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=SERGIO+MORAES&font=montserrat" alt="Sergio Moraes"></a>
+                        <a href="https://www.instagram.com/Kleberocker" target="_blank" rel="noopener noreferrer" title="Ver estúdio Kleber Rocker"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=KLEBER+ROCKER&font=montserrat" alt="Kleber Rocker"></a>
+                        <a href="https://www.instagram.com/Maikbuenotattoo" target="_blank" rel="noopener noreferrer" title="Ver estúdio Bueno Tattoo"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=BUENO+TATTOO&font=montserrat" alt="Bueno Tattoo"></a>
+                        <a href="https://www.instagram.com/dinho_tattoo091" target="_blank" rel="noopener noreferrer" title="Ver estúdio Dinho Tattoo"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=DINHO+TATTOO&font=montserrat" alt="Dinho Tattoo"></a>
+                        <!-- Duplicata para loop infinito -->
+                        <a href="https://www.instagram.com/jhonatanmasters" target="_blank" rel="noopener noreferrer" title="Ver estúdio Jhonatan Masters"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=JHONATAN+MASTERS&font=montserrat" alt="Jhonatan Masters"></a>
+                        <a href="https://www.instagram.com/rsilvatattoo" target="_blank" rel="noopener noreferrer" title="Ver estúdio Rodrigo Silva"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=RODRIGO+SILVA&font=montserrat" alt="Rodrigo Silva"></a>
+                        <a href="https://www.instagram.com/sergiomoraestattoo" target="_blank" rel="noopener noreferrer" title="Ver estúdio Sergio Moraes"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=SERGIO+MORAES&font=montserrat" alt="Sergio Moraes"></a>
+                        <a href="https://www.instagram.com/Kleberocker" target="_blank" rel="noopener noreferrer" title="Ver estúdio Kleber Rocker"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=KLEBER+ROCKER&font=montserrat" alt="Kleber Rocker"></a>
+                        <a href="https://www.instagram.com/Maikbuenotattoo" target="_blank" rel="noopener noreferrer" title="Ver estúdio Bueno Tattoo"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=BUENO+TATTOO&font=montserrat" alt="Bueno Tattoo"></a>
+                        <a href="https://www.instagram.com/dinho_tattoo091" target="_blank" rel="noopener noreferrer" title="Ver estúdio Dinho Tattoo"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=DINHO+TATTOO&font=montserrat" alt="Dinho Tattoo"></a>
+                    </div>
+                </div>
+            </section>
+
             <div class="calc-card">
                 <form id="calcForm" onsubmit="handleCalculate(event)">
                     
@@ -1014,30 +1261,30 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label"><span>02 &mdash;</span> Ticket Médio Por Sessão</label>
+                        <label class="form-label"><span>02 &mdash;</span> Valor Médio por Sessão de Realismo</label>
                         <div class="input-wrapper">
                             <span class="input-prefix">R$</span>
                             <input type="text" inputmode="numeric" class="form-input" name="ticket" placeholder="Ex: 1.500" required>
                         </div>
-                        <span class="input-hint">Valor médio cobrado por sessão</span>
+                        <span class="input-hint">Quanto você cobra em média por sessão fechada</span>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label"><span>03 &mdash;</span> Média de Sessões Por Mês</label>
+                        <label class="form-label"><span>03 &mdash;</span> Sessões de Tatuagem por Mês</label>
                         <div class="input-wrapper">
                             <span class="input-prefix">#</span>
                             <input type="number" class="form-input" name="sessoes" placeholder="Ex: 10" required>
                         </div>
-                        <span class="input-hint">Quantas sessões você realiza por mês</span>
+                        <span class="input-hint">Quantas tatuagens você entrega por mês</span>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label"><span>04 &mdash;</span> Horas Gastas Por Dia Respondendo Clientes</label>
+                        <label class="form-label"><span>04 &mdash;</span> Horas Negociando Orçamento no WhatsApp</label>
                         <div class="input-wrapper">
                             <span class="input-prefix">h</span>
                             <input type="text" inputmode="numeric" class="form-input" name="horas_admin" placeholder="Ex: 3" required>
                         </div>
-                        <span class="input-hint">Tempo diário gasto com atendimento no WhatsApp/Direct</span>
+                        <span class="input-hint">Tempo diário respondendo "quanto cobra pra fechar um braço?"</span>
                     </div>
 
                     <div class="divider-center">
@@ -1061,20 +1308,45 @@
                 </div>
             </div>
 
+            <!-- ─── Trusted By: Marquee ─── -->
+            <section class="trusted-section">
+                <div class="container fade-in-up">
+                    <p class="trusted-label">Acelerando estúdios de alto padrão em todo o Brasil</p>
+                </div>
+                <div class="marquee-wrap">
+                    <div class="marquee-track">
+                        <a href="https://www.instagram.com/jhonatanmasters" target="_blank" rel="noopener noreferrer" title="Ver estúdio Jhonatan Masters"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=JHONATAN+MASTERS&font=montserrat" alt="Jhonatan Masters"></a>
+                        <a href="https://www.instagram.com/rsilvatattoo" target="_blank" rel="noopener noreferrer" title="Ver estúdio Rodrigo Silva"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=RODRIGO+SILVA&font=montserrat" alt="Rodrigo Silva"></a>
+                        <a href="https://www.instagram.com/sergiomoraestattoo" target="_blank" rel="noopener noreferrer" title="Ver estúdio Sergio Moraes"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=SERGIO+MORAES&font=montserrat" alt="Sergio Moraes"></a>
+                        <a href="https://www.instagram.com/Kleberocker" target="_blank" rel="noopener noreferrer" title="Ver estúdio Kleber Rocker"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=KLEBER+ROCKER&font=montserrat" alt="Kleber Rocker"></a>
+                        <a href="https://www.instagram.com/Maikbuenotattoo" target="_blank" rel="noopener noreferrer" title="Ver estúdio Bueno Tattoo"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=BUENO+TATTOO&font=montserrat" alt="Bueno Tattoo"></a>
+                        <a href="https://www.instagram.com/dinho_tattoo091" target="_blank" rel="noopener noreferrer" title="Ver estúdio Dinho Tattoo"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=DINHO+TATTOO&font=montserrat" alt="Dinho Tattoo"></a>
+                        <!-- Duplicata para loop infinito -->
+                        <a href="https://www.instagram.com/jhonatanmasters" target="_blank" rel="noopener noreferrer" title="Ver estúdio Jhonatan Masters"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=JHONATAN+MASTERS&font=montserrat" alt="Jhonatan Masters"></a>
+                        <a href="https://www.instagram.com/rsilvatattoo" target="_blank" rel="noopener noreferrer" title="Ver estúdio Rodrigo Silva"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=RODRIGO+SILVA&font=montserrat" alt="Rodrigo Silva"></a>
+                        <a href="https://www.instagram.com/sergiomoraestattoo" target="_blank" rel="noopener noreferrer" title="Ver estúdio Sergio Moraes"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=SERGIO+MORAES&font=montserrat" alt="Sergio Moraes"></a>
+                        <a href="https://www.instagram.com/Kleberocker" target="_blank" rel="noopener noreferrer" title="Ver estúdio Kleber Rocker"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=KLEBER+ROCKER&font=montserrat" alt="Kleber Rocker"></a>
+                        <a href="https://www.instagram.com/Maikbuenotattoo" target="_blank" rel="noopener noreferrer" title="Ver estúdio Bueno Tattoo"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=BUENO+TATTOO&font=montserrat" alt="Bueno Tattoo"></a>
+                        <a href="https://www.instagram.com/dinho_tattoo091" target="_blank" rel="noopener noreferrer" title="Ver estúdio Dinho Tattoo"><img class="marquee-logo" src="https://placehold.co/160x32/999/222?text=DINHO+TATTOO&font=montserrat" alt="Dinho Tattoo"></a>
+                    </div>
+                </div>
+            </section>
+
+
             <div class="calc-card" style="text-align: center; padding-top: 60px;">
                 
-                <p class="resultado-texto-intro">Você gasta em média <strong id="horasMesValue">0 horas por mês</strong> sendo secretário de si mesmo.</p>
-                <p class="resultado-texto-intro">O seu <strong>Custo de Oportunidade atual</strong> (dinheiro perdido) é de:</p>
+                <p class="resultado-texto-intro">Você passa <strong id="horasMesValue">0 horas por mês</strong> negociando orçamento em vez de tatuando.</p>
+                <p class="resultado-texto-intro">O seu <strong>custo real de produção</strong> hoje é de:</p>
 
                 <div class="divisor-linha"></div>
 
                 <p class="form-label" style="text-align: center; letter-spacing: 3px;">Prejuízo Mensal Estimado</p>
                 <div class="valor-gigante" id="prejuizoValue">R$ 0,00</div>
-                <p style="color: var(--text-muted); opacity: 0.8; font-size: 12px; margin-bottom: 40px;">dinheiro que você deixa na mesa todo mês</p>
+                <p style="color: var(--text-muted); opacity: 0.8; font-size: 12px; margin-bottom: 40px;">o custo de ser secretário do próprio estúdio</p>
 
                 <div class="promessa-box">
-                    <span class="promessa-label">A Promessa</span>
-                    <p>Com um sistema de captação premium, seu faturamento pode saltar para <strong id="potencialValueText">R$ 0,00</strong> <strong>sem tatuar uma hora a mais.</strong></p>
+                    <span class="promessa-label">Sua Transformação</span>
+                    <p>Com um sistema de captação para realismo, você pode faturar <strong id="potencialValueText">R$ 0,00</strong> <strong>com a mesma agulha e as mesmas horas.</strong></p>
                 </div>
 
                 <div class="locked-action">
@@ -1083,31 +1355,42 @@
                             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                         </svg>
-                        <span>Plano de Ação Bloqueado</span>
+                        <span>Seu Plano de Captação High-Ticket está Bloqueado</span>
                     </div>
                 </div>
 
                 <!-- ─── Social Proof: Track Record Grid ─── -->
                 <div class="track-record fade-in-up">
-                    <div class="track-grid">
+                    <div class="track-grid track-grid-4">
                         <div class="track-item">
-                            <div class="track-number">+4</div>
-                            <div class="track-label">Anos de Mercado</div>
+                            <div class="track-number">+8</div>
+                            <div class="track-label">Anos no Mercado de Tatuagem</div>
                         </div>
                         <div class="track-item">
-                            <div class="track-number">+R$ 2M</div>
-                            <div class="track-label">Faturamento Gerado</div>
+                            <div class="track-number">+20M</div>
+                            <div class="track-label">Gerados para Estúdios de Realismo</div>
                         </div>
                         <div class="track-item">
-                            <div class="track-number">+140</div>
-                            <div class="track-label">Estúdios Escalados</div>
+                            <div class="track-number">+110</div>
+                            <div class="track-label">Estúdios de Realismo e Blackwork Escalados</div>
+                        </div>
+                        <div class="track-item">
+                            <div class="track-number">+4.7M</div>
+                            <div class="track-label">Recuperados em Perda de Faturamento</div>
                         </div>
                     </div>
                 </div>
 
+                <!-- OTIMIZAÇÃO: Bloco de Convicção -->
+                <div class="conviction-block fade-in-up delay-1">
+                    <p style="font-size: 13px; color: var(--text-main); max-width: 520px; margin: 0 auto 20px; line-height: 1.8;">
+                        Se você fatura acima de <strong style="color: var(--gold);">R$ 7.000 com realismo</strong>, o que está travando seu crescimento não é sua técnica — é seu sistema de captação. Enquanto você negocia desconto no direct, outro tatuador do seu nível está fechando 3 sessões de R$ 2.000 cada. <strong>A diferença não é talento. É processo.</strong>
+                    </p>
+                </div>
+
                 <!-- OTIMIZAÇÃO: Gatilho de Curiosidade no Texto -->
                 <p id="instrucaoForm" style="text-align: center; font-size: 15px; color: var(--text-muted); margin: 40px auto; max-width: 550px; line-height: 1.6;">
-                    O nosso especialista analisou o seu prejuízo de <strong style="color: var(--gold);" id="prejuizoCopyValue">R$ 0,00</strong>. Preencha os dados abaixo para destravar exatamente como recuperar esse valor em 30 dias.
+                    Nosso especialista analisou seu prejuízo de <strong style="color: var(--gold);" id="prejuizoCopyValue">R$ 0,00</strong>. Preencha para destravar o plano exato de como recuperar esse valor em <strong style="color: var(--text-main);">30 dias</strong>.
                 </p>
 
                 <form id="leadForm" onsubmit="handleLeadSubmit(event)" style="text-align: left;">
@@ -1134,24 +1417,34 @@
                     <!-- OTIMIZAÇÃO: Prova Social Discreta -->
                     <p style="text-align: center; font-size: 12px; color: var(--text-muted); margin-bottom: 25px; font-style: italic;">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 5px; margin-top: -2px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                        Junte-se a mais de 40 estúdios de alto padrão que já resolveram esse problema.
+                        Junte-se aos mais de 100 estúdios de alto padrão que já resolveram esse problema.
                     </p>
 
                     <button type="submit" class="btn-primary" id="submitBtn">Quero o Plano de Escala &rarr;</button>
                     <p style="text-align: center; font-size: 11px; color: var(--text-muted); opacity: 0.7; margin-top: 20px;">Sem spam. Apenas conteúdo de alto valor para artistas sérios.</p>
                 </form>
 
+                <div id="analyzingOverlay" style="display: none;">
+                    <div class="analyzing-content">
+                        <div class="analyzing-spinner"></div>
+                        <p class="analyzing-title" style="margin-top: 24px;">Analisando perfil de <strong id="analyzingName">[Nome]</strong></p>
+                        <p class="analyzing-detail" style="margin-top: 8px;">Faturamento: <strong id="analyzingFaturamento">R$ 0,00</strong> • Prejuízo mensal: <strong id="analyzingPrejuizo">R$ 0,00</strong></p>
+                        <p class="analyzing-status" style="margin-top: 30px; opacity: 0; transition: opacity 0.4s ease;" id="analyzingStatus">Perfil qualificado ✓</p>
+                    </div>
+                </div>
+
                 <div id="nativeCalendarBlock" style="display: none;">
-                    <h3 class="funil-title" style="font-size: 2.5rem; margin-bottom: 10px;">Você está <span style="color: var(--gold); font-style: italic;">qualificado.</span></h3>
+                    <h3 class="funil-title" style="font-size: 2.5rem; margin-bottom: 10px;">Seu estúdio de realismo está <span style="color: var(--gold); font-style: italic;">pronto para escalar.</span></h3>
                     <p class="success-text" style="margin-bottom: 10px; max-width: 500px; margin-left: auto; margin-right: auto; font-size: 16px;">
-                        O seu estúdio tem a estrutura exata que nós escalamos. Liberei um acesso direto à agenda do nosso especialista.
+                        Você tem a estrutura exata que escalamos. Abrimos um acesso direto à agenda do nosso especialista em captação de clientes para tatuadores.
                     </p>
                     
                     <div class="calendar-grid" id="calendarContainer">
                         </div>
 
-                    <p style="text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 10px;">
-                        * Todos os horários estão no Horário de Brasília (BRT).
+                    <p style="text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 15px;">
+                        Esses horários são reservados exclusivamente para estúdios de alto padrão.<br>
+                        Após o agendamento, seu horário está confirmado em até 2 minutos.
                     </p>
                     
                     <button id="btnConfirmTime" class="btn-primary" style="display: none; max-width: 350px; margin: 0 auto 20px;" onclick="confirmarAgendamento()">
@@ -1201,20 +1494,43 @@
                         <!-- Título -->
                         <h3 class="confirmation-title" id="confirmationTitle">Horário Confirmado!</h3>
 
-                        <!-- Texto Principal com Placeholders JS -->
+                        <!-- Texto Principal -->
                         <p class="confirmation-subtitle" id="confirmationSubtitle">
-                            Excelente, <strong id="confNamePlaceholder">[Nome]</strong>. Seu horário foi reservado para <strong id="confDateTimePlaceholder">[Data] às [Hora]</strong>. Na nossa reunião, vamos estruturar o plano exato para recuperar os <span class="highlight-gold" id="confLossPlaceholder">R$ 9.750,00</span> que você estava deixando na mesa.
+                            <strong id="confNamePlaceholder">[Nome]</strong>, sua reunião está marcada para <strong id="confDateTimePlaceholder">[Data] às [Hora]</strong>. Você já investiu 3 minutos no seu diagnóstico — essa call de <strong>30 minutos</strong> é o passo final para recuperar os <span class="highlight-gold" id="confLossPlaceholder">R$ 9.750,00</span> que estão escapando do seu estúdio <strong>este mês</strong>.
                         </p>
 
-                        <!-- Card: Dever de Casa -->
+                        <!-- O que vai sair da call -->
+                        <div class="call-outcomes">
+                            <p class="outcomes-label">Na sua reunião você vai sair com:</p>
+                            <ul class="outcomes-list">
+                                <li>O número exato que seu estúdio de realismo perde por mês em captação</li>
+                                <li>Os 3 canais de aquisição que funcionam para tatuagem de alto padrão</li>
+                                <li>Um plano de ação de 30 dias personalizado para o seu faturamento</li>
+                            </ul>
+                        </div>
+
+                        <!-- Especialista -->
+                        <div class="specialist-card">
+                            <p class="specialist-label">Quem vai te atender:</p>
+                            <div class="specialist-row">
+                                <div class="specialist-avatar">GP</div>
+                                <div class="specialist-info">
+                                    <div class="specialist-name">Guilherme</div>
+                                    <div class="specialist-role">Especialista em Captação para Estúdios de Tatuagem</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card: Dever de Casa com Micro-Compromisso -->
                         <div class="homework-card">
-                            <p class="homework-label">Passo Obrigatório antes da nossa Reunião:</p>
+                            <p class="homework-label">Passo Obrigatório Antes da Reunião:</p>
                             <div class="homework-video">
                                 <img src="https://placehold.co/560x315/1a1a1a/555?text=Assista+ao+V%C3%ADdeo+de+Aquecimento&font=montserrat" alt="Vídeo de aquecimento">
                                 <div class="homework-play">
                                     <svg width="18" height="20" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"></polygon></svg>
                                 </div>
                             </div>
+                            <p class="homework-commitment">Após assistir, responda no WhatsApp: <span>"Qual o maior problema que você tem com cliente pedindo desconto?"</span></p>
                         </div>
 
                         <!-- Aviso Footer -->
@@ -1222,7 +1538,7 @@
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
                             </svg>
-                            O link da sala de reunião será enviado no seu WhatsApp 5 minutos antes
+                            O link da sala será enviado no seu WhatsApp 5 minutos antes da reunião
                         </div>
 
                     </div>
@@ -1231,56 +1547,50 @@
         </div>
     </section>
 
-    <!-- ─── Testimonial Grid (5 Clientes) ─── -->
+    <!-- ─── Carrossel de Depoimentos ─── -->
     <section class="testimonial-section">
         <div class="container">
             <div class="section-header fade-in-up">
-                <span class="hero-label" style="margin-bottom: 15px; justify-content: center; display: flex;">Resultados Reais</span>
-                <h2 class="section-title">Quem já usou, escalou</h2>
+                <span class="hero-label" style="margin-bottom: 15px; justify-content: center; display: flex;">Resultados</span>
+                <h2 class="section-title">Conheça alguns dos nossos parceiros</h2>
                 <div class="divider-center" style="max-width: 200px; margin: 20px auto;">
                     <div class="diamond"></div>
                 </div>
             </div>
 
-            <div class="testimonial-grid fade-in-up delay-1">
-                <!-- Card 1 -->
-                <div class="testimonial-card">
-                    <img class="testimonial-avatar" src="https://placehold.co/60x60/d4b04c/0a0a0a?text=EI&font=montserrat" alt="Eclipse Ink">
-                    <div class="testimonial-headline">De R$ 12k para R$ 45k em 60 dias</div>
-                    <p class="testimonial-text">"A VAIF não só trouxe tráfego, mas estruturou minha captação. Tripliquei o faturamento faturando tatuagens de Realismo sem aumentar as horas no estúdio."</p>
-                    <div class="testimonial-author">Gabriel — Eclipse Ink</div>
+            <div class="carousel-viewport fade-in-up delay-1">
+                <div class="carousel-track" id="carouselTrack">
+
+                    <!-- Slide 1 -->
+                    <div class="carousel-slide">
+                        <img class="carousel-photo" src="https://placehold.co/280x280/1a1a1a/d4b04c?text=@eclipse.ink&font=montserrat" alt="Eclipse Ink">
+                        <p class="carousel-instagram"><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">@eclipse.ink</a></p>
+                        <div class="carousel-result">De <span>R$ 12k</span> para <span>R$ 45k</span> em 60 dias</div>
+                        <p class="carousel-quote">"A VAIF estruturou minha captação do zero. Tripliquei o faturamento sem aumentar as horas no estúdio."</p>
+                    </div>
+
+                    <!-- Slide 2 (card do meio → inicial) -->
+                    <div class="carousel-slide">
+                        <img class="carousel-photo" src="https://placehold.co/280x280/1a1a1a/d4b04c?text=@noir.tattoo&font=montserrat" alt="Noir Tattoo">
+                        <p class="carousel-instagram"><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">@noir.tattoo</a></p>
+                        <div class="carousel-result">De <span>R$ 9k</span> para <span>R$ 38k</span> em 60 dias</div>
+                        <p class="carousel-quote">"Implementei o funil de captação high-ticket e em dois meses já estava com a agenda cheia. Melhor investimento."</p>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="carousel-slide">
+                        <img class="carousel-photo" src="https://placehold.co/280x280/1a1a1a/d4b04c?text=@blackwave.ink&font=montserrat" alt="Black Wave Ink">
+                        <p class="carousel-instagram"><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">@blackwave.ink</a></p>
+                        <div class="carousel-result">De <span>R$ 15k</span> para <span>R$ 48k</span> em 75 dias</div>
+                        <p class="carousel-quote">"O diagnóstico mostrou exatamente onde eu perdia dinheiro. Em 3 meses reorganizei o atendimento e tripliquei."</p>
+                    </div>
+
                 </div>
 
-                <!-- Card 2 -->
-                <div class="testimonial-card">
-                    <img class="testimonial-avatar" src="https://placehold.co/60x60/d4b04c/0a0a0a?text=NT&font=montserrat" alt="Noir Tattoo">
-                    <div class="testimonial-headline">De R$ 9k para R$ 38k em 60 dias</div>
-                    <p class="testimonial-text">"Implementei o funil de captação high-ticket e em dois meses já estava com a agenda cheia. O melhor investimento que fiz no meu estúdio."</p>
-                    <div class="testimonial-author">Rafael — Noir Tattoo</div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="testimonial-card">
-                    <img class="testimonial-avatar" src="https://placehold.co/60x60/d4b04c/0a0a0a?text=BW&font=montserrat" alt="Black Wave">
-                    <div class="testimonial-headline">De R$ 15k para R$ 48k em 75 dias</div>
-                    <p class="testimonial-text">"O diagnóstico mostrou exatamente onde eu perdia dinheiro. Em 3 meses reorganizei o atendimento e praticamente tripliquei o faturamento mensal."</p>
-                    <div class="testimonial-author">Lucas — Black Wave Ink</div>
-                </div>
-
-                <!-- Card 4 -->
-                <div class="testimonial-card">
-                    <img class="testimonial-avatar" src="https://placehold.co/60x60/d4b04c/0a0a0a?text=GS&font=montserrat" alt="Gold Studio">
-                    <div class="testimonial-headline">De R$ 7k para R$ 31k em 90 dias</div>
-                    <p class="testimonial-text">"Sempre achei que era só fazer um bom trabalho. Descobri que estava deixando mais de R$ 8 mil na mesa todo mês. Hoje tenho processo e não dependo mais de indicação."</p>
-                    <div class="testimonial-author">Felipe — Gold Studio Tattoo</div>
-                </div>
-
-                <!-- Card 5 -->
-                <div class="testimonial-card">
-                    <img class="testimonial-avatar" src="https://placehold.co/60x60/d4b04c/0a0a0a?text=IA&font=montserrat" alt="Iron Art">
-                    <div class="testimonial-headline">De R$ 11k para R$ 42k em 45 dias</div>
-                    <p class="testimonial-text">"Em apenas 45 dias a VAIF estruturou tudo. Meu WhatsApp parou de ser um caos e virou máquina de vendas. O retorno veio muito mais rápido do que eu esperava."</p>
-                    <div class="testimonial-author">Thiago — Iron Art Tattoo</div>
+                <!-- Setas -->
+                <div class="carousel-arrows">
+                    <button class="carousel-arrow" onclick="moverCarrossel(-1)" aria-label="Anterior">&larr;</button>
+                    <button class="carousel-arrow" onclick="moverCarrossel(1)" aria-label="Próximo">&rarr;</button>
                 </div>
             </div>
         </div>
@@ -1590,26 +1900,46 @@
                     document.getElementById('leadForm').style.display = 'none';
                     document.querySelector('.locked-action').style.display = 'none';
                     document.getElementById('instrucaoForm').style.display = 'none';
+                    document.querySelector('.conviction-block').style.display = 'none';
 
                     const nomePrimeiro = form.nome.value.split(' ')[0];
+                    const calc = window.calcData || {};
+                    const lossFmt = 'R$ ' + Number(calc.prejuizo_mensal || 0).toLocaleString('pt-BR') + ',00';
+                    const fatFmt = 'R$ ' + Number(calc.faturamento || 0).toLocaleString('pt-BR') + ',00';
+
+                    // Mostra overlay de análise
+                    document.getElementById('analyzingName').textContent = nomePrimeiro;
+                    document.getElementById('analyzingFaturamento').textContent = fatFmt;
+                    document.getElementById('analyzingPrejuizo').textContent = lossFmt;
+                    document.getElementById('analyzingOverlay').style.display = 'block';
+                    document.getElementById('analyzingStatus').style.opacity = '0';
+
+                    // Micro-transição: spinner → "Perfil qualificado" → calendário/ebook
+                    await new Promise(function(r) { setTimeout(r, 1200); });
+                    document.getElementById('analyzingStatus').style.opacity = '1';
+                    await new Promise(function(r) { setTimeout(r, 800); });
+                    document.getElementById('analyzingOverlay').style.display = 'none';
 
                     if (window.calcData.faturamento > 7000) {
                         try {
                             const resHorarios = await fetch('/api/leads/get_horarios.php');
                             const dataHorarios = await resHorarios.json();
                             const ocupados = dataHorarios.ocupados || [];
-                            
+
                             const offsetNecessario = encontrarProximaJanelaDisponivel(ocupados);
                             gerarDiasCalendario(ocupados, offsetNecessario);
-                            
+
                         } catch (e) {
                             gerarDiasCalendario([], 0);
                         }
                         document.getElementById('nativeCalendarBlock').style.display = 'block';
+                        // Atualiza barra de progresso
+                        document.getElementById('progressBar').style.width = '80%';
+                        document.getElementById('progressLabel').textContent = 'Passo 2 de 2: Escolha seu horário (80%)';
                     } else {
                         document.getElementById('ebookLeadNome').textContent = nomePrimeiro;
                         document.getElementById('ebookBlock').style.display = 'block';
-                        
+
                         // Atualiza a Barra para 100% (Funil do E-book Finalizado)
                         document.getElementById('progressBar').style.width = '100%';
                         document.getElementById('progressLabel').textContent = 'Processo Concluído (100%)';
@@ -1642,22 +1972,85 @@
             document.getElementById('progressBar').style.width = '100%';
             document.getElementById('progressLabel').textContent = 'Processo Concluído (100%)';
 
-            const calc = window.calcData || {};
-            const prejuizo = calc.prejuizo_mensal || 0;
-            const lossFmt = 'R$ ' + Number(prejuizo).toLocaleString('pt-BR') + ',00';
+            var calc = window.calcData || {};
+            var prejuizo = calc.prejuizo_mensal || 0;
+            var lossFmt = 'R$ ' + Number(prejuizo).toLocaleString('pt-BR') + ',00';
+
+            document.getElementById('confNamePlaceholder').textContent = nome;
+            document.getElementById('confLossPlaceholder').textContent = lossFmt;
 
             if (horario) {
                 document.getElementById('confirmationTitle').textContent = 'Horário Confirmado!';
-                document.getElementById('confNamePlaceholder').textContent = nome;
                 document.getElementById('confDateTimePlaceholder').textContent = horario;
-                document.getElementById('confLossPlaceholder').textContent = lossFmt;
+                document.getElementById('confirmationSubtitle').innerHTML =
+                    '<strong id="confNamePlaceholder">' + nome + '</strong>, sua reunião está marcada para <strong id="confDateTimePlaceholder">' + horario + '</strong>. Você já investiu 3 minutos no seu diagnóstico — essa call de <strong>30 minutos</strong> é o passo final para recuperar os <span class="highlight-gold" id="confLossPlaceholder">' + lossFmt + '</span> que estão escapando do seu estúdio <strong>este mês</strong>.';
             } else {
                 document.getElementById('confirmationTitle').textContent = 'Diagnóstico Salvo!';
-                document.getElementById('confNamePlaceholder').textContent = nome;
                 document.getElementById('confDateTimePlaceholder').textContent = 'em breve';
-                document.getElementById('confLossPlaceholder').textContent = lossFmt;
+                document.getElementById('confirmationSubtitle').innerHTML =
+                    '<strong id="confNamePlaceholder">' + nome + '</strong>, seu diagnóstico está completo. Nosso especialista vai entrar em contato pelo WhatsApp para marcar sua call de <strong>30 minutos</strong> onde vamos estruturar o plano exato para recuperar os <span class="highlight-gold" id="confLossPlaceholder">' + lossFmt + '</span> que estão escapando do seu estúdio <strong>este mês</strong>.';
             }
         }
+
+        // ─── Carrossel Coverflow + Fade ───
+        (function() {
+            var track = document.getElementById('carouselTrack');
+            if (!track) return;
+
+            var slides = Array.from(track.children);
+            var total = slides.length;
+            if (total < 2) return;
+
+            var atual = 1; // começa do meio
+
+            function distancia(i) {
+                var d = i - atual;
+                if (d > 1) d -= total;
+                if (d < -1) d += total;
+                return d;
+            }
+
+            function atualizarSlides() {
+                slides.forEach(function(slide, i) {
+                    var d = distancia(i);
+                    var x, rotY, sc, op;
+
+                    if (d === -1) {
+                        x = '-45%';
+                        rotY = 45;
+                        sc = 0.78;
+                        op = 0.3;
+                    } else if (d === 0) {
+                        x = '-50%';
+                        rotY = 0;
+                        sc = 1;
+                        op = 1;
+                    } else { // d === +1
+                        x = '-55%';
+                        rotY = -45;
+                        sc = 0.78;
+                        op = 0.3;
+                    }
+
+                    slide.style.left = '50%';
+                    slide.style.transform = 'translateX(' + x + ') perspective(1000px) rotateY(' + rotY + 'deg) scale(' + sc + ')';
+                    slide.style.opacity = op;
+                    slide.style.zIndex = d === 0 ? 5 : 2;
+                    slide.style.pointerEvents = d === 0 ? 'auto' : 'none';
+                    slide.classList.toggle('carousel-slide-inactive', d !== 0);
+                });
+            }
+
+            window.moverCarrossel = function(dir) {
+                atual += dir;
+                if (atual < 0) atual = total - 1;
+                if (atual >= total) atual = 0;
+                atualizarSlides();
+            };
+
+            // Inicializar
+            atualizarSlides();
+        })();
 
         // EVENTOS: Rastreia quando o usuário qualificado como "E-book" clica no botão de compra
         function trackEbookClick() {

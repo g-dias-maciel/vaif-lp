@@ -587,7 +587,7 @@
         }
 
         .carousel-viewport {
-            max-width: 640px;
+            max-width: 780px;
             margin: 40px auto 0;
             position: relative;
             perspective: 1200px;
@@ -597,13 +597,13 @@
 
         .carousel-track {
             position: relative;
-            min-height: 420px;
+            min-height: 520px;
         }
 
         .carousel-slide {
             position: absolute;
             top: 0;
-            width: 240px;
+            width: 340px;
             text-align: center;
             opacity: 0;
             pointer-events: none;
@@ -621,11 +621,11 @@
         }
 
         .carousel-photo {
-            width: 200px;
-            height: 200px;
+            width: 220px;
+            height: 220px;
             object-fit: cover;
             border: 2px solid var(--gold);
-            margin: 0 auto 18px;
+            margin: 0 auto 14px;
             display: block;
         }
 
@@ -662,10 +662,10 @@
 
         .carousel-quote {
             font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
+            font-size: 12px;
             color: var(--text-muted);
-            line-height: 1.7;
-            max-width: 220px;
+            line-height: 1.6;
+            max-width: 300px;
             margin: 0 auto 20px;
             font-style: italic;
         }
@@ -694,7 +694,7 @@
 
         .carousel-arrows {
             position: absolute;
-            top: 100px;
+            top: 110px;
             left: 0;
             right: 0;
             pointer-events: none;
@@ -974,10 +974,13 @@
             .hero-title { font-size: 2.5rem; }
             .track-grid { grid-template-columns: 1fr; gap: 15px; }
             .track-grid.track-grid-4 { grid-template-columns: repeat(2, 1fr); }
-            .carousel-viewport { max-width: 480px; }
+            .carousel-viewport { max-width: 360px; }
+            .carousel-slide { width: 280px; }
+            .carousel-track { min-height: 480px; }
             .carousel-photo { width: 160px; height: 160px; }
+            .carousel-quote { max-width: 260px; font-size: 11px; }
             .carousel-arrow { width: 32px; height: 32px; font-size: 13px; }
-            .carousel-arrows { top: 80px; }
+            .carousel-arrows { top: 85px; }
             .marquee-logo { height: 26px; }
             .marquee-track { gap: 40px; }
             .confirmation-title { font-size: 2rem; }
@@ -1212,7 +1215,7 @@
 
    <section class="hero">
         <div class="hero-content fade-in-up">
-            <span class="hero-label">Exclusivo para tatuadores de realismo e blackwork</span>
+            <span class="hero-label">Exclusivo para tatuadores de realismo e preto & cinza</span>
             <h1 class="hero-title">
                 Quanto dinheiro você perde <br>
                 <span>negociando orçamento</span> <br>
@@ -1414,7 +1417,7 @@
                         </div>
                         <div class="track-item">
                             <div class="track-number">+110</div>
-                            <div class="track-label">Estúdios de Realismo e Blackwork Escalados</div>
+                            <div class="track-label">Estúdios de Realismo e Preto & Cinza Escalados</div>
                         </div>
                         <div class="track-item">
                             <div class="track-number">+4.7M</div>
@@ -1609,26 +1612,26 @@
 
                     <!-- Slide 1 -->
                     <div class="carousel-slide">
-                        <img class="carousel-photo" src="https://placehold.co/280x280/1a1a1a/d4b04c?text=@eclipse.ink&font=montserrat" alt="Eclipse Ink">
-                        <p class="carousel-instagram"><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">@eclipse.ink</a></p>
-                        <div class="carousel-result">De <span>R$ 12k</span> para <span>R$ 45k</span> em 60 dias</div>
-                        <p class="carousel-quote">"A VAIF estruturou minha captação do zero. Tripliquei o faturamento sem aumentar as horas no estúdio."</p>
+                        <img class="carousel-photo" src="/img/guitattoo_resultado.jpeg" alt="Gui Tattoo">
+                        <p class="carousel-instagram"><a href="https://instagram.com/Guitattoobh" target="_blank" rel="noopener noreferrer">@Guitattoobh</a></p>
+                        <div class="carousel-result">De <span>R$ 7k</span> para <span>R$ 20k</span> em 60 dias, com a agenda sempre lotada</div>
+                        <p class="carousel-quote">Conheci o trabalho da VAIF em um momento onde a agenda estava vazia, não conseguia subir o preço das minhas tatuagens, estava sem perspectiva. Hoje, quase 2 anos depois, continuo o trabalho com eles e graças a Deus com a agenda lotada.</p>
                     </div>
 
                     <!-- Slide 2 (card do meio → inicial) -->
                     <div class="carousel-slide">
-                        <img class="carousel-photo" src="https://placehold.co/280x280/1a1a1a/d4b04c?text=@noir.tattoo&font=montserrat" alt="Noir Tattoo">
-                        <p class="carousel-instagram"><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">@noir.tattoo</a></p>
-                        <div class="carousel-result">De <span>R$ 9k</span> para <span>R$ 38k</span> em 60 dias</div>
-                        <p class="carousel-quote">"Implementei o funil de captação high-ticket e em dois meses já estava com a agenda cheia. Melhor investimento."</p>
+                        <img class="carousel-photo" src="/img/rsilva_resultado.png" alt="Rodrigo Silva">
+                        <p class="carousel-instagram"><a href="https://instagram.com/rsilvatattoo" target="_blank" rel="noopener noreferrer">@rsilvatattoo</a></p>
+                        <div class="carousel-result">De <span>R$ 9k</span> para <span>R$ 38k</span> em 30 dias</div>
+                        <p class="carousel-quote">A VAIF assumiu quando abri meu estúdio. Na época, tinha acabado de me mudar para uma cidade nova, sem clientes e precisava de capital. No primeiro mês já vi o meu faturamento sair de 9 mil reais para 38 mil reais. Desde então a agenda fica lotada com pelo menos um mês de antecedência.</p>
                     </div>
 
                     <!-- Slide 3 -->
                     <div class="carousel-slide">
-                        <img class="carousel-photo" src="https://placehold.co/280x280/1a1a1a/d4b04c?text=@blackwave.ink&font=montserrat" alt="Black Wave Ink">
-                        <p class="carousel-instagram"><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">@blackwave.ink</a></p>
+                        <img class="carousel-photo" src="/img/dinho_resultado.png" alt="Dinho Tattoo">
+                        <p class="carousel-instagram"><a href="https://instagram.com/dinho_tattoo091" target="_blank" rel="noopener noreferrer">@dinho_tattoo091</a></p>
                         <div class="carousel-result">De <span>R$ 15k</span> para <span>R$ 48k</span> em 75 dias</div>
-                        <p class="carousel-quote">"O diagnóstico mostrou exatamente onde eu perdia dinheiro. Em 3 meses reorganizei o atendimento e tripliquei."</p>
+                        <p class="carousel-quote">Já trabalho com a VAIF faz 4 anos e meio, já trabalhei com outros profissionais, inclusive famosos no meio do marketing, e nenhum deles me trouxe tantos resultados quanto a VAIF.</p>
                     </div>
 
                 </div>

@@ -1546,11 +1546,11 @@
 
                         <!-- O que vai sair da call -->
                         <div class="call-outcomes">
-                            <p class="outcomes-label">Na sua reunião você vai sair com:</p>
+                            <p class="outcomes-label">Esta reunião foi desenhada para te entregar:</p>
                             <ul class="outcomes-list">
-                                <li>O número exato que seu estúdio de realismo perde por mês em captação</li>
-                                <li>Os 3 canais de aquisição que funcionam para tatuagem de alto padrão</li>
-                                <li>Um plano de ação de 30 dias personalizado para o seu faturamento</li>
+                                <li>Uma análise completa do seu estúdio — faturamento, ticket médio, gargalos de venda e pontos cegos que estão travando seu crescimento</li>
+                                <li>Cases reais de tatuadores com o mesmo perfil que o seu que escalaram o faturamento — e exatamente como chegaram lá</li>
+                                <li>Scripts de vendas validados por dezenas de tatuadores + direcionamento de marketing (orgânico ou pago) sob medida para o seu caso</li>
                             </ul>
                         </div>
 
@@ -1558,9 +1558,9 @@
                         <div class="specialist-card">
                             <p class="specialist-label">Quem vai te atender:</p>
                             <div class="specialist-row">
-                                <div class="specialist-avatar">GP</div>
+                                <div class="specialist-avatar">DH</div>
                                 <div class="specialist-info">
-                                    <div class="specialist-name">Guilherme</div>
+                                    <div class="specialist-name">Daniel</div>
                                     <div class="specialist-role">Especialista em Captação para Estúdios de Tatuagem</div>
                                 </div>
                             </div>

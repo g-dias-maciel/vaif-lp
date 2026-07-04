@@ -528,6 +528,16 @@
             padding: 30px 0;
             margin: 30px 0 20px;
         }
+        .track-record-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 25px;
+        }
 
         .track-grid {
             display: grid;
@@ -581,7 +591,7 @@
             margin: 40px auto 0;
             position: relative;
             perspective: 1200px;
-            overflow: hidden;
+            overflow: visible;
             padding: 20px 0;
         }
 
@@ -683,13 +693,16 @@
         }
 
         .carousel-arrows {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
+            position: absolute;
+            top: 100px;
+            left: 0;
+            right: 0;
+            pointer-events: none;
+            z-index: 10;
         }
 
         .carousel-arrow {
+            position: absolute;
             background: none;
             border: 1px solid var(--border-color);
             color: var(--text-muted);
@@ -701,6 +714,13 @@
             justify-content: center;
             transition: all 0.3s ease;
             font-size: 16px;
+            pointer-events: auto;
+        }
+        .carousel-arrow.prev {
+            left: 0;
+        }
+        .carousel-arrow.next {
+            right: 0;
         }
 
         .carousel-arrow:hover {
@@ -929,6 +949,25 @@
             font-weight: 600;
             font-style: italic;
         }
+        .homework-whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            margin-top: 18px;
+            background: #25D366;
+            color: #000;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .homework-whatsapp-btn:hover {
+            background: #22c35e;
+            transform: translateY(-2px);
+        }
 
         @media (max-width: 768px) {
             .calc-card { padding: 30px 20px; }
@@ -937,6 +976,8 @@
             .track-grid.track-grid-4 { grid-template-columns: repeat(2, 1fr); }
             .carousel-viewport { max-width: 480px; }
             .carousel-photo { width: 160px; height: 160px; }
+            .carousel-arrow { width: 32px; height: 32px; font-size: 13px; }
+            .carousel-arrows { top: 80px; }
             .marquee-logo { height: 26px; }
             .marquee-track { gap: 40px; }
             .confirmation-title { font-size: 2rem; }
@@ -1361,6 +1402,7 @@
 
                 <!-- ─── Social Proof: Track Record Grid ─── -->
                 <div class="track-record fade-in-up">
+                    <p class="track-record-title">Nossos números em 8 anos de mercado</p>
                     <div class="track-grid track-grid-4">
                         <div class="track-item">
                             <div class="track-number">+8</div>
@@ -1531,6 +1573,10 @@
                                 </div>
                             </div>
                             <p class="homework-commitment">Após assistir, responda no WhatsApp: <span>"Qual o maior problema que você tem com cliente pedindo desconto?"</span></p>
+                            <a href="https://wa.me/556799999999?text=Ja%20assisti%20ao%20video%20de%20aquecimento" target="_blank" rel="noopener noreferrer" class="homework-whatsapp-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                                Responder no WhatsApp
+                            </a>
                         </div>
 
                         <!-- Aviso Footer -->
@@ -1589,8 +1635,8 @@
 
                 <!-- Setas -->
                 <div class="carousel-arrows">
-                    <button class="carousel-arrow" onclick="moverCarrossel(-1)" aria-label="Anterior">&larr;</button>
-                    <button class="carousel-arrow" onclick="moverCarrossel(1)" aria-label="Próximo">&rarr;</button>
+                    <button class="carousel-arrow prev" onclick="moverCarrossel(-1)" aria-label="Anterior">&larr;</button>
+                    <button class="carousel-arrow next" onclick="moverCarrossel(1)" aria-label="Próximo">&rarr;</button>
                 </div>
             </div>
         </div>
@@ -1915,9 +1961,9 @@
                     document.getElementById('analyzingStatus').style.opacity = '0';
 
                     // Micro-transição: spinner → "Perfil qualificado" → calendário/ebook
-                    await new Promise(function(r) { setTimeout(r, 1200); });
+                    await new Promise(function(r) { setTimeout(r, 2000); });
                     document.getElementById('analyzingStatus').style.opacity = '1';
-                    await new Promise(function(r) { setTimeout(r, 800); });
+                    await new Promise(function(r) { setTimeout(r, 1500); });
                     document.getElementById('analyzingOverlay').style.display = 'none';
 
                     if (window.calcData.faturamento > 7000) {

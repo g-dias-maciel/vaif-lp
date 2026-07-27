@@ -33,7 +33,7 @@ try {
     // 3. Function to Insert Lead
     function insertLead($pdo, $data) {
         $sql = "INSERT INTO leads (nome, whatsapp, instagram, faturamento, ticket, sessoes, horas_admin, valor_hora, horas_secretario, prejuizo_mensal, potencial_lucro)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $pdo->prepare($sql);
         return $stmt->execute([
             $data['nome'],

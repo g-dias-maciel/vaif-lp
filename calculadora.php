@@ -35,6 +35,13 @@
     <noscript><img height="1" width="1" style="display:none"
         src="https://www.facebook.com/tr?id=752550821217294&ev=PageView&noscript=1"
     /></noscript>
+     <link rel="icon" href="/img/favicon/favicon.ico" sizes="any" type="image/x-icon">
+    <link rel="icon" href="/img/favicon/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="icon" href="/img/favicon/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="apple-touch-icon" href="/img/favicon/apple-touch-icon.png">
+    <link rel="icon" href="/img/favicon/android-chrome-192x192.png" sizes="192x192" type="image/png">
+    <link rel="icon" href="/img/favicon/android-chrome-512x512.png" sizes="512x512" type="image/png">
+    <link rel="manifest" href="/img/favicon/site.webmanifest">
     <style>
         :root {
             --gold: #D4B04C; 

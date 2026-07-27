@@ -1,31 +1,3 @@
-<!-- Header Component -->
-<header>
-    <nav class="navbar">
-        <div class="container">
-            <a href="index.php" class="nav-brand">
-                <img src="img/vaif_logo.png" alt="VAIF" class="nav-logo-img">
-                <span class="nav-tagline">Automatize o seu estúdio</span>
-            </a>
-            <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menu" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-links" id="nav-links">
-                <li><a href="#value-prop-section" class="nav-link">Pilares</a></li>
-                <li><a href="#demo-chat-section" class="nav-link">Atendente Virtual</a></li>
-                <li><a href="#services-section" class="nav-link">Serviços</a></li>
-                <li><a href="#aplicar" class="nav-link">Aplicar</a></li>
-                <li>
-                    <a href="#aplicar" class="nav-btn-highlight">
-                        <span>Agendar conversa</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <html lang="pt-BR">
@@ -64,95 +36,20 @@
       })();
     </script>
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=752550821217294&ev=PageView&noscript=1"/></noscript>
+    <link rel="icon" href="/img/favicon/favicon.ico" sizes="any" type="image/x-icon">
+    <link rel="icon" href="/img/favicon/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="icon" href="/img/favicon/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="apple-touch-icon" href="/img/favicon/apple-touch-icon.png">
+    <link rel="icon" href="/img/favicon/android-chrome-192x192.png" sizes="192x192" type="image/png">
+    <link rel="icon" href="/img/favicon/android-chrome-512x512.png" sizes="512x512" type="image/png">
+    <link rel="manifest" href="/img/favicon/site.webmanifest">
 </head>
-<body>
+<body>  
 
-    <!-- ─── NAVIGATION BAR ─── -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="index.php" class="nav-brand">
-                <img src="img/vaif_logo.png" alt="VAIF" class="nav-logo-img">
-                <span class="nav-tagline">Automatize o seu estúdio</span>
-            </a>
-            <button class="nav-hamburger" id="nav-hamburger" aria-label="Abrir menu" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-links" id="nav-links">
-                <li><a href="#value-prop-section" class="nav-link">Pilares</a></li>
-                <li><a href="#demo-chat-section" class="nav-link">Atendente Virtual</a></li>
-                <li><a href="#services-section" class="nav-link">Serviços</a></li>
-                <li><a href="#aplicar" class="nav-link">Aplicar</a></li>
-                <li>
-                    <a href="#aplicar" class="nav-btn-highlight">
-                        <span>Agendar conversa</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Header Component -->
-<?php include 'components/Header.php'; ?>
-<!-- HERO SECTION (Hybrid CRO Layout) -->
-    <section class="hero hero-cro-hybrid">
-        <div class="hero-grid">
-            <!-- Left Column: Copy -->
-            <div class="hero-content fade-in-up">
-                    <h1 class="hero-title">
-                    <span class="hero-eyebrow">CANSADO DE AGÊNCIAS QUE NAO TRAZEM RESULTADOS?</span>
-                    Nós instalamos um sistema que bota <span>dinheiro no seu bolso</span>.
-                </h1>
-
-                <p class="hero-subtitle fade-in-up delay-1">
-                    Veja nossa Recepcionista de IA qualificando um cliente de alto padrão e agendando uma sessão em tempo real.
-                </p>
-
-                <div class="hero-links fade-in-up delay-2">
-                    <a href="#aplicar" class="btn-primary">QUERO ESCALAR MEU ESTÚDIO</a>
-                    <span class="small-text">Análise Estratégica Gratuita • Sem Compromisso</span>
-                </div>
-
-                <!-- Social Proof -->
-                <div class="hero-social-proof fade-in-up delay-2">
-                    <div class="avatars">
-                        <span style="background:#c9a84c;color:#000;font-weight:700;">RM</span>
-                        <span style="background:#333;color:var(--text-main);">LP</span>
-                        <span style="background:#555;color:var(--text-main);">TC</span>
-                        <span style="background:#777;color:#000;font-weight:600;">+</span>
-                    </div>
-                    <div class="proof-text">
-                        <strong>+40 estúdios</strong> já escalaram com o método VAIF &middot; <strong>R$ 18k</strong> de aumento médio mensal
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Column: Phone Mockup -->
-            <div class="hero-mockup fade-in-up delay-1">
-                <div class="phone-frame">
-                    <div class="phone-notch"></div>
-                    <div class="phone-screen">
-                        <div class="chat-status-bar">
-                            <div class="chat-contact">
-                                <div class="chat-avatar">V</div>
-                                <div>
-                                    <div class="chat-contact-name">VAIF Studio</div>
-                                    <span class="chat-online-status">Online</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="chat-messages-area" id="hero-chat-container">
-                            <div class="hc-typing" id="hero-typing-indicator">
-                                <span></span><span></span><span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="phone-home-bar"></div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- ─── HEADER COMPONENT ─── -->
+    <?php include 'components/Header.php'; ?>
+    <!-- ─── HERO COMPONENT ─── -->
+    <?php include 'components/Hero.php'; ?>
 
     <!-- ─── VALUE PROPOSITION SECTION ─── -->
     <section id="value-prop-section">

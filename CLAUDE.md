@@ -248,3 +248,15 @@ Edit the `slots` array in `encontrarProximaJanelaDisponivel()` and `gerarDiasCal
 1. Add HTML input in the calculator or lead form
 2. Include in `payload` object in JS
 3. Add DB column + update SQL in submit.php
+
+---
+
+## Agent skills
+
+### Issue tracker
+
+Issues and PRDs live as GitHub issues — skills use the `gh` CLI (reads from `origin` remote automatically). See `docs/agents/issue-tracker.md`.
+
+### Domain docs
+
+Single-context repo — one `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.

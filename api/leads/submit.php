@@ -6,7 +6,12 @@ $json = file_get_contents('php://input');
 $data = json_decode($json, true);
 
 if (!$data) {
+    // Enhanced Error Handling
+if (!$data) {
     echo json_encode(['success' => false, 'error' => 'Nenhum dado recebido.']);
+    error_log('Error: No data received in submit.php');
+    exit;
+}
     exit;
 }
 
@@ -19,18 +24,48 @@ $pass = getenv('DB_PASSWORD');
 $n8nLeadWebhookUrl = getenv('N8N_LEAD_WEBHOOK_URL'); 
 
 try {
-    // 2. Conectar ao Banco de Dados
+    // 2. Validate Environment Variables
+if (!$host || !$dbname || !$user || !$pass) {
+    echo json_encode(['success' => false, 'error' => 'Configurações de banco de dados não estão definidas.']);
+    error_log('Error: Database connection details not set');
+    exit;
+}
     $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
     $pdo = new PDO($dsn, $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // 3. Inserir no Banco de Dados
+    // 3. Function to Insert Lead
+function insertLead($pdo, $data) {
+    $sql = "INSERT INTO leads (nome, whatsapp, instagram, faturamento, ticket, sessoes, horas_admin, valor_hora, horas_secretario, prejuizo_mensal, potencial_lucro) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    $stmt = $pdo->prepare($sql);
+    return // Call insertLead function
+if (!insertLead($pdo, $data)) {
+    echo json_encode(['success' => false, 'error' => 'Erro ao inserir os dados.']);
+    error_log('Error: Failed to insert lead into database');
+    exit;
+}
+        $data['whatsapp'],
+        $data['instagram'],
+        $data['faturamento'],
+        $data['ticket'],
+        $data['sessoes'],
+        $data['horas_admin'],
+        $data['valor_hora'],
+        $data['horas_secretario'],
+        $data['prejuizo_mensal'],
+        $data['potencial_lucro']
+    ]);
+}
     $sql = "INSERT INTO leads (nome, whatsapp, instagram, faturamento, ticket, sessoes, horas_admin, valor_hora, horas_secretario, prejuizo_mensal, potencial_lucro) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([
-        $data['nome'],
+    // Call insertLead function
+if (!insertLead($pdo, $data)) {
+    echo json_encode(['success' => false, 'error' => 'Erro ao inserir os dados.']);
+    error_log('Error: Failed to insert lead into database');
+    exit;
+}
         $data['whatsapp'],
         $data['instagram'],
         $data['faturamento'],

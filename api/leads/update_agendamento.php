@@ -5,7 +5,18 @@ header('Access-Control-Allow-Methods: POST');
 $json = file_get_contents('php://input');
 $data = json_decode($json, true);
 
-if (!$data || !isset($data['whatsapp']) || !isset($data['data_agendamento'])) {
+// Enhanced Input Validation
+if (!$data) {
+    echo json_encode(['success' => false, 'error' => 'Dados incompletos.']);
+    error_log('Error: Incomplete data in update_agendamento.php');
+    exit;
+}
+
+if (!isset($data['whatsapp']) || !isset($data['data_agendamento'])) {
+    echo json_encode(['success' => false, 'error' => 'Telefone WhatsApp ou data de agendamento faltando.']);
+    error_log('Error: Missing whatsapp or data_agendamento in update_agendamento.php');
+    exit;
+}
     echo json_encode(['success' => false, 'error' => 'Dados incompletos.']);
     exit;
 }
@@ -24,7 +35,12 @@ try {
 
     // 1. Atualiza o lead no banco de dados principal
     $sql = "UPDATE leads SET data_agendamento = ? WHERE whatsapp = ? ORDER BY id DESC LIMIT 1";
+    // Function to Update Lead
+function updateLead($pdo, $data) {
+    $sql = "UPDATE leads SET data_agendamento = ? WHERE whatsapp = ? ORDER BY id DESC LIMIT 1";
     $stmt = $pdo->prepare($sql);
+    return $stmt->execute([$data['data_agendamento'], $data['whatsapp']]);
+}
     $stmt->execute([
         $data['data_agendamento'],
         $data['whatsapp']
@@ -35,8 +51,25 @@ try {
     $stmtNome->execute([$data['whatsapp']]);
     $leadInfo = $stmtNome->fetch(PDO::FETCH_ASSOC);
 
-    // 3. 👇 DISPARA PARA O N8N
-    if ($n8nWebhookUrl && $leadInfo) {
+    // Send to N8N Webhook (Asynchronous)
+// Send to N8N Webhook (Asynchronous)
+if ($n8nWebhookUrl && $leadInfo) {
+    // Add your logic for sending to n8n after checking availability (if needed)
+}
+    $payloadN8n = [
+        'nome' => $leadInfo['nome'],
+        'whatsapp' => $data['whatsapp'],
+        'instagram' => $leadInfo['instagram'],
+        'data_agendamento' => $data['data_agendamento']
+    ];
+
+    // Asynchronous processing logic (e.g., using a queue)
+    // For example, this can be added to a job queue or handled in a background process.
+}
+    // Send to N8N Webhook (Asynchronous)
+if ($n8nWebhookUrl && $leadInfo) {
+    // Add your logic for sending to n8n after checking availability (if needed)
+}
         $payloadN8n = [
             'nome' => $leadInfo['nome'],
             'whatsapp' => $data['whatsapp'],
@@ -54,7 +87,17 @@ try {
         curl_close($ch);
     }
 
-    echo json_encode(['success' => true]);
+    // Call updateLead function
+if (!updateLead($pdo, $data)) {
+    echo json_encode(['success' => false, 'error' => 'Erro ao atualizar os dados.']);
+    error_log('Error: Failed to update lead with whatsapp: ' . $data['whatsapp']);
+    exit;
+}
+if (!updateLead($pdo, $data)) {
+    echo json_encode(['success' => false, 'error' => 'Erro ao atualizar os dados.']);
+    error_log('Error: Failed to update lead with whatsapp: ' . $data['whatsapp']);
+    exit;
+}
 
 } catch (PDOException $e) {
     echo json_encode(['success' => false, 'error' => 'Erro Real: ' . $e->getMessage()]);

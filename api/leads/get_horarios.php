@@ -1,7 +1,12 @@
 <?php
 header('Content-Type: application/json');
 
-$host = getenv('DB_HOST');
+// Validate Environment Variables
+if (!$host || !$dbname || !$user || !$pass) {
+    echo json_encode(['success' => false, 'error' => 'Configurações de banco de dados não estão definidas.']);
+    error_log('Error: Database connection details not set');
+    exit;
+}
 $dbname = getenv('DB_NAME');
 $user = getenv('DB_USER');
 $pass = getenv('DB_PASSWORD');
@@ -12,12 +17,21 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Pega todos os horários que não estão vazios
+    // Function to Retrieve Occupied Time Slots
+function getOccupiedSlots($pdo) {
     $stmt = $pdo->query("SELECT data_agendamento FROM leads WHERE data_agendamento IS NOT NULL");
-    $ocupados = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    return $stmt->fetchAll(PDO::FETCH_COLUMN);
+}
+    // Call getOccupiedSlots function
+$ocupados = getOccupiedSlots($pdo);
 
     echo json_encode(['success' => true, 'ocupados' => $ocupados]);
 
 } catch (PDOException $e) {
-    echo json_encode(['success' => false, 'ocupados' => []]); // Se der erro, assume vazio para não quebrar a tela
+    // Enhanced Error Handling
+catch (PDOException $e) {
+    error_log('Database Error: ' . $e->getMessage());
+    echo json_encode(['success' => false, 'error' => 'Erro ao buscar horários.']);
+}
 }
 ?>
